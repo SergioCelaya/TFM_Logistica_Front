@@ -2,22 +2,22 @@
     width: 250px;
     height: 100vh;
     overflow-y: auto;
-  }
-  
-  .navbar-brand {
+}
+
+.navbar-brand {
     padding: 1rem;
 
     text-align: center;
-  }
-  
-  .nav-link {
-    color: rgba(0,0,0,.9);
-  }
-  
-  .nav-link:hover {
-    color: rgba(0,0,0,.7);
-  }
-  
-  .btn-danger {
+}
+
+.nav-link {
+    color: rgba(0, 0, 0, .9);
+}
+
+.nav-link:hover {
+    color: rgba(0, 0, 0, .7);
+}
+
+.btn-danger {
     margin: 1rem;
-  }
+}
