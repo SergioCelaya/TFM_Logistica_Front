@@ -19,7 +19,6 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      // Aquí puedes manejar la lógica de inicio de sesión
       console.log('Formulario enviado:', this.loginForm.value);
     }
   }

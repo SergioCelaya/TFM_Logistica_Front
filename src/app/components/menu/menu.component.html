@@ -1,24 +1,19 @@
-<nav class=" sidebar d-flex flex-column  border border-dark">
-    <a class="navbar-brand" href="#">
-        <!-- <img src="src\app\media\logo.png" > -->
-    </a>
-    <a class="navbar-brand" href="#">TFM</a>
-    <ul class="nav nav-pills flex-column mb-auto ">
-        <li class="nav-item">
-            <a class="nav-link bg-warning border border-dark rounded-0 " href="">MIS PEDIDOS</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link bg-body-secondary border border-dark rounded-0 " href="">NUEVO PEDIDO</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link bg-body-secondary border border-dark rounded-0 " href="">INCIDENCIAS</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link bg-body-secondary border border-dark rounded-0 " href="">ALMACENES</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link bg-body-secondary border border-dark rounded-0 " href="">EMPLEADOS</a>
-        </li>
+<nav class="sidebar d-flex flex-column border border-dark">
+    <a class="navbar-brand border border-dark" routerLink="/" routerLinkActive="nav-link-active">TFM</a>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a class="nav-link border border-dark rounded-0" routerLink="/home" routerLinkActive="nav-link-active">MIS PEDIDOS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link border border-dark rounded-0" routerLink="/incidencias" routerLinkActive="nav-link-active">INCIDENCIAS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link border border-dark rounded-0" routerLink="/almacenes" routerLinkActive="nav-link-active">ALMACENES</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link border border-dark rounded-0" routerLink="/empleados" routerLinkActive="nav-link-active">EMPLEADOS</a>
+      </li>
     </ul>
-    <button class="btn btn-warning mt-auto m-3">Log out</button>
-</nav>
+    <button class="btn btn-warning mt-auto m-3" routerLink="/login">Log out</button>
+  </nav>
+  

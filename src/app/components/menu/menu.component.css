@@ -14,6 +14,7 @@
     color: rgba(0, 0, 0, .9);
 }
 
+
 .nav-link:hover {
     color: rgba(0, 0, 0, .7);
 }
@@ -21,3 +22,8 @@
 .btn-danger {
     margin: 1rem;
 }
+
+.nav-link-active {
+    background-color: #FFD700; /* Color de fondo para el enlace activo */
+    color: #000000; /* Color de texto para el enlace activo */
+  }
