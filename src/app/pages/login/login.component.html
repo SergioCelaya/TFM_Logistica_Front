@@ -1,54 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>Iniciar sesión</title>
-  </head>
-  <body>
-    <div class="container mt-5">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header bg-warning text-white">Acceso</div>
-            <div class="card-body">
-              <!-- Agregar la clase 'form' para obtener algunos estilos adicionales -->
-              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
-                <div class="form-group">
-                  <label for="email" class="text-dark">Correo:</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    formControlName="email"
-                    placeholder="alguien@tfm.com"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="password" class="text-dark">Contraseña:</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    formControlName="password"
-                    placeholder="Ingrese su contraseña"
-                  />
-                </div>
-                <!-- Mover el botón a la derecha usando 'float-right' y agregar clase de color -->
-                <button type="submit" class="btn btn-warning float-right">
-                  Iniciar sesión
-                </button>
-              </form>
-            </div>
-            <!-- Mover la imagen a la derecha -->
-            <div class="card-img-right">
-              <img src="./assets/logo.png" class="img-fluid" alt="Logo" />
-            </div>
-          </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login Card</title>
+    <!-- Agrega el enlace a animate.css -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+</head>
+<body>
+
+  <div class="welcome-container animate__animated animate__backInDown">
+    <h1>Bienvenido a TFM</h1>
+    <h2>Welcome to TFM</h2>
+    <a routerLink="/home">Admin view</a>
+  </div>
+    <div class="card animate__animated animate__backInRight">
+        <div class="card-header">
+            <h5 class="card-title">Iniciar Sesión</h5>
         </div>
-      </div>
+        <div class="card-body">
+            <!-- Formulario de inicio de sesión -->
+            <form>
+                <div class="form-group">
+                    <label for="username" class="form-label">Correo electrónco</label>
+                    <input type="text" class="form-control" id="username" placeholder="alguien@tfm.com">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-warning btn-login">Iniciar Sesión</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </body>
+
+</body>
 </html>
+
 
