@@ -12,6 +12,13 @@ import { IncidenciasComponent } from './pages/incidencias/incidencias.component'
 import { DetalleIncidenciaComponent } from './components/detalle-incidencia/detalle-incidencia.component';
 import { DetallePedidoComponent } from './components/detalle-pedido/detalle-pedido.component';
 import { ListaPedidosComponent } from './components/lista-pedidos/lista-pedidos.component';
+import { DetalleAlmacenComponent } from './components/detalle-almacen/detalle-almacen.component';
+import { ListaAlmacenesComponent } from './components/lista-almacenes/lista-almacenes.component';
+import { AlmacenesComponent } from './pages/almacenes/almacenes.component';
+import { ListaEmpleadosComponent } from './components/lista-empleados/lista-empleados.component';
+import { DetalleEmpleadoComponent } from './components/detalle-empleado/detalle-empleado.component';
+import { EmpleadosComponent } from './pages/empleados/empleados.component';
+import { MapaPedidoComponent } from './components/mapa-pedido/mapa-pedido.component';
 
 
 
@@ -26,7 +33,14 @@ import { ListaPedidosComponent } from './components/lista-pedidos/lista-pedidos.
     IncidenciasComponent,
     DetalleIncidenciaComponent,
     DetallePedidoComponent,
-    ListaPedidosComponent
+    ListaPedidosComponent,
+    DetalleAlmacenComponent,
+    ListaAlmacenesComponent,
+    AlmacenesComponent,
+    ListaEmpleadosComponent,
+    DetalleEmpleadoComponent,
+    EmpleadosComponent,
+    MapaPedidoComponent
   ],
   imports: [
     BrowserModule,
