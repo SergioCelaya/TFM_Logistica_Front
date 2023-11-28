@@ -1,9 +1,9 @@
 export interface Almacen {
 
-    idAlmacen: number;
-    nombreAlmacen: string;
+    idalmacen: number;
+    nombre_almacen: string;
     long: number;
     lat: number;
     activo: boolean;
-
+    imagen_almacen:string;
 }

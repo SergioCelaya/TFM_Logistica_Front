@@ -1,10 +1,12 @@
-export interface Empleado{
+
+export interface EmpleadoRespuesta {
+
     idEmpleado: number;
     num_empleado: string;
     nombre: string;
     apellidos: string;
     email: string;
-    puesto: number;
+    puesto: string;
     activo: boolean;
     fecha_contratacion: Date;
     idalmacen: number;
