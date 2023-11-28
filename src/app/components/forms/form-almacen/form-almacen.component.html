@@ -1,0 +1,54 @@
+<form [formGroup]="almacenForm">
+  <div class="mb-3">
+    <label for="nombre_almacen">Nombre del almacén:</label>
+    <input class="form-control" type="text" formControlName="nombre_almacen" id="nombre_almacen">
+    <div class="d-flex justify-content-between">
+      <div>
+        <p class="error" *ngIf="checkControl('nombre_almacen', 'required')">Campo es requerido</p>
+        <p class="error" *ngIf="checkControl('nombre_almacen', 'minlength')">El nombre debe de contener más de 4 caracteres</p>
+        <p class="error" *ngIf="checkControl('nombre_almacen', 'maxlength')">El nombre del almacen no debe de superar los 45 caracteres</p>
+      </div>
+      <p [ngClass]="{'red-text': almacenForm.get('nombre_almacen')?.touched && (almacenForm.get('nombre_almacen')?.value?.length > 45)}" class="m-0">
+        {{ almacenForm.get('nombre_almacen')?.value?.length || 0 }} / 45 caracteres
+      </p>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="long">Longitud:</label>
+    <input class="form-control" type="text" formControlName="long" id="long">
+    <div class="d-flex justify-content-between">
+      <div>
+        <p class="error" *ngIf="checkControl('long', 'required')">Campo es requerido</p>
+        <p class="error" *ngIf="checkControl('long', 'pattern')">Formato de longitud incorrecto</p>
+        <p class="error" *ngIf="checkControl('long', 'min')">La longitud debe estar entre -180 y 180</p>
+        <p class="error" *ngIf="checkControl('long', 'max')">La longitud debe estar entre -180 y 180</p>
+      </div>
+      <p [ngClass]="{'red-text': almacenForm.get('long')?.touched && (almacenForm.get('long')?.value?.length > 20)}" class="m-0">
+        {{ almacenForm.get('long')?.value?.length || 0 }} / 20 caracteres
+      </p>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="lat">Latitud:</label>
+    <input class="form-control" type="text" formControlName="lat" id="lat">
+    <div class="d-flex justify-content-between">
+      <div>
+        <p class="error" *ngIf="checkControl('lat', 'required')">Campo es requerido</p>
+        <p class="error" *ngIf="checkControl('lat', 'pattern')">Formato de latitud incorrecto</p>
+        <p class="error" *ngIf="checkControl('lat', 'min')">La latitud debe estar entre -90 y 90</p>
+        <p class="error" *ngIf="checkControl('lat', 'max')">La latitud debe estar entre -90 y 90</p>
+      </div>
+      <p [ngClass]="{'red-text': almacenForm.get('lat')?.touched && (almacenForm.get('lat')?.value?.length > 20)}" class="m-0">
+        {{ almacenForm.get('lat')?.value?.length || 0 }} / 20 caracteres
+      </p>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="activo">Activo:</label>
+    <input class="form-control" type="number" formControlName="activo" id="activo">
+
+    <p class="error" *ngIf="checkControl('activo', 'required')">Campo es requerido</p>
+  </div>
+
+  <input type="submit" [class]="almacenForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Registrar almacén" [disabled]="!almacenForm.valid">
+</form>
