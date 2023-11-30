@@ -1,4 +1,4 @@
-<form [formGroup]="almacenForm" (ngSubmit)="submitForm()">
+<form [formGroup]="almacenForm" (ngSubmit)="submitForm()" class="m-4 form">
   <div class="mb-3">
     <label for="nombre_almacen">Nombre del almacén:</label>
     <input class="form-control" type="text" formControlName="nombre_almacen" id="nombre_almacen">
@@ -56,5 +56,5 @@
     <p class="error" *ngIf="checkControl('imagen_almacen', 'required')">Campo es requerido</p>
   </div>
 
-  <input type="submit" [class]="almacenForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Registrar almacén" [disabled]="!almacenForm.valid">
+  <input type="submit" [class]="almacenForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Aceptar" [disabled]="!almacenForm.valid">
 </form>

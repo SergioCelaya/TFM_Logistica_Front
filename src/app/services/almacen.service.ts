@@ -1,7 +1,7 @@
 // almacen.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable,lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable,lastValueFrom, tap } from 'rxjs';
 import { Almacen } from '../models/almacen.interface';
 
 @Injectable({
@@ -14,6 +14,11 @@ export class AlmacenService {
 
   private detalleAlmacen: BehaviorSubject<Almacen | null> = new BehaviorSubject<Almacen | null>(null);
   almacenSeleccionado$: Observable<Almacen | null> = this.detalleAlmacen.asObservable();
+
+  public actualizarAlmacenSubject: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
+  actualizarAlmacen$: Observable<void> = this.actualizarAlmacenSubject.asObservable();
+
+  // METODOS INTERACCION BBDD
 
   // Devuelve todos los almacenes en la BBDD
   getAll(): Promise<Almacen[]> {
@@ -36,19 +41,20 @@ export class AlmacenService {
   }
 
   // Activar un almacén por su ID
-  activateAlmacen(idAlmacen: number) {
-    const url = `${this.baseUrl}/toActive/${idAlmacen}`;
-    return this.httpClient.put<Almacen>(url, {});
+  activateAlmacen(idAlmacen: number): Observable<Almacen> {
+    return this.httpClient.put<Almacen>(`${this.baseUrl}/toActive/${idAlmacen}`, {}).pipe(tap(() => this.actualizarAlmacenSubject.next()));
   }
 
   // Desactivar un almacén por su ID
-  deactivateAlmacen(idAlmacen: number) {
-    const url = `${this.baseUrl}/toInactive/${idAlmacen}`;
-    return this.httpClient.put<Almacen>(url, {});
+  deactivateAlmacen(idAlmacen: number): Observable<Almacen> {
+    return this.httpClient.put<Almacen>(`${this.baseUrl}/toInactive/${idAlmacen}`, {}).pipe(tap(() => this.actualizarAlmacenSubject.next()));
   }
+
+  // METODOS FRONT
 
   // Función para actualizar el detalle del almacén seleccionado
   actualizarInfoAlmacen(almacen: Almacen | null) {
     this.detalleAlmacen.next(almacen);
   }
+
 }
