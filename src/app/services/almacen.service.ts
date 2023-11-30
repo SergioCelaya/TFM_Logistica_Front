@@ -31,8 +31,8 @@ export class AlmacenService {
   }
 
   // Actualizar info almacén
-  updateAlmacen(almacen: Almacen): Promise<Almacen> {
-      return lastValueFrom(this.httpClient.put<Almacen>(`${this.baseUrl}/${almacen.idalmacen}`, almacen));
+  updateAlmacen(almacenForm: Almacen): Promise<Almacen> {
+      return lastValueFrom(this.httpClient.put<Almacen>(`${this.baseUrl}/${almacenForm.idalmacen}`, almacenForm));
   }
 
   // Activar un almacén por su ID
@@ -46,7 +46,6 @@ export class AlmacenService {
     const url = `${this.baseUrl}/toInactive/${idAlmacen}`;
     return this.httpClient.put<Almacen>(url, {});
   }
-
 
   // Función para actualizar el detalle del almacén seleccionado
   actualizarInfoAlmacen(almacen: Almacen | null) {

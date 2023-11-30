@@ -55,6 +55,6 @@
 
     <p class="error" *ngIf="checkControl('imagen_almacen', 'required')">Campo es requerido</p>
   </div>
-  <input type="submit" [class]="almacenForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="{{ buttonText }}" [disabled]="!almacenForm.valid">
 
+  <input type="submit" [class]="almacenForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Registrar almacén" [disabled]="!almacenForm.valid">
 </form>
