@@ -1,28 +1,30 @@
 <div class="container mt-4">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <!-- Buscador -->
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Buscar almacenes" aria-label="Buscar almacenes" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-warning" type="button">Buscar</button>
-          </div>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <!-- Buscador -->
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Buscar almacenes" aria-label="Buscar almacenes" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-warning" type="button">Buscar</button>
         </div>
-  
-        <button class="btn btn-warning mb-3">Nuevo almacen</button>
-  
-        <!-- Card con listado de todas las incidencias -->
-        <div class="card">
-          <div class="card-header">
-            Listado de Almacenes
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Almacen 1</li>
-            <li class="list-group-item">Almacen 2</li>
-            <li class="list-group-item">Almacen 3</li>
-            <!-- ... -->
-          </ul>
+      </div>
+
+      <button class="btn btn-warning mb-3">Nuevo almacen</button>
+
+      <!-- lista-almacenes.component.html -->
+      <div class="card">
+        <div class="card-header">
+          Listado de Almacenes
         </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let almacen of arrAlmacenes">
+            <!-- Utiliza un botón para actualizar el almacén seleccionado -->
+            <button class="btn btn-link" (click)="actualizarAlmacenSeleccionado(almacen)">
+              {{ almacen.nombre_almacen }}
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
+</div>
