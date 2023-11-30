@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlmacenService } from 'src/app/services/almacen.service';
-import { Almacen } from 'src/app/models/almacen.interface';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,6 +15,8 @@ export class FormAlmacenComponent {
   almacenService = inject(AlmacenService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
+
+  buttonText: string = 'Registrar almacén';
 
   constructor(){
     this.almacenForm = new FormGroup({
@@ -38,7 +39,7 @@ export class FormAlmacenComponent {
         Validators.max(90)
       ]),
       activo: new FormControl('', [Validators.required]),
-      // imagen_almacen: new FormControl('', [Validators.required])
+      imagen_almacen: new FormControl('', [Validators.required])
     });
   }
 
@@ -46,34 +47,35 @@ export class FormAlmacenComponent {
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe(async (params: any) => {
-      let idAlmacen: string = String(params.idalmacen);
+      let idAlmacen: number = Number(params.idalmacen);
 
       if (idAlmacen) {
         //PINTAR ALMACEN EXISTENTE
         let response = await this.almacenService.getById(idAlmacen);
 
-        // this.almacenForm = new FormGroup({
-        //   idAlmacen: new FormControl(idAlmacen, []),
-        //   nombre_almacen: new FormControl(response.nombre_almacen, [
-        //     Validators.required,
-        //     Validators.minLength(4),
-        //     Validators.maxLength(40)
-        //   ]),
-        //   long: new FormControl(response.long, [
-        //     Validators.required,
-        //     Validators.pattern(/^(-?\d+(\.\d+)?)$/), // Longitud entre -180 y 180
-        //     Validators.min(-180),
-        //     Validators.max(180)
-        //   ]),
-        //   lat: new FormControl(response.lat, [
-        //     Validators.required,
-        //     Validators.pattern(/^(-?\d+(\.\d+)?)$/), // Latitud entre -90 y 90
-        //     Validators.min(-90),
-        //     Validators.max(90)
-        //   ]),
-        //   activo: new FormControl(response.activo, [Validators.required]),
-        //   imagen_almacen: new FormControl(response.imagen_almacen, [Validators.required])
-      // })
+        this.almacenForm = new FormGroup({
+          idAlmacen: new FormControl(idAlmacen, []),
+          nombre_almacen: new FormControl(response.nombre_almacen, [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(40)
+          ]),
+          long: new FormControl(response.long, [
+            Validators.required,
+            Validators.pattern(/^(-?\d+(\.\d+)?)$/), // Longitud entre -180 y 180
+            Validators.min(-180),
+            Validators.max(180)
+          ]),
+          lat: new FormControl(response.lat, [
+            Validators.required,
+            Validators.pattern(/^(-?\d+(\.\d+)?)$/), // Latitud entre -90 y 90
+            Validators.min(-90),
+            Validators.max(90)
+          ]),
+          activo: new FormControl(response.activo, [Validators.required]),
+          imagen_almacen: new FormControl(response.imagen_almacen, [Validators.required])
+      })
+      this.buttonText = 'Actualizar almacén';
       }
   });
 }
@@ -106,6 +108,7 @@ async submitForm(): Promise<void> {
           showConfirmButton: false,
           timer: 1500
         });
+        console.log(this.almacenForm.value);
         this.router.navigate(['/almacenes']);
       } else {
         throw new Error('Error al crear el almacén');
@@ -123,9 +126,8 @@ async submitForm(): Promise<void> {
   }
 }
 
-
-  checkControl(formcontrolName: string, validator: string): boolean | undefined {
-    return this.almacenForm.get(formcontrolName)?.hasError(validator) && this.almacenForm.get(formcontrolName)?.touched;
-  }
+checkControl(formcontrolName: string, validator: string): boolean | undefined {
+  return this.almacenForm.get(formcontrolName)?.hasError(validator) && this.almacenForm.get(formcontrolName)?.touched;
+}
 
 }

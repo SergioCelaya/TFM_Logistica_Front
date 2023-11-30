@@ -21,7 +21,6 @@ import { DetalleEmpleadoComponent } from './components/detalle/detalle-empleado/
 import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { MapaPedidoComponent } from './components/mapa-pedido/mapa-pedido.component';
 import { FormAlmacenComponent } from './components/forms/form-almacen/form-almacen.component';
-import { NuevoAlmacenComponent } from './pages/nuevo-almacen/nuevo-almacen.component';
 
 
 
@@ -43,8 +42,7 @@ import { NuevoAlmacenComponent } from './pages/nuevo-almacen/nuevo-almacen.compo
     DetalleEmpleadoComponent,
     EmpleadosComponent,
     MapaPedidoComponent,
-    FormAlmacenComponent,
-    NuevoAlmacenComponent
+    FormAlmacenComponent
   ],
   imports: [
     BrowserModule,
