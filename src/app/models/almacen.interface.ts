@@ -1,5 +1,4 @@
 export interface Almacen {
-
     idalmacen: number;
     nombre_almacen: string;
     long: number;
