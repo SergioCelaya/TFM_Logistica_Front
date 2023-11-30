@@ -1,8 +1,8 @@
-<nav class="sidebar d-flex flex-column border border-dark">
+<nav class="sidebar d-flex flex-column border border-dark col-md-2"  *ngIf="isLoggedIn$ | async">
     <a class="navbar-brand border border-dark" routerLink="/" routerLinkActive="nav-link-active">TFM</a>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a class="nav-link border border-dark rounded-0" routerLink="/home" routerLinkActive="nav-link-active">MIS PEDIDOS</a>
+        <a class="nav-link border border-dark rounded-0" routerLink="/pedidos" routerLinkActive="nav-link-active">MIS PEDIDOS</a>
       </li>
       <li class="nav-item">
         <a class="nav-link border border-dark rounded-0" routerLink="/incidencias" routerLinkActive="nav-link-active">INCIDENCIAS</a>
@@ -14,6 +14,6 @@
         <a class="nav-link border border-dark rounded-0" routerLink="/empleados" routerLinkActive="nav-link-active">EMPLEADOS</a>
       </li>
     </ul>
-    <button class="btn btn-warning mt-auto m-3" routerLink="/login">Log out</button>
+    <button class="btn btn-warning mt-auto m-3" routerLink="/login" (click)="onLogout()">Log out</button>
   </nav>
   
