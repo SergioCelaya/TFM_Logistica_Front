@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { HomeComponent } from './pages/home/home.component';
 import { ListaIncidenciasComponent } from './components/listas/lista-incidencias/lista-incidencias.component';
 import { IncidenciasComponent } from './pages/incidencias/incidencias.component';
 import { DetalleIncidenciaComponent } from './components/detalle/detalle-incidencia/detalle-incidencia.component';
@@ -21,15 +19,13 @@ import { DetalleEmpleadoComponent } from './components/detalle/detalle-empleado/
 import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { MapaPedidoComponent } from './components/mapa-pedido/mapa-pedido.component';
 import { FormAlmacenComponent } from './components/forms/form-almacen/form-almacen.component';
-
-
+import { PedidosComponent } from './pages/pedidos/pedidos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MenuComponent,
-    HomeComponent,
     ListaIncidenciasComponent,
     IncidenciasComponent,
     DetalleIncidenciaComponent,
@@ -42,13 +38,15 @@ import { FormAlmacenComponent } from './components/forms/form-almacen/form-almac
     DetalleEmpleadoComponent,
     EmpleadosComponent,
     MapaPedidoComponent,
-    FormAlmacenComponent
+    FormAlmacenComponent,
+    PedidosComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpClientJsonpModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
