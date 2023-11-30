@@ -15,8 +15,8 @@ const routes: Routes = [
   { path: 'incidencias', component: IncidenciasComponent },
   { path: 'almacenes', component: AlmacenesComponent },
   { path: 'nuevoAlmacen', component: NuevoAlmacenComponent },
+  { path: 'updateAlmacen/:idalmacen', component: NuevoAlmacenComponent },
   { path: 'empleados', component: EmpleadosComponent },
-  { path: 'pedidos', component: PedidosComponent},
   { path: '**', redirectTo: '/login' } // Manejo de rutas no encontradas, redirecciona a /login
 ];
 

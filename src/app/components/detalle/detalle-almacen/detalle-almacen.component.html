@@ -1,14 +1,13 @@
-
-<div class="card">
-    <div class="card-header">
-      Detalle de almacen: (aqui irá el nombre del almacen)
-    </div>
-    <ul class="list-group list-group-flush">
-
-      <li class="list-group-item">Id: </li>
-      <li class="list-group-item">Nombre: </li>
-      <li class="list-group-item">Long: </li>
-      <li class="list-group-item">Lat: </li>
-      <li class="list-group-item">Activo: </li>
-    </ul>
+<!-- detalle-almacen.component.html -->
+<div class="card" *ngIf="almacenSeleccionado">
+  <div class="card-header">
+    Detalle de almacen: {{ almacenSeleccionado.nombre_almacen }}
   </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Id: {{ almacenSeleccionado.idalmacen }}</li>
+    <li class="list-group-item">Nombre: {{ almacenSeleccionado.nombre_almacen }}</li>
+    <li class="list-group-item">Long: {{ almacenSeleccionado.long }}</li>
+    <li class="list-group-item">Lat: {{ almacenSeleccionado.lat }}</li>
+    <li class="list-group-item">Activo: {{ almacenSeleccionado.activo }}</li>
+  </ul>
+</div>
