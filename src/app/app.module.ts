@@ -19,10 +19,7 @@ import { DetalleEmpleadoComponent } from './components/detalle/detalle-empleado/
 import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { MapaPedidoComponent } from './components/mapa-pedido/mapa-pedido.component';
 import { FormAlmacenComponent } from './components/forms/form-almacen/form-almacen.component';
-import { NuevoAlmacenComponent } from './pages/nuevo-almacen/nuevo-almacen.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
-
-
 
 @NgModule({
   declarations: [
@@ -42,7 +39,6 @@ import { PedidosComponent } from './pages/pedidos/pedidos.component';
     EmpleadosComponent,
     MapaPedidoComponent,
     FormAlmacenComponent,
-    NuevoAlmacenComponent,
     PedidosComponent
   ],
   imports: [

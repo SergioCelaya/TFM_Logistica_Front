@@ -49,12 +49,12 @@
 
     <p class="error" *ngIf="checkControl('activo', 'required')">Campo es requerido</p>
   </div>
-  <!-- <div class="mb-3">
+  <div class="mb-3">
     <label for="imagen_almacen">Imagen:</label>
     <input class="form-control" type="number" formControlName="imagen_almacen" id="imagen_almacen">
 
     <p class="error" *ngIf="checkControl('imagen_almacen', 'required')">Campo es requerido</p>
-  </div> -->
+  </div>
 
   <input type="submit" [class]="almacenForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Registrar almacén" [disabled]="!almacenForm.valid">
 </form>
