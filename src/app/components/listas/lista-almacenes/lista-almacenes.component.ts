@@ -23,11 +23,8 @@ export class ListaAlmacenesComponent implements OnDestroy {
     try {
       // Cargar la lista de almacenes
       this.cargarAlmacenes();
-
       // Suscribirse al evento de actualización del almacén
       this.actualizarAlmacenSubscription = this.almacenService.actualizarAlmacen$.subscribe(() => {
-        // Realizar acciones adicionales cuando se actualiza un almacén
-        // Por ejemplo, volver a cargar la lista de almacenes.
         this.cargarAlmacenes();
       });
     } catch (error: any) {

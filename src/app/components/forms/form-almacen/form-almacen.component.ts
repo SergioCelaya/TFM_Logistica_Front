@@ -79,19 +79,29 @@ export class FormAlmacenComponent {
 
 async submitForm(): Promise<void> {
   if (this.almacenForm.value.idalmacen) {
-    // ACTUALIZACIÓN ALMACEN
-    let response = await this.almacenService.updateAlmacen(this.almacenForm.value);
-    console.log(this.almacenForm.value);
-    if (response) {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Almacén actualizado correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      });
+    try {
+      await Swal.fire({
+        title: '¿Quiere guardar los cambios?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#FFC007',
+        confirmButtonText: 'Guardar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // ACTUALIZACIÓN ALMACEN
+          let response = this.almacenService.updateAlmacen(this.almacenForm.value);
+          console.log(this.almacenForm.value);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Almacén actualizado correctamente',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      })
       this.router.navigate(['/almacenes']);
-    } else {
+    } catch(error) {
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -101,23 +111,33 @@ async submitForm(): Promise<void> {
       })
     }
   } else {
-    // CREACIÓN NUEVO ALMACEN
-    let response = await this.almacenService.create(this.almacenForm.value);
-    if (response) {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Almacén creado correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      });
+    try {
+      await Swal.fire({
+        title: '¿Quiere crear el almacén?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#FFC007',
+        confirmButtonText: 'Crear'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // CREACIÓN NUEVO ALMACEN
+          let response = this.almacenService.create(this.almacenForm.value);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Almacén creado correctamente',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      })
       console.log(this.almacenForm.value);
       this.router.navigate(['/almacenes']);
-    } else {
+    } catch(error) {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Ha habido un error, intentalo de nuevo',
+        title: 'Ha habido un error, inténtelo de nuevo',
         showConfirmButton: false,
         timer: 1500
       })

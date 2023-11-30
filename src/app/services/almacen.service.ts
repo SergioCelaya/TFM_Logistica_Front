@@ -12,9 +12,11 @@ export class AlmacenService {
   private httpClient = inject(HttpClient);
   private baseUrl: string = 'http://localhost:3000/api/almacenes';
 
+  // ACTUALIZAR VISTA INFO DETALLE ALMACEN (DCHA)
   private detalleAlmacen: BehaviorSubject<Almacen | null> = new BehaviorSubject<Almacen | null>(null);
   almacenSeleccionado$: Observable<Almacen | null> = this.detalleAlmacen.asObservable();
 
+  // ACTUALIZAR ESTADO ACTIVO/DESATIVADO ALMACENES
   public actualizarAlmacenSubject: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
   actualizarAlmacen$: Observable<void> = this.actualizarAlmacenSubject.asObservable();
 
