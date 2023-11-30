@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(this.tokenAvailable());
   httpClient = inject(HttpClient);
-
+  private baseUrl: string ="http://localhost:3000/api/login";
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
@@ -20,7 +20,7 @@ export class AuthService {
     try {
       if (user.email !== '' && user.pwd !== '') {
         const token = await firstValueFrom(
-          this.httpClient.post<Auth>('http://localhost:3000/api/login', user)
+          this.httpClient.post<Auth>(this.baseUrl, user)
         );
         if (token != undefined) {
           console.log('entra');
@@ -33,7 +33,7 @@ export class AuthService {
           let options = { headers: headers };
           const usuario = await firstValueFrom(
             this.httpClient.post<Auth>(
-              'http://localhost:3000/api/login/getUser',
+              this.baseUrl+"/getUser",
               null,
               options
             )
