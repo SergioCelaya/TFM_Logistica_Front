@@ -9,7 +9,7 @@
         </div>
       </div>
 
-      <button class="btn btn-warning mb-3">Nuevo almacen</button>
+      <button class="btn btn-warning mb-3" routerLink="/nuevoAlmacen">Nuevo almacen</button>
 
       <!-- lista-almacenes.component.html -->
       <div class="card">
@@ -19,7 +19,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item" *ngFor="let almacen of arrAlmacenes">
             <!-- Utiliza un botón para actualizar el almacén seleccionado -->
-            <button class="btn btn-link" (click)="actualizarAlmacenSeleccionado(almacen)">
+            <button class="btn btn-link" (click)="actualizarInfoAlmacen(almacen)">
               {{ almacen.nombre_almacen }}
             </button>
           </li>

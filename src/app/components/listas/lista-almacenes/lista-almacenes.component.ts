@@ -26,7 +26,7 @@ export class ListaAlmacenesComponent {
   }
 
   // Nueva función para actualizar el almacén seleccionado
-  actualizarAlmacenSeleccionado(almacen: Almacen) {
-    this.almacenService.actualizarAlmacenSeleccionado(almacen);
+  actualizarInfoAlmacen(almacen: Almacen) {
+    this.almacenService.actualizarInfoAlmacen(almacen);
   }
 }

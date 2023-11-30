@@ -1,5 +1,5 @@
 // detalle-almacen.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AlmacenService } from 'src/app/services/almacen.service';
 import { Almacen } from 'src/app/models/almacen.interface';
 
@@ -9,9 +9,9 @@ import { Almacen } from 'src/app/models/almacen.interface';
   styleUrls: ['./detalle-almacen.component.css']
 })
 export class DetalleAlmacenComponent implements OnInit {
-  almacenSeleccionado: Almacen | null = null;
 
-  constructor(private almacenService: AlmacenService) {}
+  private almacenService = inject(AlmacenService);
+  almacenSeleccionado: Almacen | null = null;
 
   ngOnInit() {
     // Obtén el primer almacén al inicializar el componente
@@ -24,7 +24,7 @@ export class DetalleAlmacenComponent implements OnInit {
     if (!this.almacenSeleccionado) {
       this.almacenService.getAll().then((almacenes) => {
         if (almacenes && almacenes.length > 0) {
-          this.almacenService.actualizarAlmacenSeleccionado(almacenes[0]);
+          this.almacenService.actualizarInfoAlmacen(almacenes[0]);
         }
       });
     }
