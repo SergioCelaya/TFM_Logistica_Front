@@ -71,7 +71,10 @@ export class FormAlmacenComponent {
             Validators.max(90)
           ]),
           activo: new FormControl(response.activo, [Validators.required]),
-          imagen_almacen: new FormControl(response.imagen_almacen, [Validators.required])
+          imagen_almacen: new FormControl(response.imagen_almacen, [
+            Validators.required,
+            Validators.max(100)
+          ])
       })
       }
   });
