@@ -1,4 +1,4 @@
-<form [formGroup]="almacenForm" (ngSubmit)="submitForm()">
+<form [formGroup]="almacenForm" (ngSubmit)="submitForm()" class="m-4 form">
   <div class="mb-3">
     <label for="nombre_almacen">Nombre del almacén:</label>
     <input class="form-control" type="text" formControlName="nombre_almacen" id="nombre_almacen">
@@ -51,10 +51,17 @@
   </div>
   <div class="mb-3">
     <label for="imagen_almacen">Imagen:</label>
-    <input class="form-control" type="number" formControlName="imagen_almacen" id="imagen_almacen">
-
-    <p class="error" *ngIf="checkControl('imagen_almacen', 'required')">Campo es requerido</p>
+    <input class="form-control" type="text" formControlName="imagen_almacen" id="imagen_almacen">
+    <div class="d-flex justify-content-between">
+      <div>
+        <p class="error" *ngIf="checkControl('imagen_almacen', 'required')">Campo es requerido</p>
+        <p class="error" *ngIf="checkControl('imagen_almacen', 'max')">La URL no debe contener más de 100 caracteres</p>
+      </div>
+      <p [ngClass]="{'red-text': almacenForm.get('imagen_almacen')?.touched && (almacenForm.get('imagen_almacen')?.value?.length > 100)}" class="m-0">
+        {{ almacenForm.get('imagen_almacen')?.value?.length || 0 }} / 100 caracteres
+      </p>
+    </div>
   </div>
 
-  <input type="submit" [class]="almacenForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Registrar almacén" [disabled]="!almacenForm.valid">
+  <input type="submit" [class]="almacenForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Aceptar" [disabled]="!almacenForm.valid">
 </form>

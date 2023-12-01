@@ -17,11 +17,22 @@
           Listado de Almacenes
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item" *ngFor="let almacen of arrAlmacenes">
-            <!-- Utiliza un botón para actualizar el almacén seleccionado -->
-            <button class="btn btn-link" (click)="actualizarInfoAlmacen(almacen)">
+          <li class="list-group-item d-flex justify-content-between" *ngFor="let almacen of arrAlmacenes">
+            <!-- Botón para actualizar el almacén seleccionado -->
+            <button class="col-5 btn btn-link" (click)="actualizarInfoAlmacen(almacen)">
               {{ almacen.nombre_almacen }}
             </button>
+            <div class="row column-gap-4" role="group">
+              <!-- Botón para activar/desactivar el almacén -->
+              <button class="col btn" [class.btn-success]="almacen.activo" [class.btn-danger]="!almacen.activo"
+                (click)="toggleEstadoAlmacen(almacen)">
+                {{ almacen.activo ? 'Desactivar' : 'Activar' }}
+              </button>
+              <!-- Botón de "Editar" que redirige a la ruta /updateAlmacen/:idalmacen -->
+              <button class="col btn btn-warning" [routerLink]="['/updateAlmacen', almacen.idalmacen]">
+                Editar
+              </button>
+            </div>
           </li>
         </ul>
       </div>
