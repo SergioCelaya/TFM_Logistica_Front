@@ -23,13 +23,11 @@ export class AuthService {
           this.httpClient.post<Auth>(this.baseUrl, user)
         );
         if (token != undefined) {
-          console.log('entra');
           localStorage.setItem('token', JSON.stringify({ token: token.token }));
           let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             Authorization: token.token,
           });
-          console.log('Tiene el token');
           let options = { headers: headers };
           const usuario = await firstValueFrom(
             this.httpClient.post<Auth>(
@@ -39,7 +37,7 @@ export class AuthService {
             )
           );
           localStorage.setItem('usuario', JSON.stringify(usuario));
-          console.log(localStorage.getItem('usuario'))
+
           this.loggedIn.next(true);
           this.router.navigate(['/pedidos']);
         }
@@ -54,6 +52,7 @@ export class AuthService {
   logout() {
     this.loggedIn.next(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
     this.router.navigate(['/login']);
   }
 
