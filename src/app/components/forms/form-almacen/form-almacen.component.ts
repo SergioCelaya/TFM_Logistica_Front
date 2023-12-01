@@ -93,7 +93,6 @@ async submitForm(): Promise<void> {
         if (result.isConfirmed) {
           // ACTUALIZACIÓN ALMACEN
           let response = this.almacenService.updateAlmacen(this.almacenForm.value);
-          console.log(this.almacenForm.value);
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -104,6 +103,7 @@ async submitForm(): Promise<void> {
         }
       })
       this.router.navigate(['/almacenes']);
+      console.log(this.almacenForm.value);
     } catch(error) {
       Swal.fire({
         position: 'center',
@@ -125,6 +125,7 @@ async submitForm(): Promise<void> {
         if (result.isConfirmed) {
           // CREACIÓN NUEVO ALMACEN
           let response = this.almacenService.create(this.almacenForm.value);
+          console.log(this.almacenForm.value);
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -134,7 +135,6 @@ async submitForm(): Promise<void> {
           });
         }
       })
-      console.log(this.almacenForm.value);
       this.router.navigate(['/almacenes']);
     } catch(error) {
       Swal.fire({
