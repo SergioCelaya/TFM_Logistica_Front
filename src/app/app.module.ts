@@ -21,6 +21,7 @@ import { MapaPedidoComponent } from './components/mapa-pedido/mapa-pedido.compon
 import { FormAlmacenComponent } from './components/forms/form-almacen/form-almacen.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { PedidoComponent } from './components/pedido/pedido.component';
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

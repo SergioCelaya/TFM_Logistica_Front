@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { MapService } from 'src/app/services/map.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent {
   servicioAuth = inject(AuthService);
+  servicioMapa = inject(MapService);
   private user: User = {
     email: '',
     pwd: '',
