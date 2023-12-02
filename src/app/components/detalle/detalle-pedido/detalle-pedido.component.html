@@ -1,14 +1,15 @@
 <div class="card">
-    <div class="card-header">
-      Detalle de pedido: (aqui irá el nombre del pedios)
+    <div class="card-header" [ngClass]="claseSegunEstado">
+      <span class="textoTituloPedidos">Número de pedido:</span> {{pedidoActivo?.numero_pedido}}
     </div>
     <ul class="list-group list-group-flush">
-
-      <li class="list-group-item">Id: </li>
-      <li class="list-group-item">Fecha creacion: </li>
-      <li class="list-group-item">Almacen Destino: </li>
-      <li class="list-group-item">Almacen Origen: </li>
-      <li class="list-group-item">Estado: </li>
-      <li class="list-group-item">Fecha de entrega: </li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Fecha de creacion:</span> {{pedidoActivo?.fecha_creacion| date:'dd/MM/yyyy'}}</li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Fecha de entrega:</span> {{pedidoActivo?.fecha_entrega| date:'dd/MM/yyyy'}}</li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Almacen origen:</span> {{almacenOrigen?.nombre_almacen}}</li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Almacen destino:</span> {{almacenDestino?.nombre_almacen}} </li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Estado:</span> {{pedidoActivo?.estado}}</li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Detalle del pedido:</span> {{pedidoActivo?.detalle_pedido}}</li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Matrícula del transporte:</span> {{pedidoActivo?.id_transporte}}</li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Empleado responsable:</span> {{pedidoActivo?.usuario_asignado?.nombre+" "+pedidoActivo?.usuario_asignado?.apellidos}}</li>
     </ul>
   </div>

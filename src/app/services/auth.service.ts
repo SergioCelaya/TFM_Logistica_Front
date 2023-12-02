@@ -59,6 +59,7 @@ export class AuthService {
   async getUser() {
     try {
       const token = localStorage.getItem('token');
+      console.log(token)
       if (token) {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',

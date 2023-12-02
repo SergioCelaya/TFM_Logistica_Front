@@ -1,28 +1,30 @@
 <div class="container mt-4">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <!-- Buscador -->
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Buscar pedidos" aria-label="Buscar incidencias" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-warning" type="button">Buscar</button>
-          </div>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <!-- Buscador -->
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar pedidos"
+          aria-label="Buscar incidencias"
+          aria-describedby="basic-addon2"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-warning" type="button">Buscar</button>
         </div>
-  
-        <button class="btn btn-warning mb-3">Nuevo pedido</button>
-  
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            Listado de Pedidos
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Pedido 1</li>
-            <li class="list-group-item">Pedido 2</li>
-            <li class="list-group-item">Pedido 3</li>
-            <!-- ... -->
-          </ul>
-        </div>
+      <button class="btn btn-warning mb-3">Nuevo pedido</button>
+
+      <div class="card">
+        <div class="card-header">Listado de Pedidos</div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let pedido of pedidosEmpleado">
+            <app-pedido [pedido]="pedido" (click)="cargarPedido(pedido)"></app-pedido>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
+</div>

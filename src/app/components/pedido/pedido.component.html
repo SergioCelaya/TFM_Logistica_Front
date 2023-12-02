@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="card-header d-flex justify-content-between " [ngClass]="claseSegunEstado">
+      <div class="mx-2 my-1 textoTituloPedidos">Nº {{pedido?.numero_pedido}}</div>
+      <div class="mx-5 my-1 textoTituloPedidos">{{pedido?.estado}}</div>
+    </div>
+    <div class="card-body">
+      <div class="card-text d-flex justify-content-between">
+        <div><span class="textoCuerpoPedidos">Origen: {{almacenOrigen?.nombre_almacen}}</span> </div>
+        <div class="mx-5"><span class="textoCuerpoPedidos">Destino: {{almacenDestino?.nombre_almacen}}</span> </div>
+      </div>
+      <div class="card-text d-flex justify-content-between">
+        <div><span class="textoCuerpoPedidos">Fecha creación: {{pedido?.fecha_creacion| date:'dd/MM/yyyy'}}</span> </div>
+        <div class="mx-5 textoCuerpoPedidos"><span class="font-weight-bold">Fecha entrega: {{pedido?.fecha_entrega | date:'dd/MM/yyyy'}}</span> </div>
+      </div>
+    </div>
+  </div>

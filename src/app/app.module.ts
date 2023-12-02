@@ -20,6 +20,7 @@ import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { MapaPedidoComponent } from './components/mapa-pedido/mapa-pedido.component';
 import { FormAlmacenComponent } from './components/forms/form-almacen/form-almacen.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
+import { PedidoComponent } from './components/pedido/pedido.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PedidosComponent } from './pages/pedidos/pedidos.component';
     EmpleadosComponent,
     MapaPedidoComponent,
     FormAlmacenComponent,
-    PedidosComponent
+    PedidosComponent,
+    PedidoComponent
   ],
   imports: [
     BrowserModule,
