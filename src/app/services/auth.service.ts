@@ -32,10 +32,9 @@ export class AuthService {
           token.token != undefined &&
           token.token != ''
         ) {
-          localStorage.setItem('token', JSON.stringify({ token: token.token }));
+          localStorage.setItem('token',token.token );
           const usuario: Empleado | null = await this.getUser();
           if (usuario) {
-            console.log('puesto ' + usuario.puesto);
             this.loggedIn.next(true);
             if (usuario.puesto == 'Empleado') {
               this.router.navigate(['/pedidos']);
