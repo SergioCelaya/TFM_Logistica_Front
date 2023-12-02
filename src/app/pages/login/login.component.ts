@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -23,10 +24,19 @@ export class LoginComponent {
     });
   }
 
-  login() {
+  async login() {
     if (this.loginForm.valid) {
-      console.log('Formulario enviado:', this.loginForm.value);
-      this.servicioAuth.login(this.loginForm.value);
+      const result = await this.servicioAuth.login(this.loginForm.value);
+      if(result.Error != undefined && result.Error != ""){
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Login error',
+          text: result.Error.toString(),
+          showConfirmButton: false,
+          timer: 4000,
+        });
+      }
     }
   }
 

@@ -1,17 +1,22 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, isEmpty } from 'rxjs';
 import { User } from '../models/user.interface';
 import { Auth } from '../models/Respuestas_API/auth.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Empleado } from '../models/empleado.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(this.tokenAvailable());
-  httpClient = inject(HttpClient);
-  private baseUrl: string ="http://localhost:3000/api/login";
+  private httpClient = inject(HttpClient);
+  private router = inject(Router);
+  private baseUrl: string = 'http://localhost:3000/api/login';
+
+  constructor() {}
+
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
@@ -19,30 +24,57 @@ export class AuthService {
   async login(user: User) {
     try {
       if (user.email !== '' && user.pwd !== '') {
-        const token = await firstValueFrom(
+        const token: Auth = await firstValueFrom(
           this.httpClient.post<Auth>(this.baseUrl, user)
         );
-        if (token != undefined) {
+        if (
+          token != undefined &&
+          token.token != undefined &&
+          token.token != ''
+        ) {
           localStorage.setItem('token', JSON.stringify({ token: token.token }));
-          let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            Authorization: token.token,
-          });
-          let options = { headers: headers };
-          const usuario = await firstValueFrom(
-            this.httpClient.post<Auth>(
-              this.baseUrl+"/getUser",
-              null,
-              options
-            )
-          );
-          localStorage.setItem('usuario', JSON.stringify(usuario));
-
-          this.loggedIn.next(true);
-          this.router.navigate(['/pedidos']);
+          const usuario: Empleado | null = await this.getUser(token.token);
+          if (usuario) {
+            console.log('puesto ' + usuario.puesto);
+            this.loggedIn.next(true);
+            if (usuario.puesto == 'Empleado') {
+              this.router.navigate(['/pedidos']);
+            } else if (usuario.puesto == 'Encargado') {
+              this.router.navigate(['/incidencias']);
+            } else {
+              this.router.navigate(['/empleados']);
+            }
+          }
+          return { Error: 'Usuario o contraseña incorrectos' };
+        } else {
+          return { Error: 'Usuario o contraseña incorrectos' };
         }
+      } else {
+        return { Error: 'Usuario o contraseña incorrectos' };
       }
-    } catch (error) {}
+    } catch (error) {
+      return { Error: error };
+    }
+  }
+
+  async getUser(token: string) {
+    try {
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token,
+      });
+
+      let options = { headers: headers };
+      const usuario = await firstValueFrom(
+        this.httpClient.post<Empleado>(this.baseUrl + '/getUser', null, options)
+      );
+      if (!usuario) {
+        return null;
+      }
+      return usuario;
+    } catch (error) {
+      return null;
+    }
   }
 
   private tokenAvailable(): boolean {
@@ -55,6 +87,4 @@ export class AuthService {
     localStorage.removeItem('usuario');
     this.router.navigate(['/login']);
   }
-
-  constructor(private router: Router) {}
 }
