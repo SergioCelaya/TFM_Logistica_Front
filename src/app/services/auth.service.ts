@@ -33,7 +33,7 @@ export class AuthService {
           token.token != ''
         ) {
           localStorage.setItem('token', JSON.stringify({ token: token.token }));
-          const usuario: Empleado | null = await this.getUser(token.token);
+          const usuario: Empleado | null = await this.getUser();
           if (usuario) {
             console.log('puesto ' + usuario.puesto);
             this.loggedIn.next(true);
@@ -57,21 +57,29 @@ export class AuthService {
     }
   }
 
-  async getUser(token: string) {
+  async getUser() {
     try {
-      let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: token,
-      });
+      const token = localStorage.getItem('token');
+      if (token) {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: token,
+        });
 
-      let options = { headers: headers };
-      const usuario = await firstValueFrom(
-        this.httpClient.post<Empleado>(this.baseUrl + '/getUser', null, options)
-      );
-      if (!usuario) {
-        return null;
+        let options = { headers: headers };
+        const usuario = await firstValueFrom(
+          this.httpClient.post<Empleado>(
+            this.baseUrl + '/getUser',
+            null,
+            options
+          )
+        );
+        if (!usuario) {
+          return null;
+        }
+        return usuario;
       }
-      return usuario;
+      return null;
     } catch (error) {
       return null;
     }
