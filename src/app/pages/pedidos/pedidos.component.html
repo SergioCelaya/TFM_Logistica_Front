@@ -1,13 +1,12 @@
 <div class="pedidosContainer">
-
-      <!-- Lista de incidencias en el centro -->
-      <div class="col-md-6">
-        <app-lista-pedidos></app-lista-pedidos>
-      </div>
-  
-      <!-- Otro componente a la derecha -->
-      <div class="col-md-4">
-        <app-mapa-pedido></app-mapa-pedido>
-        <app-detalle-pedido></app-detalle-pedido>
-      </div>
+  <!-- Lista de incidencias en el centro -->
+  <div class="col-md-6">
+    <app-lista-pedidos></app-lista-pedidos>
   </div>
+
+  <!-- Otro componente a la derecha -->
+  <div class="col-md-4">
+    <app-detalle-pedido class="card" style="margin-bottom: 20px;"></app-detalle-pedido>
+    <app-mapa-pedido></app-mapa-pedido>
+  </div>
+</div>

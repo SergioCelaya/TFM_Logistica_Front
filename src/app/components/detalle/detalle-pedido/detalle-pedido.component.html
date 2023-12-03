@@ -1,4 +1,4 @@
-<div class="card">
+
     <div class="card-header" [ngClass]="claseSegunEstado">
       <span class="textoTituloPedidos">Número de pedido:</span> {{pedidoActivo?.numero_pedido}}
     </div>
@@ -13,4 +13,3 @@
       <li class="list-group-item"><span class="textoCuerpoPedidos">Empleado responsable:</span> {{pedidoActivo?.usuario_asignado?.nombre+" "+pedidoActivo?.usuario_asignado?.apellidos}}</li>
     </ul>
     <input type="button" value="Gestión del pedido" class="btn btn-dark" (click)="toGestionPedido()"/>
-  </div>
