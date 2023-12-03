@@ -44,7 +44,9 @@ import { FormIncidenciasComponent } from './components/forms/form-incidencias/fo
     MapaPedidoComponent,
     FormAlmacenComponent,
     PedidosComponent,
-    PedidoComponent
+    PedidoComponent,
+    FormPedidoComponent,
+    FormIncidenciasComponent
   ],
   imports: [
     BrowserModule,

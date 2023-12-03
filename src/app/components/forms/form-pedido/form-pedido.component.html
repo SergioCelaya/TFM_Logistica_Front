@@ -12,22 +12,22 @@
         <p class="error" *ngIf="checkControl('numero_pedido', 'required')">
           Campo es requerido
         </p>
-        <p class="error" *ngIf="checkControl('nombre_almacen', 'min')">
+        <p class="error" *ngIf="checkControl('numero_pedido', 'min')">
           El número de pedido debe de ser mayor que cero.
         </p>
-        <p class="error" *ngIf="checkControl('nombre_almacen', 'max')">
+        <p class="error" *ngIf="checkControl('numero_pedido', 'max')">
           El número de pedido no debe de ser mayor de 10 cifras.
         </p>
       </div>
       <p
         [ngClass]="{
           'red-text':
-            pedidoForm.get('nombre_almacen')?.touched &&
-            pedidoForm.get('nombre_almacen')?.value?.length > 10
+            pedidoForm.get('numero_pedido')?.touched &&
+            pedidoForm.get('numero_pedido')?.value?.length > 10
         }"
         class="m-0"
       >
-        {{ pedidoForm.get("nombre_almacen")?.value?.length || 0 }} / 10
+        {{ pedidoForm.get("numero_pedido")?.value?.length || 0 }} / 10
         caracteres
       </p>
     </div>
