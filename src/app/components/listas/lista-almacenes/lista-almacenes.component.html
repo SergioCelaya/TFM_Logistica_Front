@@ -1,21 +1,17 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <!-- Buscador -->
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Buscar almacenes" aria-label="Buscar almacenes" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-warning" type="button">Buscar</button>
-        </div>
-      </div>
+
+<div class="col-md-8 offset-md-2">
+  <!-- Buscador -->
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Buscar almacenes" aria-label="Buscar almacenes" aria-describedby="basic-addon2">
+<div class="input-group-append">
+  <button class="btn btn-warning" type="button">Buscar</button>
+</div>
+  </div>
 
       <button class="btn btn-warning mb-3" routerLink="/nuevoAlmacen">Nuevo almacen</button>
 
       <!-- lista-almacenes.component.html -->
-      <div class="card">
-        <div class="card-header">
-          Listado de Almacenes
-        </div>
+      <h3>Listado de Almacenes</h3>
         <ul class="list-group list-group-flush row">
           <li class="col-5" *ngFor="let almacen of arrAlmacenes">
             <ul>
@@ -40,6 +36,3 @@
           </li>
         </ul>
       </div>
-    </div>
-  </div>
-</div>
