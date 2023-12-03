@@ -13,8 +13,8 @@ export class MapService {
     console.log("inicio de contructor servicio mapa")
     this.currentApiStatus =  new BehaviorSubject(new Boolean(false));
     this.obsCurrentApiStatus = this.currentApiStatus.asObservable();
-    httpClient.jsonp('https://maps.googleapis.com/maps/api/js', 'callback')
-    
+    //httpClient.jsonp('https://maps.googleapis.com/maps/api/js', 'callback')
+    httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyDwN5nTByqPS4_u-z5vuhQr34rfHDHWOlY', 'callback')
     .pipe(
       map(() => true),
       catchError(() => of(false)),

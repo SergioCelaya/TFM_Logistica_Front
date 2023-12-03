@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit{
-
+  servicioMapa = inject(MapService);
   isLoggedIn$!: Observable<boolean>;
 
   constructor(private authService: AuthService) { }
