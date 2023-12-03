@@ -6,6 +6,7 @@ import { AlmacenesComponent } from './pages/almacenes/almacenes.component';
 import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { FormAlmacenComponent } from './components/forms/form-almacen/form-almacen.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
+import { FormIncidenciasComponent } from './components/forms/form-incidencias/form-incidencias.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'almacenes', component: AlmacenesComponent },
   { path: 'empleados', component: EmpleadosComponent },
   { path: 'nuevoAlmacen', component: FormAlmacenComponent },
+  { path: 'nuevaIncidencia', component: FormIncidenciasComponent },
   { path: 'updateAlmacen/:idalmacen', component: FormAlmacenComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirecciona a /login por defecto
   { path: '**', redirectTo: '/login' } // Manejo de rutas no encontradas, redirecciona a /login
