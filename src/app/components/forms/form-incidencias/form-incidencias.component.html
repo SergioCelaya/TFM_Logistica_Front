@@ -1,0 +1,88 @@
+<form [formGroup]="incidenciasForm" (ngSubmit)="submitForm()" class="m-4 form">
+
+    <!-- TITULO -->
+    <div class="mb-3">
+        <label for="titulo">Título de la incicencia:</label>
+        <input class="form-control" type="text" formControlName="titulo" id="titulo" />
+        <div class="d-flex justify-content-between">
+            <div>
+                <p class="error" *ngIf="checkControl('titulo', 'required')">
+                    Campo es requerido
+                </p>
+                <p class="error" *ngIf="checkControl('titulo', 'minlength')">
+                    El título debe de contener más de 4 caracteres
+                </p>
+                <p class="error" *ngIf="checkControl('titulo', 'maxlength')">
+                    El título de la incicencia no debe de superar los 45 caracteres
+                </p>
+            </div>
+            <p [ngClass]="{
+                'red-text':
+                    incidenciasForm.get('titulo')?.touched &&
+                    incidenciasForm.get('titulo')?.value?.length > 45
+                }" class="m-0">
+                {{ incidenciasForm.get("titulo")?.value?.length || 0 }} / 45
+                caracteres
+            </p>
+        </div>
+    </div>
+
+    <!-- DESCRIPCION -->
+    <div class="mb-3">
+        <label for="descripcion">Descripción:</label>
+        <input class="form-control" type="text" formControlName="descripcion" id="descripcion" />
+        <div class="d-flex justify-content-between">
+            <div>
+                <p class="error" *ngIf="checkControl('descripcion', 'required')">
+                    Campo es requerido
+                </p>
+                <p class="error" *ngIf="checkControl('descripcion_incidencia', 'minlength')">
+                    La descripción debe de contener más de 4 caracteres
+                </p>
+                <p class="error" *ngIf="checkControl('descripcion_incidencia', 'maxlength')">
+                    La descripción de la incicencia no debe de superar los 450 caracteres
+                </p>
+            </div>
+            <p [ngClass]="{
+            'red-text':
+              incidenciasForm.get('descripcion')?.touched &&
+              incidenciasForm.get('descripcion')?.value?.length > 450
+          }" class="m-0">
+                {{ incidenciasForm.get("descripcion")?.value?.length || 0 }} / 450
+                caracteres
+            </p>
+        </div>
+    </div>
+
+    <!-- TIPO -->
+    <div class="mb-3">
+        <label for="tipo_incidencia">Tipo de la incicencia:</label>
+        <input class="form-control" type="text" formControlName="tipo_incidencia" id="tipo_incidencia" />
+        <div class="d-flex justify-content-between">
+            <div>
+                <p class="error" *ngIf="checkControl('tipo_incidencia', 'required')">
+                    Campo es requerido
+                </p>
+                <p class="error" *ngIf="checkControl('tipo_incidencia', 'minlength')">
+                    El tipo debe de contener más de 4 caracteres
+                </p>
+                <p class="error" *ngIf="checkControl('tipo_incidencia', 'maxlength')">
+                    El tipo de la incicencia no debe de superar los 45 caracteres
+                </p>
+            </div>
+            <p [ngClass]="{
+          'red-text':
+            incidenciasForm.get('tipo_incidencia')?.touched &&
+            incidenciasForm.get('tipo_incidencia')?.value?.length > 45
+        }" class="m-0">
+                {{ incidenciasForm.get("tipo_incidencia")?.value?.length || 0 }} / 45
+                caracteres
+            </p>
+        </div>
+    </div>
+
+
+    <input type="submit" [class]="incidenciasForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Aceptar"
+        [disabled]="!incidenciasForm.valid" />
+
+</form>
