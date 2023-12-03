@@ -26,7 +26,7 @@
               <!-- Botón para activar/desactivar el almacén -->
               <button class="col btn" [class.btn-success]="almacen.activo" [class.btn-danger]="!almacen.activo"
                 (click)="toggleEstadoAlmacen(almacen)">
-                {{ almacen.activo ? 'Desactivar' : 'Activar' }}
+                {{ almacen.activo ? 'Activo' : 'Inactivo' }}
               </button>
               <!-- Botón de "Editar" que redirige a la ruta /updateAlmacen/:idalmacen -->
               <button class="col btn btn-warning" [routerLink]="['/updateAlmacen', almacen.idalmacen]">
