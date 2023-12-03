@@ -1,0 +1,49 @@
+<form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" class="m-4 form">
+  <div class="mb-3">
+    <label for="numero_pedido">Número del pedido :</label>
+    <input
+      class="form-control"
+      type="text"
+      formControlName="numero_pedido"
+      id="numero_pedido"
+    />
+    <div class="d-flex justify-content-between">
+      <div>
+        <p class="error" *ngIf="checkControl('numero_pedido', 'required')">
+          Campo es requerido
+        </p>
+        <p class="error" *ngIf="checkControl('nombre_almacen', 'min')">
+          El número de pedido debe de ser mayor que cero.
+        </p>
+        <p class="error" *ngIf="checkControl('nombre_almacen', 'max')">
+          El número de pedido no debe de ser mayor de 10 cifras.
+        </p>
+      </div>
+      <p
+        [ngClass]="{
+          'red-text':
+            pedidoForm.get('nombre_almacen')?.touched &&
+            pedidoForm.get('nombre_almacen')?.value?.length > 10
+        }"
+        class="m-0"
+      >
+        {{ pedidoForm.get("nombre_almacen")?.value?.length || 0 }} / 10
+        caracteres
+      </p>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="fecha_creacion">Fecha de Creación:</label>
+    <input type="date" id="fecha_creacion" class="form-control" formControlName="fecha_creacion" />
+    <div class="d-flex justify-content-between">
+      <div>
+        <div *ngIf="checkControl('fecha_creacion', 'required')">
+        La fecha de creación es requerida.
+        </div>
+        <div *ngIf="checkControl('fecha_creacion','fechaInvalida')">
+        La fecha de creación no puede ser anterior a la fecha actual.
+        </div>
+      </div>
+  </div>
+  </div>
+</form>

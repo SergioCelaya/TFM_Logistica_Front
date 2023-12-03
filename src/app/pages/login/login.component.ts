@@ -15,8 +15,6 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent {
 
-
-  private router = inject(Router);
   servicioAuth = inject(AuthService);
   private user: User = {
     email: '',

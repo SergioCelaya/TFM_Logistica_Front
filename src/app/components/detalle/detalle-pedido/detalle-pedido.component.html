@@ -12,4 +12,5 @@
       <li class="list-group-item"><span class="textoCuerpoPedidos">Matrícula del transporte:</span> {{pedidoActivo?.id_transporte}}</li>
       <li class="list-group-item"><span class="textoCuerpoPedidos">Empleado responsable:</span> {{pedidoActivo?.usuario_asignado?.nombre+" "+pedidoActivo?.usuario_asignado?.apellidos}}</li>
     </ul>
+    <input type="button" value="Gestión del pedido" class="btn btn-dark" (click)="toGestionPedido()"/>
   </div>

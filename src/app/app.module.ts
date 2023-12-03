@@ -22,6 +22,7 @@ import { FormAlmacenComponent } from './components/forms/form-almacen/form-almac
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { FormPedidoComponent } from './components/forms/form-pedido/form-pedido.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     MapaPedidoComponent,
     FormAlmacenComponent,
     PedidosComponent,
-    PedidoComponent
+    PedidoComponent,
+    FormPedidoComponent
   ],
   imports: [
     BrowserModule,
