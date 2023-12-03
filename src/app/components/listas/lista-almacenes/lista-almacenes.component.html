@@ -16,12 +16,16 @@
         <div class="card-header">
           Listado de Almacenes
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item d-flex justify-content-between" *ngFor="let almacen of arrAlmacenes">
-            <!-- Botón para actualizar el almacén seleccionado -->
-            <button class="col-5 btn btn-link" (click)="actualizarInfoAlmacen(almacen)">
-              {{ almacen.nombre_almacen }}
-            </button>
+        <ul class="list-group list-group-flush row">
+          <li class="col-5" *ngFor="let almacen of arrAlmacenes">
+            <ul>
+              <li>{{ almacen.idalmacen }}</li>
+              <li>{{ almacen.nombre_almacen }}</li>
+              <li>{{ almacen.long }}</li>
+              <li>{{ almacen.lat }}</li>
+              <li>{{ almacen.activo }}</li>
+              <li>{{ almacen.imagen_almacen }}</li>
+            </ul>
             <div class="row column-gap-4" role="group">
               <!-- Botón para activar/desactivar el almacén -->
               <button class="col btn" [class.btn-success]="almacen.activo" [class.btn-danger]="!almacen.activo"
