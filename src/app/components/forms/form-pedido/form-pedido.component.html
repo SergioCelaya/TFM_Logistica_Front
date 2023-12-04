@@ -1,168 +1,249 @@
-<form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" class="m-4 form">
-  <div class="mb-3">
-    <label for="numero_pedido">Número del pedido :</label>
-    <input
-      class="form-control"
-      type="text"
-      formControlName="numero_pedido"
-      id="numero_pedido"
-    />
-    <div class="d-flex justify-content-between">
-      <div>
-        <p class="error" *ngIf="checkControl('numero_pedido', 'required')">
-          Campo es requerido
-        </p>
-        <p class="error" *ngIf="checkControl('numero_pedido', 'min')">
-          El número de pedido debe de ser mayor que cero.
-        </p>
-        <p class="error" *ngIf="checkControl('numero_pedido', 'max')">
-          El número de pedido no debe de ser mayor de 10 cifras.
-        </p>
-      </div>
-      <p
-        [ngClass]="{
-          'red-text':
-            pedidoForm.get('numero_pedido')?.touched &&
-            pedidoForm.get('numero_pedido')?.value?.length > 10
-        }"
-        class="m-0"
-      >
-        {{ pedidoForm.get("numero_pedido")?.value?.length || 0 }} / 10
-        caracteres
-      </p>
-    </div>
-  </div>
-  <div class="mb-3">
-    <label for="fecha_creacion">Fecha de creación:</label>
-    <input
-      type="date"
-      id="fecha_creacion"
-      class="form-control"
-      formControlName="fecha_creacion"
-    />
-    <div class="d-flex justify-content-between">
-      <div>
-        <div *ngIf="checkControl('fecha_creacion', 'required')">
-          La fecha de creación es requerida.
-        </div>
-        <div *ngIf="checkControl('fecha_creacion', 'fechaInvalida')">
-          La fecha de creación no puede ser anterior a la fecha actual.
+<article class="d-flex">
+  <article class="col-6">
+    <h2 class="h2 text-center">Creación de un pedido</h2>
+    <form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" class="m-4 form">
+      <div class="mb-3">
+        <label for="numero_pedido" class="mb-2 h6">Número del pedido :</label>
+        <input
+          class="form-control"
+          placeholder="Introduce un número válido de pedido"
+          type="text"
+          formControlName="numero_pedido"
+          id="numero_pedido"
+        />
+        <div class="d-flex justify-content-between">
+          <div>
+            <p class="error" *ngIf="checkControl('numero_pedido', 'required')">
+              Campo es requerido
+            </p>
+            <p class="error" *ngIf="checkControl('numero_pedido', 'min')">
+              El número de pedido debe de ser mayor que cero.
+            </p>
+            <p class="error" *ngIf="checkControl('numero_pedido', 'max')">
+              El número de pedido no debe de ser mayor de 10 cifras.
+            </p>
+          </div>
+          <p
+            [ngClass]="{
+              'red-text':
+                pedidoForm.get('numero_pedido')?.touched &&
+                pedidoForm.get('numero_pedido')?.value?.length > 10
+            }"
+            class="m-0"
+          >
+            {{ pedidoForm.get("numero_pedido")?.value?.length || 0 }} / 10
+            caracteres
+          </p>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="mb-3">
-    <label for="fecha_entrega">Fecha de entrega:</label>
-    <input
-      type="date"
-      id="fecha_entrega"
-      class="form-control"
-      formControlName="fecha_entrega"
-    />
-    <div class="d-flex justify-content-between">
-      <div>
-        <div *ngIf="checkControl('fecha_entrega', 'fechaInvalida')">
-          La fecha de creación no puede ser anterior a la fecha actual.
+      <div class="mb-3">
+        <label for="fecha_creacion" class="mb-2 h6">Fecha de creación:</label>
+        <input
+          type="date"
+          id="fecha_creacion"
+          class="form-control"
+          formControlName="fecha_creacion"
+        />
+        <div class="d-flex justify-content-between">
+          <div>
+            <div
+              class="error"
+              *ngIf="checkControl('fecha_creacion', 'required')"
+            >
+              La fecha de creación es requerida.
+            </div>
+            <div
+              class="error"
+              *ngIf="checkControl('fecha_creacion', 'fechaInvalida')"
+            >
+              La fecha de creación no puede ser anterior a la fecha actual.
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="mb-3">
-    <label for="amacen_origen">Almacén origen:</label>
-    <input
-      type="number"
-      id="almacen_origen"
-      class="form-control"
-      formControlName="almacen_origen"
-    />
-    <div class="d-flex justify-content-between">
-      <div>
-        <div *ngIf="checkControl('almacen_origen', 'required')">
-          El pedido debe de tener un almacén origen.
+      <div class="mb-3">
+        <label for="fecha_entrega" class="mb-2 h6">Fecha de entrega:</label>
+        <input
+          type="date"
+          id="fecha_entrega"
+          class="form-control"
+          formControlName="fecha_entrega"
+        />
+        <div class="d-flex justify-content-between">
+          <div>
+            <div
+              class="error"
+              *ngIf="checkControl('fecha_entrega', 'fechaInvalida')"
+            >
+              La fecha de creación no puede ser anterior a la fecha actual.
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="mb-3">
-    <label for="amacen_destino">Almacén destino:</label>
-    <input
-      type="number"
-      id="amacen_destino"
-      class="form-control"
-      formControlName="amacen_destino"
-    />
-    <div class="d-flex justify-content-between">
-      <div>
-        <div *ngIf="checkControl('amacen_destino', 'required')">
-          El pedido debe de tener un almacén destino.
+      <div class="mb-3">
+        <label for="almacen_origen" class="mb-2 h6">Almacén origen:</label>
+        <select
+          id="almacen_origen"
+          class="form-select"
+          formControlName="almacen_origen"
+        >
+          <option value="" disabled selected hidden>
+            Selecciona el almacen origen del listado
+          </option>
+          <option *ngFor="let almacen of almacenesOrigen" [value]="almacen.idalmacen">
+            {{ almacen.nombre_almacen }}
+          </option>
+        </select>
+        <div class="d-flex justify-content-between">
+          <div>
+            <div
+              class="error"
+              *ngIf="checkControl('almacen_origen', 'required')"
+            >
+              El pedido debe de tener un almacén origen.
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="mb-3">
-    <label for="usuario_asignado">Usuario asignado:</label>
-    <input
-      type="number"
-      id="usuario_asignado"
-      class="form-control"
-      formControlName="usuario_asignado"
-    />
-  </div>
-  <div class="mb-3">
-    <label for="usuario_responsable">Usuario responsable:</label>
-    <input
-      type="number"
-      id="usuario_responsable"
-      class="form-control"
-      formControlName="usuario_responsable"
-    />
-  </div>
-  <div class="mb-3">
-    <label for="estado">Estado del pedido:</label>
-    <input
-      type="number"
-      id="estado"
-      class="form-control"
-      formControlName="estado"
-    />
-    <div class="d-flex justify-content-between">
-      <div>
-        <div *ngIf="checkControl('estado', 'required')">
-          El pedido debe de tener un estado.
+      <div class="mb-3">
+        <label for="almacen_destino" class="mb-2 h6">Almacén destino:</label>
+        <select
+          id="almacen_destino"
+          class="form-select"
+          formControlName="almacen_destino"
+        >
+          <option value="" disabled selected hidden>
+            Selecciona el almacen destino del listado
+          </option>
+          <option *ngFor="let almacen of almacenesDestino" [value]="almacen.idalmacen">
+            {{ almacen.nombre_almacen }}
+          </option>
+        </select>
+        <div class="d-flex justify-content-between">
+          <div>
+            <div
+              class="error"
+              *ngIf="checkControl('almacen_destino', 'required')"
+            >
+              El pedido debe de tener un almacén destino.
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="mb-3">
-    <label for="id_transporte">Id de transporte del pedido :</label>
-    <input
-      type="text"
-      id="id_transporte"
-      class="form-control"
-      formControlName="id_transporte"
-    />
-    <div class="d-flex justify-content-between">
-      <div>
-        <div *ngIf="checkControl('id_transporte', 'required')">
-          El pedido debe de tener un identificador de su transporte.
+      <div class="mb-3">
+        <label for="usuario_asignado" class="mb-2 h6">Empleado asignado:</label>
+        <select
+          id="usuario_asignado"
+          class="form-select"
+          formControlName="usuario_asignado"
+        >
+          <option value="" disabled selected hidden>
+            Selecciona al empleado del listado
+          </option>
+          <option
+            *ngFor="let empleado of empleados"
+            [value]="empleado.idempleado"
+          >
+            {{ empleado.nombre + " " + empleado.apellidos }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="usuario_responsable" class="mb-2 h6">Encargado:</label>
+        <select
+          id="usuario_responsable"
+          class="form-select"
+          formControlName="usuario_responsable"
+        >
+          <option value="" disabled selected hidden>
+            Selecciona al encargado del listado
+          </option>
+          <option
+            *ngFor="let encargado of encargados"
+            [value]="encargado.idempleado"
+          >
+            {{ encargado.nombre + " " + encargado.apellidos }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="estado" class="mb-2 h6">Estado del pedido:</label>
+        <select id="estado" class="form-select" formControlName="estado">
+          <option value="" disabled selected hidden>
+            Selecciona el estado del pedido del listado
+          </option>
+          <option [value]="1">Pendiente de validar</option>
+          <option [value]="2">Retificar</option>
+          <option [value]="3">Validado</option>
+          <option [value]="4">En tránsito</option>
+          <option [value]="5">Pendiente de recepcionar</option>
+          <option [value]="6">Finalizado</option>
+        </select>
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="error" *ngIf="checkControl('estado', 'required')">
+              El pedido debe de tener un estado.
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="mb-3">
-    <label for="detalle_pedido">Id de transporte del pedido :</label>
-    <input
-      type="text"
-      id="detalle_pedido"
-      class="form-control"
-      formControlName="detalle_pedido"
-    />
-    <div class="d-flex justify-content-between">
-      <div>
-        <div *ngIf="checkControl('detalle_pedido', 'required')">
-          El pedido debe de tener una descripción del pedido.
+      <div class="mb-3">
+        <label for="id_transporte" class="mb-2 h6"
+          >Identificador del transporte a utilizar en el pedido :</label
+        >
+        <input
+          type="text"
+          id="id_transporte"
+          class="form-control"
+          formControlName="id_transporte"
+          placeholder="Indica el identificador del transporte"
+        />
+        <div class="d-flex justify-content-between">
+          <div>
+            <div
+              class="error"
+              *ngIf="checkControl('id_transporte', 'required')"
+            >
+              El pedido debe de tener un identificador de su transporte.
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</form>
+      <div class="mb-3">
+        <label for="detalle_pedido" class="mb-2 h6">Detalle del pedido :</label>
+        <textarea
+          type="text"
+          id="detalle_pedido"
+          class="form-control"
+          formControlName="detalle_pedido"
+          placeholder="Haz una descripción detallada del pedido"
+        ></textarea>
+        <div class="d-flex justify-content-between">
+          <div>
+            <div
+              class="error"
+              *ngIf="checkControl('detalle_pedido', 'required')"
+            >
+              El pedido debe de tener una descripción del pedido.
+            </div>
+          </div>
+        </div>
+      </div>
+      <input 
+        type="submit"
+        [class]="pedidoForm.valid ? 'btn btn-info' : 'btn btn-secondary'"
+        value="Aceptar"
+        [disabled]="!pedidoForm.valid"
+      />
+    </form>
+  </article>
+  <article  class="col-6 text-center align-middle justify-content: center">
+    <section class="derecha">
+      <div class="btn-group" role="group" >
+        <button type="button" class="btn btn-secondary">Left</button>
+        <button type="button" class="btn btn-secondary">Middle</button>
+        <button type="button" class="btn btn-secondary">Right</button>
+      </div>
+    </section>
+  </article>
+</article>

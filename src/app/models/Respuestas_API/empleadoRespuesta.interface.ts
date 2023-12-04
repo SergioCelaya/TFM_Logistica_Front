@@ -1,7 +1,7 @@
 
 export interface EmpleadoRespuesta {
 
-    idEmpleado: number;
+    idempleado: number;
     num_empleado: string;
     nombre: string;
     apellidos: string;

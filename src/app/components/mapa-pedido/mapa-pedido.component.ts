@@ -33,7 +33,6 @@ export class MapaPedidoComponent {
     mapDirectionsService: MapDirectionsService,
     private _mapService: MapService
   ) {
-    console.log('inicio de contructor mapa pedido');
     this._mapService.obsCurrentApiStatus.subscribe((status) => {
       this.apiLoaded = status.valueOf();
     });
@@ -48,8 +47,6 @@ export class MapaPedidoComponent {
         let almacenDestino = await this.almacenesService.getById(
           pedido.almacen_destino
         );
-        console.log(almacenDestino);
-        console.log(almacenOrigen)
         const request: google.maps.DirectionsRequest = {
           destination: {
             lat: Number(almacenDestino.lat),
