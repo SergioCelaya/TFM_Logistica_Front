@@ -33,17 +33,136 @@
     </div>
   </div>
   <div class="mb-3">
-    <label for="fecha_creacion">Fecha de Creación:</label>
-    <input type="date" id="fecha_creacion" class="form-control" formControlName="fecha_creacion" />
+    <label for="fecha_creacion">Fecha de creación:</label>
+    <input
+      type="date"
+      id="fecha_creacion"
+      class="form-control"
+      formControlName="fecha_creacion"
+    />
     <div class="d-flex justify-content-between">
       <div>
         <div *ngIf="checkControl('fecha_creacion', 'required')">
-        La fecha de creación es requerida.
+          La fecha de creación es requerida.
         </div>
-        <div *ngIf="checkControl('fecha_creacion','fechaInvalida')">
-        La fecha de creación no puede ser anterior a la fecha actual.
+        <div *ngIf="checkControl('fecha_creacion', 'fechaInvalida')">
+          La fecha de creación no puede ser anterior a la fecha actual.
         </div>
       </div>
+    </div>
   </div>
+  <div class="mb-3">
+    <label for="fecha_entrega">Fecha de entrega:</label>
+    <input
+      type="date"
+      id="fecha_entrega"
+      class="form-control"
+      formControlName="fecha_entrega"
+    />
+    <div class="d-flex justify-content-between">
+      <div>
+        <div *ngIf="checkControl('fecha_entrega', 'fechaInvalida')">
+          La fecha de creación no puede ser anterior a la fecha actual.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="amacen_origen">Almacén origen:</label>
+    <input
+      type="number"
+      id="almacen_origen"
+      class="form-control"
+      formControlName="almacen_origen"
+    />
+    <div class="d-flex justify-content-between">
+      <div>
+        <div *ngIf="checkControl('almacen_origen', 'required')">
+          El pedido debe de tener un almacén origen.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="amacen_destino">Almacén destino:</label>
+    <input
+      type="number"
+      id="amacen_destino"
+      class="form-control"
+      formControlName="amacen_destino"
+    />
+    <div class="d-flex justify-content-between">
+      <div>
+        <div *ngIf="checkControl('amacen_destino', 'required')">
+          El pedido debe de tener un almacén destino.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="usuario_asignado">Usuario asignado:</label>
+    <input
+      type="number"
+      id="usuario_asignado"
+      class="form-control"
+      formControlName="usuario_asignado"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="usuario_responsable">Usuario responsable:</label>
+    <input
+      type="number"
+      id="usuario_responsable"
+      class="form-control"
+      formControlName="usuario_responsable"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="estado">Estado del pedido:</label>
+    <input
+      type="number"
+      id="estado"
+      class="form-control"
+      formControlName="estado"
+    />
+    <div class="d-flex justify-content-between">
+      <div>
+        <div *ngIf="checkControl('estado', 'required')">
+          El pedido debe de tener un estado.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="id_transporte">Id de transporte del pedido :</label>
+    <input
+      type="text"
+      id="id_transporte"
+      class="form-control"
+      formControlName="id_transporte"
+    />
+    <div class="d-flex justify-content-between">
+      <div>
+        <div *ngIf="checkControl('id_transporte', 'required')">
+          El pedido debe de tener un identificador de su transporte.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="detalle_pedido">Id de transporte del pedido :</label>
+    <input
+      type="text"
+      id="detalle_pedido"
+      class="form-control"
+      formControlName="detalle_pedido"
+    />
+    <div class="d-flex justify-content-between">
+      <div>
+        <div *ngIf="checkControl('detalle_pedido', 'required')">
+          El pedido debe de tener una descripción del pedido.
+        </div>
+      </div>
+    </div>
   </div>
 </form>

@@ -63,6 +63,6 @@ export class DetallePedidoComponent {
     }
   }
   toGestionPedido() {
-    this.router.navigate(['/incidencias']);
+    this.router.navigate(['/gestionPedido']);
   }
 }
