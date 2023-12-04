@@ -39,7 +39,7 @@ export class FormAlmacenComponent {
         Validators.max(90),
       ]),
       activo: new FormControl('', [Validators.required]),
-      imagen_almacen: new FormControl('', [Validators.required]),
+      imagen_almacen: new FormControl('', []),
     });
   }
 
@@ -76,8 +76,6 @@ export class FormAlmacenComponent {
           ]),
           activo: new FormControl(response.activo, [Validators.required]),
           imagen_almacen: new FormControl(response.imagen_almacen, [
-            Validators.required,
-            Validators.max(100),
           ]),
         });
       }
@@ -99,7 +97,6 @@ export class FormAlmacenComponent {
             let response = this.almacenService.updateAlmacen(
               this.almacenForm.value
             );
-            let resultImagen = this.guardarImagenAlmacen();
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -164,9 +161,9 @@ export class FormAlmacenComponent {
       this.almacenForm.get(formcontrolName)?.touched
     );
   }
+
   // TODO LO RELACIONADO CON LA IMAGEN, PRIMERO SE MUESTRA TRAS ELEGIRLA
   // AL PRESIONAR EN EL BOTÓN ACEPTAR SE ENVIA AL BACK
-
   url: any;
   imagenFile: File | undefined;
   idAlmacen:number | undefined;
@@ -190,6 +187,14 @@ export class FormAlmacenComponent {
       this.imagenesService.guardarImagenAlmacen(this.imagenFile, this.idAlmacen);
     }else{
       //TODO: Lanzar error no se ha seleccionado una imagen
+    }
+  }
+
+   // Método para convertir el valor del botón desplazable a 0 o 1
+   toggleActivo() {
+    const activoControl = this.almacenForm.get('activo');
+    if (activoControl) {
+      activoControl.setValue(activoControl.value === '1' ? '0' : '1');
     }
   }
 }
