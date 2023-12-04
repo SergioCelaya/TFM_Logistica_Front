@@ -1,4 +1,4 @@
-<nav class="sidebar d-flex flex-column border border-dark col-md-2"  *ngIf="isLoggedIn$ | async">
+<nav class="sidebar d-flex flex-column border border-dark col-2"  *ngIf="isLoggedIn$ | async">
     <a class="navbar-brand border border-dark" routerLink="/" routerLinkActive="nav-link-active">TFM</a>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
@@ -16,4 +16,3 @@
     </ul>
     <button class="btn btn-warning mt-auto m-3" routerLink="/login" (click)="onLogout()">Log out</button>
   </nav>
-  

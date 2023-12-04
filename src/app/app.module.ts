@@ -11,7 +11,6 @@ import { IncidenciasComponent } from './pages/incidencias/incidencias.component'
 import { DetalleIncidenciaComponent } from './components/detalle/detalle-incidencia/detalle-incidencia.component';
 import { DetallePedidoComponent } from './components/detalle/detalle-pedido/detalle-pedido.component';
 import { ListaPedidosComponent } from './components/listas/lista-pedidos/lista-pedidos.component';
-import { DetalleAlmacenComponent } from './components/detalle/detalle-almacen/detalle-almacen.component';
 import { ListaAlmacenesComponent } from './components/listas/lista-almacenes/lista-almacenes.component';
 import { AlmacenesComponent } from './pages/almacenes/almacenes.component';
 import { ListaEmpleadosComponent } from './components/listas/lista-empleados/lista-empleados.component';
@@ -35,7 +34,6 @@ import { FormIncidenciasComponent } from './components/forms/form-incidencias/fo
     DetalleIncidenciaComponent,
     DetallePedidoComponent,
     ListaPedidosComponent,
-    DetalleAlmacenComponent,
     ListaAlmacenesComponent,
     AlmacenesComponent,
     ListaEmpleadosComponent,
