@@ -11,7 +11,7 @@
 <section class="row justify-content-center mt-4">
   <!-- lista-almacenes.component.html -->
   <h3 class="text-center">Listado de Almacenes</h3>
-  <ul class="row column-gap-2 justify-content-center">
+  <ul class="row gap-2 justify-content-center">
     <li class="col-5 col-xl-3 card p-4 " *ngFor="let almacen of arrAlmacenes">
       <ul class="list-group">
         <li class="list-group-item" [ngClass]="getClasesActivo(almacen.activo)"><span class="fw-bold">ID:</span> {{ almacen.idalmacen }}</li>

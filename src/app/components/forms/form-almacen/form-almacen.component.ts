@@ -55,6 +55,7 @@ export class FormAlmacenComponent {
         this.idAlmacen = idalmacen;
         //PINTAR ALMACEN EXISTENTE
         let response = await this.almacenService.getById(idalmacen);
+        console.log(response);
 
         this.almacenForm = new FormGroup({
           idalmacen: new FormControl(response.idalmacen, []),
@@ -76,8 +77,7 @@ export class FormAlmacenComponent {
             Validators.max(90),
           ]),
           activo: new FormControl(response.activo, [Validators.required]),
-          imagen_almacen: new FormControl('', [
-          ]),
+          imagen_almacen: new FormControl(response.imagen_almacen || 'imagen_almacen', []),
         });
       }
     });
@@ -92,11 +92,21 @@ export class FormAlmacenComponent {
           showCancelButton: true,
           confirmButtonColor: '#FFC007',
           confirmButtonText: 'Guardar',
-        }).then((result) => {
+        }).then(async (result) => {
           if (result.isConfirmed) {
             // ACTUALIZACIÓN ALMACEN
-            let response = this.almacenService.updateAlmacen(this.almacenForm.value);
-            let resultImagen = this.guardarImagenAlmacen();
+            let response = await this.almacenService.updateAlmacen(this.almacenForm.value);
+
+            // Verificar si se ha cargado una nueva imagen antes de intentar guardarla
+            if (this.imagenFile) {
+              await this.guardarImagenAlmacen();
+            } else if (
+              this.almacenForm.get('imagen_almacen')?.value === 'imagen_almacen'
+            ) {
+              // Si la imagen no ha sido modificada, establecerla como undefined o eliminarla según la necesidad del backend
+              this.almacenForm.removeControl('imagen_almacen');
+            }
+
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -127,8 +137,11 @@ export class FormAlmacenComponent {
           confirmButtonText: 'Crear',
         }).then((result) => {
           if (result.isConfirmed) {
+            console.log(this.almacenForm.value);
             // CREACIÓN NUEVO ALMACEN
             let response = this.almacenService.create(this.almacenForm.value);
+            // TRATAR ERROR POR DUPLICADO
+            console.log(response);
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -139,7 +152,6 @@ export class FormAlmacenComponent {
           }
         });
         this.router.navigate(['/almacenes']);
-        console.log(this.almacenForm.value);
       } catch (error) {
         Swal.fire({
           position: 'center',
