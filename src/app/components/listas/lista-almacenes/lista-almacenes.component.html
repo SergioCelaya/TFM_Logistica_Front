@@ -1,41 +1,37 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <!-- Buscador -->
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Buscar almacenes" aria-label="Buscar almacenes" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-warning" type="button">Buscar</button>
-        </div>
-      </div>
-
-      <button class="btn btn-warning mb-3" routerLink="/nuevoAlmacen">Nuevo almacen</button>
-
-      <!-- lista-almacenes.component.html -->
-      <div class="card">
-        <div class="card-header">
-          Listado de Almacenes
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item d-flex justify-content-between" *ngFor="let almacen of arrAlmacenes">
-            <!-- Botón para actualizar el almacén seleccionado -->
-            <button class="col-5 btn btn-link" (click)="actualizarInfoAlmacen(almacen)">
-              {{ almacen.nombre_almacen }}
-            </button>
-            <div class="row column-gap-4" role="group">
-              <!-- Botón para activar/desactivar el almacén -->
-              <button class="col btn" [class.btn-success]="almacen.activo" [class.btn-danger]="!almacen.activo"
-                (click)="toggleEstadoAlmacen(almacen)">
-                {{ almacen.activo ? 'Desactivar' : 'Activar' }}
-              </button>
-              <!-- Botón de "Editar" que redirige a la ruta /updateAlmacen/:idalmacen -->
-              <button class="col btn btn-warning" [routerLink]="['/updateAlmacen', almacen.idalmacen]">
-                Editar
-              </button>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+<section class="col-md-8">
+  <!-- Buscador -->
+  <div class="d-flex">
+    <input type="text" class="form-control" placeholder="Buscar almacenes" aria-label="Buscar almacenes" aria-describedby="basic-addon2">
+    <button class="btn btn-warning ms-1" type="button">Buscar</button>
   </div>
-</div>
+  <!-- Botón nuevo almacen form -->
+  <button class="btn btn-warning m-3" routerLink="/nuevoAlmacen">Nuevo almacen</button>
+</section>
+
+<section class="row justify-content-center mt-4">
+  <!-- lista-almacenes.component.html -->
+  <h3 class="text-center">Listado de Almacenes</h3>
+  <ul class="row column-gap-2 justify-content-center">
+    <li class="col-5 col-xl-3 card p-4 " *ngFor="let almacen of arrAlmacenes">
+      <ul class="list-group">
+        <li class="list-group-item" [ngClass]="getClasesActivo(almacen.activo)"><span class="fw-bold">ID:</span> {{ almacen.idalmacen }}</li>
+        <li class="list-group-item">Nombre: {{ almacen.nombre_almacen }}</li>
+        <li class="list-group-item">Longitud: {{ almacen.long }}</li>
+        <li class="list-group-item">Latitud: {{ almacen.lat }}</li>
+        <li class="list-group-item">Activo: {{ getTextoActivo(almacen.activo) }}</li>
+      </ul>
+      <img class="img-fluid rounded mt-2" [src]="imagenesService.getImagenAlmacen(almacen.imagen_almacen)" alt="Imagen almacen">
+      <div class="row column-gap-4 mt-2 justify-content-end" role="group">
+        <!-- Botón para activar/desactivar el almacén -->
+        <button class="col-6 col-lg-6 col-xl-3 btn" type="button" [class.btn-outline-success]="almacen.activo" [class.btn-outline-danger]="!almacen.activo"
+          (click)="toggleEstadoAlmacen(almacen)">
+          {{ almacen.activo ? 'Activo' : 'Inactivo' }}
+        </button>
+        <!-- Botón de "Editar" que redirige a la ruta /updateAlmacen/:idalmacen -->
+        <button class="col-6 col-xl-3 btn btn-light" type="button" [routerLink]="['/updateAlmacen', almacen.idalmacen]">
+          Editar
+        </button>
+      </div>
+    </li>
+  </ul>
+</section>

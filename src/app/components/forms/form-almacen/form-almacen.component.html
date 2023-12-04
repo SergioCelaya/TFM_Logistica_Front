@@ -94,46 +94,20 @@
   </div>
   <div class="mb-3">
     <label for="activo">Activo:</label>
-    <input
-      class="form-control"
-      type="number"
-      formControlName="activo"
-      id="activo"
-    />
+    <select class="form-control" formControlName="activo" id="activo">
+      <option value="1">Sí</option>
+      <option value="0">No</option>
+    </select>
 
     <p class="error" *ngIf="checkControl('activo', 'required')">
       Campo es requerido
     </p>
   </div>
-  <div class="mb-3">
-    <label for="imagen_almacen">Imagen:</label>
-    <input
-      class="form-control"
-      type="text"
-      formControlName="imagen_almacen"
-      id="imagen_almacen"
-    />
-    <div class="d-flex justify-content-between">
-      <div>
-        <p class="error" *ngIf="checkControl('imagen_almacen', 'required')">
-          Campo es requerido
-        </p>
-        <p class="error" *ngIf="checkControl('imagen_almacen', 'max')">
-          La URL no debe contener más de 100 caracteres
-        </p>
-      </div>
-      <p
-        [ngClass]="{
-          'red-text':
-            almacenForm.get('imagen_almacen')?.touched &&
-            almacenForm.get('imagen_almacen')?.value?.length > 100
-        }"
-        class="m-0"
-      >
-        {{ almacenForm.get("imagen_almacen")?.value?.length || 0 }} / 100
-        caracteres
-      </p>
-    </div>
+
+    <!-- Imagen que debe de subir al back la muestro una vez se selecciona-->
+  <div class="m-5">
+    <input type="file" name="image" class="form-control" formControlName="imagen_almacen" id="imagen_almacen" (change)="onChange($event)" />
+    <img style="width: 300px;height: 300px;" *ngIf="url" [src]="url" />
   </div>
 
   <input
@@ -142,9 +116,4 @@
     value="Aceptar"
     [disabled]="!almacenForm.valid"
   />
-<!-- Imagen que debe de subir al back la muestro una vez se selecciona-->
-  <div class="m-5">
-    <input type="file" name="image" (change)="onChange($event)" />
-    <img style="width: 300px;height: 300px;" *ngIf="url" [src]="url" />
-  </div>
 </form>
