@@ -6,6 +6,7 @@ import { Auth } from '../models/Respuestas_API/auth.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Empleado } from '../models/empleado.interface';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -32,7 +33,7 @@ export class AuthService {
           token.token != undefined &&
           token.token != ''
         ) {
-          localStorage.setItem('token',token.token );
+          localStorage.setItem('token', token.token);
           const usuario: Empleado | null = await this.getUser();
           if (usuario) {
             this.loggedIn.next(true);
@@ -56,33 +57,33 @@ export class AuthService {
     }
   }
 
-  async getUser() {
-    try {
-      const token = localStorage.getItem('token');
-      console.log(token)
-      if (token) {
-        let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: token,
-        });
+  async getUser():Promise<Empleado> {
+    const token = localStorage.getItem('token');
+    const empleado:Empleado=
+    {activo:false,
+      apellidos:"",
+      nombre:"",
+      email:"",
+      fecha_contratacion:new Date(),
+      idalmacen:0,
+      idempleado:0,
+      imagen_empleado:"",
+      num_empleado:"0",
+      puesto:"",
+      pwd:""
+    };
+    if (token) {
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token,
+      });
 
-        let options = { headers: headers };
-        const usuario = await firstValueFrom(
-          this.httpClient.post<Empleado>(
-            this.baseUrl + '/getUser',
-            null,
-            options
-          )
-        );
-        if (!usuario) {
-          return null;
-        }
-        return usuario;
-      }
-      return null;
-    } catch (error) {
-      return null;
-    }
+      let options = { headers: headers };
+      return await firstValueFrom(
+        this.httpClient.post<Empleado>(this.baseUrl + '/getUser', null, options)
+      );
+    };
+    return empleado;
   }
 
   private tokenAvailable(): boolean {

@@ -32,7 +32,7 @@ export class DetallePedidoComponent {
           pedido.almacen_origen
         );
         this.almacenDestino = await this.almacenesService.getById(
-          pedido.almacen_origen
+          pedido.almacen_destino
         );
       });
   }
@@ -63,6 +63,6 @@ export class DetallePedidoComponent {
     }
   }
   toGestionPedido() {
-    this.router.navigate(['/incidencias']);
+    this.router.navigate(['/gestionPedido/'+this.pedidoActivo?.idPedido]);
   }
 }

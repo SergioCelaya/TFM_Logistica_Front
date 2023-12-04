@@ -5,7 +5,6 @@ input.ng-invalid.ng-touched{
   input.ng-valid.ng-touched{
     border-bottom: 3px solid lightgreen;
   }
-  
   .error{
     color: tomato;
     font-size: 12px;
@@ -14,9 +13,12 @@ input.ng-invalid.ng-touched{
   .red-text {
     color: tomato;
   }
-  
-  .form {
-    height: 100%;
-    width: 80vw;
+  .derecha{
+    position: relative;
+    top: 50%;
   }
-  
+
+  .separarArticle{
+    flex-grow:1;
+    flex-basis:0;
+  }
