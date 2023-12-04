@@ -24,6 +24,7 @@ export class PedidosService {
   private baseUrl: string = 'http://localhost:3000/api/pedidos';
   private urlByEmpleado: string = 'byEmpleadoId';
   private urlById: string = 'byId';
+  private encargadoByAlmacen: string = 'deEncargadoByAlmacen';
 
   getPedidoActivo$(): Observable<pedidoRespuesta> {
     return this.pedidoActivo.asObservable();
@@ -43,6 +44,15 @@ export class PedidosService {
       )
     );
   }
+
+  async getPedidosEncargadoByAlmacen(pagina: number,idalmacen: number ) {
+    return await firstValueFrom(
+      this.httpClient.get<allPedidos>(
+        `${this.baseUrl}/${this.encargadoByAlmacen}/${idalmacen}/${pagina}`
+      )
+    );
+  }
+
   async getPedidoById(idpedido: number): Promise<pedidoRespuesta[]> {
     return await firstValueFrom(
       this.httpClient.get<pedidoRespuesta[]>(
@@ -51,13 +61,13 @@ export class PedidosService {
     );
   }
 
-  async createPedido(pedido: Pedido):Promise<Pedido> {
+  async createPedido(pedido: Pedido): Promise<Pedido> {
     return await firstValueFrom(
       this.httpClient.post<Pedido>(`${this.baseUrl}/`, pedido)
     );
   }
 
-  async updatePedido(pedido:Pedido){
+  async updatePedido(pedido: Pedido) {
     return await firstValueFrom(
       this.httpClient.put<Pedido>(`${this.baseUrl}/${pedido.idPedido}`, pedido)
     );

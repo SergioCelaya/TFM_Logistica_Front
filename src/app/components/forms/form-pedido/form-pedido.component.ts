@@ -10,7 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmpleadoRespuesta } from 'src/app/models/Respuestas_API/empleadoRespuesta.interface';
 import { pedidoRespuesta } from 'src/app/models/Respuestas_API/pedidosRespuesta.interface';
 import { Almacen } from 'src/app/models/almacen.interface';
+import { Empleado } from 'src/app/models/empleado.interface';
 import { AlmacenService } from 'src/app/services/almacen.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import Swal from 'sweetalert2';
@@ -24,6 +26,7 @@ export class FormPedidoComponent {
   servicioAlmacenes = inject(AlmacenService);
   servicioEmpleados = inject(EmpleadosService);
   servicioPedido = inject(PedidosService);
+  servicioAuth = inject(AuthService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   almacenesOrigen: Almacen[] = [];
@@ -97,13 +100,53 @@ export class FormPedidoComponent {
         Swal.fire({
           icon: 'error',
           title:
-            'Error al nicializar el formulario. Consulte con el administrador.',
+            'Error al inicializar el formulario. Consulte con el administrador.',
         });
       }
     });
+
   }
 
-  obtenerEstadoNumerico(estado: string): number {
+  private async controlDeRolesYestados(){
+    let empleado:Empleado= this.inicializacionEmpleado();
+    try{
+     empleado = await this.servicioAuth.getUser();
+    }catch (Error) {
+      Swal.fire({
+        icon: 'error',
+        title:
+          'Error al obtener al usuario logado. Consulte con el administrador.',
+      });
+    }
+    if(empleado.puesto == "Administrador"){
+
+    }else if(empleado.puesto == "Encargado"){
+
+    }else if(empleado.puesto == "Empleado"){
+
+    }
+  }
+
+
+  private inicializacionEmpleado():Empleado{
+    const emp:Empleado={
+      idempleado: 0,
+    num_empleado: "",
+    nombre: "",
+    apellidos: "",
+    email: "",
+    puesto: "",
+    activo: false,
+    fecha_contratacion: new Date,
+    idalmacen: 0,
+    pwd:"",
+    imagen_empleado:"",
+    }
+return emp
+  }
+
+
+  private obtenerEstadoNumerico(estado: string): number {
     switch (estado) {
       case 'Pendiente validar':
         return 1;

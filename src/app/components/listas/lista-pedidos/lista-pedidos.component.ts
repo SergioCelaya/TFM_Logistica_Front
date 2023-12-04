@@ -29,19 +29,28 @@ export class ListaPedidosComponent {
     try {
       this.empleado = await this.authService.getUser();
       if (this.empleado.activo) {
-        this.respuestaCompleta = await this.pedidosService.getPedidosEmpleado(
-          1,
-          this.empleado.idempleado
-        );
-        this.totalPedidos = this.respuestaCompleta?.TotalElementos!;
-        this.pedidosPagina = this.respuestaCompleta?.ElementosPagina!;
-        this.paginaActual = 1;
-        this.numeroPaginas = Math.ceil(this.totalPedidos / this.pedidosPagina);
-        console.log(this.numeroPaginas);
-        this.arrayPaginas = Array(this.numeroPaginas);
-        this.pedidosEmpleado = this.respuestaCompleta?.Resultado!;
-        if (this.pedidosEmpleado.length > 0) {
-          this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
+        if (this.empleado.puesto == 'Empleado') {
+          this.respuestaCompleta = await this.pedidosService.getPedidosEmpleado(
+            1,
+            this.empleado.idempleado
+          );
+        }else if(this.empleado.puesto == 'Encargado'){
+          this.respuestaCompleta = await this.pedidosService.getPedidosEncargadoByAlmacen(
+            1,
+            this.empleado.idalmacen
+          );
+          this.totalPedidos = this.respuestaCompleta?.TotalElementos!;
+          this.pedidosPagina = this.respuestaCompleta?.ElementosPagina!;
+          this.paginaActual = 1;
+          this.numeroPaginas = Math.ceil(
+            this.totalPedidos / this.pedidosPagina
+          );
+          console.log(this.numeroPaginas);
+          this.arrayPaginas = Array(this.numeroPaginas);
+          this.pedidosEmpleado = this.respuestaCompleta?.Resultado!;
+          if (this.pedidosEmpleado.length > 0) {
+            this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
+          }
         }
       }
     } catch (error) {
@@ -68,7 +77,7 @@ export class ListaPedidosComponent {
         if (this.pedidosEmpleado.length > 0) {
           this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
         }
-      }else{
+      } else {
         Swal.fire({
           icon: 'error',
           title: 'Error al cargar el pedido. Consulte con el administrador.',
@@ -95,7 +104,7 @@ export class ListaPedidosComponent {
     }
   }
 
-  crearPedido(){
-    this.router.navigate(["/gestionPedido"]);
+  crearPedido() {
+    this.router.navigate(['/gestionPedido']);
   }
 }
