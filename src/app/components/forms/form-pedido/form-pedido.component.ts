@@ -121,7 +121,6 @@ export class FormPedidoComponent {
   }
 
   private async controlDeRolesYestados() {
-    console.log('Entra');
     let empleado: Empleado = this.inicializacionEmpleado();
     try {
       empleado = await this.servicioAuth.getUser();
@@ -132,31 +131,22 @@ export class FormPedidoComponent {
           'Error al obtener al usuario logado. Consulte con el administrador.',
       });
     }
-    console.log(this.pedidoActivo);
     if (this.pedidoActivo) {
-      console.log('Pedido activo');
       if (empleado.puesto == 'Encargado') {
-        console.log('Encargado');
         this.pedidoForm.disable();
         if (this.pedidoActivo.almacen_origen == empleado.idalmacen) {
-          console.log('Opcion 1');
           this.accionValidar = true;
           this.accionRectificar = true;
         } else if (this.pedidoActivo.almacen_destino == empleado.idalmacen) {
-          console.log('Opcion 2');
           this.accionRecepcion = true;
         }
       } else if (empleado.puesto == 'Empleado') {
-        console.log('Empleado');
         if (
           this.pedidoActivo.usuario_asignado.idempleado == empleado.idempleado
         ) {
-          console.log('asignado ' + this.pedidoActivo.estado);
           if (this.pedidoActivo.estado == 'Rectificar') {
-            console.log('Ocion 1');
             this.accionPteValidar = true;
           } else if (this.pedidoActivo.estado == 'Validado') {
-            console.log('Opcion 2');
             this.accionEnvio = true;
           }
         }
@@ -318,6 +308,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
       Swal.fire({
@@ -327,6 +318,7 @@ export class FormPedidoComponent {
         showConfirmButton: false,
         timer: 1500,
       });
+      this.router.navigate(['/pedidos/']);
     }
   }
 
@@ -341,6 +333,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
       Swal.fire({
@@ -350,6 +343,7 @@ export class FormPedidoComponent {
         showConfirmButton: false,
         timer: 1500,
       });
+      this.router.navigate(['/pedidos/']);
     }
   }
 
@@ -364,6 +358,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
       Swal.fire({
@@ -373,6 +368,7 @@ export class FormPedidoComponent {
         showConfirmButton: false,
         timer: 1500,
       });
+      this.router.navigate(['/pedidos/']);
     }
   }
 
@@ -387,7 +383,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
-
+        this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
       Swal.fire({
@@ -397,6 +393,7 @@ export class FormPedidoComponent {
         showConfirmButton: false,
         timer: 1500,
       });
+      this.router.navigate(['/pedidos/']);
     }
   }
   toEnviar() {
@@ -407,17 +404,11 @@ export class FormPedidoComponent {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Pedido en tránsito',
+          title: 'Pedido en tránsito, pasara a ser recepcioanado.',
           showConfirmButton: false,
           timer: 1500,
         });
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Pedido peniente de recepcionar',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
       Swal.fire({
@@ -427,6 +418,7 @@ export class FormPedidoComponent {
         showConfirmButton: false,
         timer: 1500,
       });
+      this.router.navigate(['/pedidos/']);
     }
   }
 
