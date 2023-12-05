@@ -3,14 +3,33 @@
     <!-- Buscador -->
     <div class="d-flex">
       <input type="text" class="form-control" placeholder="Buscar almacenes" [(ngModel)]="listaAlmacenes.filtroNombre" (keyup.enter)="listaAlmacenes.buscarAlmacenes()" (keyup.escape)="listaAlmacenes.limpiarFiltro()">
-      <button class="btn btn-warning ms-1" type="button" (click)="listaAlmacenes.buscarAlmacenes()">Buscar</button>
-      <button class="btn btn-light ms-1" type="button" (click)="listaAlmacenes.limpiarFiltro()">X</button>
+      <button class="btn btn-warning ms-1" type="button" (click)="listaAlmacenes.buscarAlmacenes()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6 10.5C6 10.2239 6.22386 10 6.5 10H9.5C9.77614 10 10 10.2239 10 10.5C10 10.7761 9.77614 11 9.5 11H6.5C6.22386 11 6 10.7761 6 10.5Z" fill="black"/>
+          <path d="M4 7.5C4 7.22386 4.22386 7 4.5 7H11.5C11.7761 7 12 7.22386 12 7.5C12 7.77614 11.7761 8 11.5 8H4.5C4.22386 8 4 7.77614 4 7.5Z" fill="black"/>
+          <path d="M2 4.5C2 4.22386 2.22386 4 2.5 4H13.5C13.7761 4 14 4.22386 14 4.5C14 4.77614 13.7761 5 13.5 5H2.5C2.22386 5 2 4.77614 2 4.5Z" fill="black"/>
+        </svg>
+      </button>
+      <button class="btn btn-light ms-1" type="button" (click)="listaAlmacenes.limpiarFiltro()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14" fill="none">
+          <path d="M5.82937 4.14645C5.63411 4.34171 5.63411 4.65829 5.82937 4.85355L7.97582 7L5.82937 9.14645C5.63411 9.34171 5.63411 9.65829 5.82937 9.85355C6.02463 10.0488 6.34121 10.0488 6.53648 9.85355L8.68292 7.70711L10.8294 9.85355C11.0246 10.0488 11.3412 10.0488 11.5365 9.85355C11.7317 9.65829 11.7317 9.34171 11.5365 9.14645L9.39003 7L11.5365 4.85355C11.7317 4.65829 11.7317 4.34171 11.5365 4.14645C11.3412 3.95118 11.0246 3.95118 10.8294 4.14645L8.68292 6.29289L6.53648 4.14645C6.34121 3.95118 6.02463 3.95118 5.82937 4.14645Z" fill="black"/>
+          <path d="M13.6829 0C14.7875 0 15.6829 0.89543 15.6829 2V12C15.6829 13.1046 14.7875 14 13.6829 14H6.60279C6.01894 14 5.46424 13.7449 5.08428 13.3016L0.240744 7.65079C-0.0802479 7.2763 -0.0802479 6.7237 0.240744 6.34921L5.08428 0.698417C5.46424 0.255125 6.01894 0 6.60279 0H13.6829ZM6.60279 1C6.31087 1 6.03352 1.12756 5.84354 1.34921L1 7L5.84354 12.6508C6.03352 12.8724 6.31087 13 6.60279 13H13.6829C14.2352 13 14.6829 12.5523 14.6829 12V2C14.6829 1.44772 14.2352 1 13.6829 1H6.60279Z" fill="black"/>
+        </svg>
+      </button>
     </div>
     <div class="row justify-content-between">
       <!-- Botón nuevo almacen form -->
-      <button class="col-2 btn btn-warning m-3" routerLink="/nuevoAlmacen">Nuevo almacen</button>
+      <button class="col-2 btn btn-warning m-3" routerLink="/nuevoAlmacen">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16" fill="none">
+          <path d="M7 4.25C7 4.66421 6.66421 5 6.25 5C5.83579 5 5.5 4.66421 5.5 4.25C5.5 3.83579 5.83579 3.5 6.25 3.5C6.66421 3.5 7 3.83579 7 4.25Z" fill="black"/>
+          <path d="M6.13868 5.79199L7.46815 6.67831L9.32322 4.82323C9.39931 4.74714 9.51556 4.72828 9.6118 4.7764L11.5 5.75001V7.50001C11.5 7.77615 11.2761 8.00001 11 8.00001H5C4.72386 8.00001 4.5 7.77615 4.5 7.50001V7.00001C4.5 7.00001 6.03952 5.72589 6.13868 5.79199Z" fill="black"/>
+          <path d="M5 9C4.72386 9 4.5 9.22386 4.5 9.5C4.5 9.77614 4.72386 10 5 10H11C11.2761 10 11.5 9.77614 11.5 9.5C11.5 9.22386 11.2761 9 11 9H5Z" fill="black"/>
+          <path d="M5 11C4.72386 11 4.5 11.2239 4.5 11.5C4.5 11.7761 4.72386 12 5 12H8C8.27614 12 8.5 11.7761 8.5 11.5C8.5 11.2239 8.27614 11 8 11H5Z" fill="black"/>
+          <path d="M2 2C2 0.89543 2.89543 0 4 0H12C13.1046 0 14 0.89543 14 2V14C14 15.1046 13.1046 16 12 16H4C2.89543 16 2 15.1046 2 14V2ZM12 1H4C3.44772 1 3 1.44772 3 2V14C3 14.5523 3.44772 15 4 15H12C12.5523 15 13 14.5523 13 14V2C13 1.44772 12.5523 1 12 1Z" fill="black"/>
+        </svg>
+        Nuevo almacen</button>
       <!-- Botón de filtro de activos e inactivos -->
-      <button class="col-3 btn btn-warning m-3" type="button" (click)="listaAlmacenes.toggleFiltroActivo()">
+      <button class="col-2 btn btn-warning m-3" type="button" (click)="listaAlmacenes.toggleFiltroActivo()">
         {{ listaAlmacenes.mostrarSoloActivosTexto }}
       </button>
     </div>
