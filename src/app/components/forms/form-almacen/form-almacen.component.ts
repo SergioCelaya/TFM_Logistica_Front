@@ -18,6 +18,7 @@ export class FormAlmacenComponent {
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   uploadedImage: any;
+  isNuevoAlmacen: boolean = false;
 
   constructor() {
     this.almacenForm = new FormGroup({
@@ -39,7 +40,7 @@ export class FormAlmacenComponent {
         Validators.min(-90),
         Validators.max(90),
       ]),
-      activo: new FormControl('', [Validators.required]),
+      activo: new FormControl('1', [Validators.required]),
       imagen_almacen: new FormControl('Almacen0.jpg', []),
     });
   }
@@ -51,6 +52,7 @@ export class FormAlmacenComponent {
       let idalmacen: number = Number(params.idalmacen);
 
       if (idalmacen) {
+        this.isNuevoAlmacen = true;
         //GUARDO EL ID DE ALMACEN PARA GUARDAR LA IMAGEN POSTERIORENTE
         this.idAlmacen = idalmacen;
         //PINTAR ALMACEN EXISTENTE
@@ -117,7 +119,6 @@ export class FormAlmacenComponent {
           }
         });
         this.router.navigate(['/almacenes']);
-        console.log(this.almacenForm.value);
       } catch (error) {
         Swal.fire({
           position: 'center',
