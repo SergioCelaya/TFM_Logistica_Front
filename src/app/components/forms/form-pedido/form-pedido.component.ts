@@ -14,6 +14,7 @@ import { Empleado } from 'src/app/models/empleado.interface';
 import { AlmacenService } from 'src/app/services/almacen.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import Swal from 'sweetalert2';
 
@@ -27,6 +28,7 @@ export class FormPedidoComponent {
   servicioEmpleados = inject(EmpleadosService);
   servicioPedido = inject(PedidosService);
   servicioAuth = inject(AuthService);
+  servicioImagenes = inject(ImagenesService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   almacenesOrigen: Almacen[] = [];
@@ -42,6 +44,7 @@ export class FormPedidoComponent {
   accionRecepcion: boolean = false;
   accionIncidencia: boolean = false;
   pedidoActivo: pedidoRespuesta | null = null;
+  urlImagen: string = '';
 
   async ngOnInit() {
     this.activatedRoute.params.subscribe(async (params: any) => {
@@ -117,7 +120,39 @@ export class FormPedidoComponent {
         });
       }
       this.controlDeRolesYestados();
+      if (this.pedidoActivo?.estado) {
+        this.setImagenEstado(this.pedidoActivo?.estado);
+      }
     });
+  }
+
+  private setImagenEstado(estado: string) {
+    switch (estado) {
+      case 'Pendiente validar':
+        this.urlImagen = this.servicioImagenes.getImagenEstado(
+          'pendienteRevisar.jpg'
+        );
+        break;
+      case 'Rectificar':
+        this.urlImagen =
+          this.servicioImagenes.getImagenEstado('rectificar.jpg');
+        break;
+      case 'Validado':
+        this.urlImagen = this.servicioImagenes.getImagenEstado('validado.jpg');
+        break;
+      case 'Pendiente recepcionar':
+        this.urlImagen = this.servicioImagenes.getImagenEstado(
+          'pendienteRecepcionar.jpg'
+        );
+        break;
+      case 'Finalizado':
+        this.urlImagen =
+          this.servicioImagenes.getImagenEstado('finalizado.jpg');
+        break;
+      default:
+        this.urlImagen = this.servicioImagenes.getImagenEstado('crear.jpg');
+        break;
+    }
   }
 
   private async controlDeRolesYestados() {
@@ -207,6 +242,9 @@ export class FormPedidoComponent {
       id_transporte: new FormControl('', []),
       detalle_pedido: new FormControl('', [Validators.required]),
     });
+    if(this.pedidoActivo?.estado){
+      this.setImagenEstado("crear");
+    }
   }
 
   async submitForm() {
