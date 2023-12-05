@@ -1,7 +1,7 @@
 // almacen.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable,lastValueFrom, tap } from 'rxjs';
+import { BehaviorSubject, Observable,lastValueFrom, map, tap } from 'rxjs';
 import { Almacen } from '../models/almacen.interface';
 
 @Injectable({
@@ -12,13 +12,13 @@ export class AlmacenService {
   private httpClient = inject(HttpClient);
   private baseUrl: string = 'http://localhost:3000/api/almacenes';
 
-  // ACTUALIZAR VISTA INFO DETALLE ALMACEN (DCHA)
-  private detalleAlmacen: BehaviorSubject<Almacen | null> = new BehaviorSubject<Almacen | null>(null);
-  almacenSeleccionado$: Observable<Almacen | null> = this.detalleAlmacen.asObservable();
-
   // ACTUALIZAR ESTADO ACTIVO/DESATIVADO ALMACENES
   public actualizarAlmacenSubject: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
   actualizarAlmacen$: Observable<void> = this.actualizarAlmacenSubject.asObservable();
+
+  // FILTRADO ALMACENES POR ESTADO ACTIVO
+  private mostrarSoloActivos: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  mostrarSoloActivos$: Observable<boolean> = this.mostrarSoloActivos.asObservable();
 
   // METODOS INTERACCION BBDD
 
@@ -54,9 +54,9 @@ export class AlmacenService {
 
   // METODOS FRONT
 
-  // Función para actualizar el detalle del almacén seleccionado
-  actualizarInfoAlmacen(almacen: Almacen | null) {
-    this.detalleAlmacen.next(almacen);
+  // Función para actualizar el filtro activo/inactivo
+  actualizarMostrarSoloActivos(value: boolean): void {
+    this.mostrarSoloActivos.next(value);
   }
 
 }

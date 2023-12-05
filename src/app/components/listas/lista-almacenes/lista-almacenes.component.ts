@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Almacen } from 'src/app/models/almacen.interface';
 import { AlmacenService } from 'src/app/services/almacen.service';
-import { ImagenesService } from 'src/app/services/imagenes.service'; // Reemplaza 'ruta-de-tu-servicio' con la ruta real de tu servicio
+import { ImagenesService } from 'src/app/services/imagenes.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,6 +14,12 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
 
   arrAlmacenes: Almacen[] = [];
   actualizarAlmacenSubscription: Subscription = new Subscription();
+  mostrarSoloActivos: boolean = false;
+  mostrarSoloActivosTexto: string = 'Mostrar solo activos';
+
+  private actualizarTextoBoton(): void {
+    this.mostrarSoloActivosTexto = this.mostrarSoloActivos ? 'Mostrar todos' : 'Mostrar solo activos';
+  }
 
   constructor(
     private almacenService: AlmacenService,
@@ -23,9 +29,7 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     try {
-      // Cargar la lista de almacenes
       this.cargarAlmacenes();
-      // Suscribirse al evento de actualización del almacén
       this.actualizarAlmacenSubscription = this.almacenService.actualizarAlmacen$.subscribe(() => {
         this.cargarAlmacenes();
       });
@@ -35,7 +39,6 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Liberar la suscripción cuando el componente se destruye
     if (this.actualizarAlmacenSubscription) {
       this.actualizarAlmacenSubscription.unsubscribe();
     }
@@ -43,16 +46,15 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
 
   async cargarAlmacenes(): Promise<void> {
     try {
-      const response = await this.almacenService.getAll();
-      this.arrAlmacenes = response;
+      this.arrAlmacenes = await this.almacenService.getAll();
+
+      // Filtrar por la propiedad activo si el flag está activado
+      if (this.mostrarSoloActivos) {
+        this.arrAlmacenes = this.arrAlmacenes.filter(almacen => almacen.activo);
+      }
     } catch (error) {
       console.error('Error al cargar los almacenes:', error);
     }
-  }
-
-  // Nueva función para actualizar el almacén seleccionado
-  actualizarInfoAlmacen(almacen: Almacen): void {
-    this.almacenService.actualizarInfoAlmacen(almacen);
   }
 
   toggleEstadoAlmacen(almacen: Almacen): void {
@@ -61,7 +63,6 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
       : this.almacenService.activateAlmacen(almacen.idalmacen);
 
     operation$.subscribe(() => {
-      // Notificar al servicio que se ha realizado un cambio
       this.almacenService.actualizarAlmacenSubject.next();
     });
   }
@@ -76,4 +77,12 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
       'border-danger-subtle': !estadoActivo
     };
   }
+
+  // Filtro activos/inactivos
+  toggleFiltroActivo(): void {
+    this.mostrarSoloActivos = !this.mostrarSoloActivos;
+    this.actualizarTextoBoton(); // Actualizar el texto del botón
+    this.cargarAlmacenes(); // Recargar la lista con el nuevo filtro
+  }
+
 }
