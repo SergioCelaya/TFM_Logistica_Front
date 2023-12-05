@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-almacenes',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./almacenes.component.css']
 })
 export class AlmacenesComponent {
+  // ... No se necesita lógica específica aquí en este momento
+}
 
+@NgModule({
+  imports: [FormsModule],
+})
+export class AlmacenesModule {
+  // ... No se necesita lógica específica aquí en este momento
 }

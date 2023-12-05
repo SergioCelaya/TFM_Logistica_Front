@@ -16,10 +16,7 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
   actualizarAlmacenSubscription: Subscription = new Subscription();
   mostrarSoloActivos: boolean = false;
   mostrarSoloActivosTexto: string = 'Mostrar solo activos';
-
-  private actualizarTextoBoton(): void {
-    this.mostrarSoloActivosTexto = this.mostrarSoloActivos ? 'Mostrar todos' : 'Mostrar solo activos';
-  }
+  filtroNombre: string = '';
 
   constructor(
     private almacenService: AlmacenService,
@@ -46,11 +43,19 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
 
   async cargarAlmacenes(): Promise<void> {
     try {
-      this.arrAlmacenes = await this.almacenService.getAll();
+      const response = await this.almacenService.getAll();
+      this.arrAlmacenes = response;
 
       // Filtrar por la propiedad activo si el flag está activado
       if (this.mostrarSoloActivos) {
         this.arrAlmacenes = this.arrAlmacenes.filter(almacen => almacen.activo);
+      }
+
+      // Filtrar por el nombre si hay un valor en el filtroNombre
+      if (this.filtroNombre.trim() !== '') {
+        this.arrAlmacenes = this.arrAlmacenes.filter(almacen =>
+          almacen.nombre_almacen.toLowerCase().includes(this.filtroNombre.toLowerCase())
+        );
       }
     } catch (error) {
       console.error('Error al cargar los almacenes:', error);
@@ -81,8 +86,23 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
   // Filtro activos/inactivos
   toggleFiltroActivo(): void {
     this.mostrarSoloActivos = !this.mostrarSoloActivos;
-    this.actualizarTextoBoton(); // Actualizar el texto del botón
-    this.cargarAlmacenes(); // Recargar la lista con el nuevo filtro
+    this.actualizarTextoBoton();
+    this.cargarAlmacenes();
+  }
+
+  private actualizarTextoBoton(): void {
+    this.mostrarSoloActivosTexto = this.mostrarSoloActivos ? 'Mostrar todos' : 'Mostrar solo activos';
+  }
+
+  // Filtrado/Búsqueda
+  buscarAlmacenes(): void {
+    this.cargarAlmacenes();
+  }
+
+   // Limpiar el filtro de búsqueda
+   limpiarFiltro(): void {
+    this.filtroNombre = '';
+    this.cargarAlmacenes();
   }
 
 }
