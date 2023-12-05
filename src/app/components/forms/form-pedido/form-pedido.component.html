@@ -237,12 +237,18 @@
       />
     </form>
   </article>
-  <article  class="col-6 text-center align-middle justify-content: center">
+  <article  class="col-6 text-center align-middle">
     <section class="derecha">
-      <div class="btn-group" role="group" >
-        <button type="button" class="btn btn-secondary">Left</button>
-        <button type="button" class="btn btn-secondary">Middle</button>
-        <button type="button" class="btn btn-secondary">Right</button>
+      <p class="my-4" *ngIf="accionPteValidar">El pedido debe de ser rectificado. Revisa la incidencia abierta por el encargado y pasa el pedido a pendiente de ser validado para ser enviado.</p>
+      <p class="my-4" *ngIf="accionValidar&&accionRectificar">Si el pedido es correcto, sela validado. En caso contrario, mandar a rectificar.</p>
+      <p class="my-4" *ngIf="accionEnvio" >El pedido se encuentra validado un encargado de tu almacen, puede realizarse el envío.</p>
+      <p class="my-4" *ngIf="accionRecepcion" >El pedido se encuentra pendiente de recepcionar en tu almacén. Recepciona el envío y crea una incidencia si es el caso.</p>
+      <div class="btn-group-lg" role="group" >
+        <button  type="button" (click)="toPendienteValidar()" *ngIf="accionPteValidar" class="btn btn-secondary" >Pasar envío a ser validado.</button>
+        <button type="button" (click)="toValido()" *ngIf="accionValidar" class="btn btn-secondary">Validar</button>
+        <button type="button" (click)="toRectificar()" *ngIf="accionRectificar" class="btn btn-secondary">Rectificar</button>
+        <button type="button" (click)="toEnviar()" *ngIf="accionEnvio" class="btn btn-secondary">Hacer envío</button>
+        <button type="button" (click)="toRecepcionar()" *ngIf="accionRecepcion" class="btn btn-secondary">Recepcionar</button>
       </div>
     </section>
   </article>

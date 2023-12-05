@@ -24,6 +24,12 @@ export class PedidosService {
   private baseUrl: string = 'http://localhost:3000/api/pedidos';
   private urlByEmpleado: string = 'byEmpleadoId';
   private urlById: string = 'byId';
+  private toFin:string = "toFinalizado";
+  private toPteRecepcionar:string = "toPendienteRecepcionar";
+  private toTrans:string = "toEnTransito";
+  private toVal:string = "toValidado";
+  private toRect:string = "toRectificar";
+  private toPteVal:string = "toPendienteValidar";
   private encargadoByAlmacen: string = 'deEncargadoByAlmacen';
 
   getPedidoActivo$(): Observable<pedidoRespuesta> {
@@ -45,10 +51,10 @@ export class PedidosService {
     );
   }
 
-  async getPedidosEncargadoByAlmacen(pagina: number,idalmacen: number ) {
+  async getPedidosEncargadoByAlmacen(pagina: number,idalmacen: number,idEmpleado:number ) {
     return await firstValueFrom(
       this.httpClient.get<allPedidos>(
-        `${this.baseUrl}/${this.encargadoByAlmacen}/${idalmacen}/${pagina}`
+        `${this.baseUrl}/${this.encargadoByAlmacen}/${idalmacen}/${idEmpleado}/${pagina}`
       )
     );
   }
@@ -73,5 +79,39 @@ export class PedidosService {
     );
   }
 
+async toPendientevalidar(idPedido:number){
+  return await firstValueFrom(
+    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toPteVal}/${idPedido}`,null)
+  );
+}
+
+async toRectificar(idPedido:number){
+  return await firstValueFrom(
+    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toRect}/${idPedido}`,null)
+  );
+}
+
+async toValidado(idPedido:number){
+  return await firstValueFrom(
+    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toVal}/${idPedido}`,null)
+  );
+}
+
+async toEnTransito(idPedido:number){
+  return await firstValueFrom(
+    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toTrans}/${idPedido}`,null)
+  );
+}
+async toPendienteRecepcionar(idPedido:number){
+  return await firstValueFrom(
+    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toPteRecepcionar}/${idPedido}`,null)
+  );
+}
+
+async toFinalizado(idPedido:number){
+  return await firstValueFrom(
+    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toFin}/${idPedido}`,null)
+  );
+}
   constructor() {}
 }
