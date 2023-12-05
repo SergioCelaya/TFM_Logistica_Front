@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { response } from 'express';
 import { AlmacenService } from 'src/app/services/almacen.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import Swal from 'sweetalert2';
@@ -17,6 +18,7 @@ export class FormAlmacenComponent {
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   uploadedImage: any;
+  isNuevoAlmacen: boolean = false;
 
   constructor() {
     this.almacenForm = new FormGroup({
@@ -38,8 +40,8 @@ export class FormAlmacenComponent {
         Validators.min(-90),
         Validators.max(90),
       ]),
-      activo: new FormControl('', [Validators.required]),
-      imagen_almacen: new FormControl('', []),
+      activo: new FormControl('1', [Validators.required]),
+      imagen_almacen: new FormControl('Almacen0.jpg', []),
     });
   }
 
@@ -50,10 +52,12 @@ export class FormAlmacenComponent {
       let idalmacen: number = Number(params.idalmacen);
 
       if (idalmacen) {
+        this.isNuevoAlmacen = true;
         //GUARDO EL ID DE ALMACEN PARA GUARDAR LA IMAGEN POSTERIORENTE
         this.idAlmacen = idalmacen;
         //PINTAR ALMACEN EXISTENTE
         let response = await this.almacenService.getById(idalmacen);
+        console.log(response);
 
         this.almacenForm = new FormGroup({
           idalmacen: new FormControl(response.idalmacen, []),
@@ -75,8 +79,7 @@ export class FormAlmacenComponent {
             Validators.max(90),
           ]),
           activo: new FormControl(response.activo, [Validators.required]),
-          imagen_almacen: new FormControl(response.imagen_almacen, [
-          ]),
+          imagen_almacen: new FormControl(response.imagen_almacen || 'imagen_almacen', []),
         });
       }
     });
@@ -91,12 +94,21 @@ export class FormAlmacenComponent {
           showCancelButton: true,
           confirmButtonColor: '#FFC007',
           confirmButtonText: 'Guardar',
-        }).then((result) => {
+        }).then(async (result) => {
           if (result.isConfirmed) {
             // ACTUALIZACIÓN ALMACEN
-            let response = this.almacenService.updateAlmacen(
-              this.almacenForm.value
-            );
+            let response = await this.almacenService.updateAlmacen(this.almacenForm.value);
+
+            // Verificar si se ha cargado una nueva imagen antes de intentar guardarla
+            if (this.imagenFile) {
+              await this.guardarImagenAlmacen();
+            } else if (
+              this.almacenForm.get('imagen_almacen')?.value === 'imagen_almacen'
+            ) {
+              // Si la imagen no ha sido modificada, establecerla como undefined o eliminarla según la necesidad del backend
+              this.almacenForm.removeControl('imagen_almacen');
+            }
+
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -107,7 +119,6 @@ export class FormAlmacenComponent {
           }
         });
         this.router.navigate(['/almacenes']);
-        console.log(this.almacenForm.value);
       } catch (error) {
         Swal.fire({
           position: 'center',
@@ -127,9 +138,11 @@ export class FormAlmacenComponent {
           confirmButtonText: 'Crear',
         }).then((result) => {
           if (result.isConfirmed) {
+            console.log(this.almacenForm.value);
             // CREACIÓN NUEVO ALMACEN
             let response = this.almacenService.create(this.almacenForm.value);
-            console.log(this.almacenForm.value);
+            // TRATAR ERROR POR DUPLICADO
+            console.log(response);
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -182,11 +195,16 @@ export class FormAlmacenComponent {
     this.imagenFile = event.target.files[0];
   }
 
-  guardarImagenAlmacen() {
+  async guardarImagenAlmacen() {
     if (this.imagenFile && this.idAlmacen) {
-      this.imagenesService.guardarImagenAlmacen(this.imagenFile, this.idAlmacen);
-    }else{
-      //TODO: Lanzar error no se ha seleccionado una imagen
+      await this.imagenesService.guardarImagenAlmacen(this.imagenFile, this.idAlmacen);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se ha seleccionado una imagen.',
+        confirmButtonText: 'Aceptar',
+      });
     }
   }
 

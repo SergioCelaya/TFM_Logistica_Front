@@ -40,6 +40,7 @@ export class ImagenesService {
       if (imagen) {
         const data = new FormData();
         data.append('imagen', imagen, imagen.name);
+        console.log(imagen.name);
         let req = await firstValueFrom(this.httpClient.post(this.baseUrl + this.uploadAlmacen + idAlmacen, data));
         console.log(req);
         return req;
