@@ -10,12 +10,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./pedido.component.css'],
 })
 export class PedidoComponent {
+
   claseSegunEstado: any;
   @Input() pedido: pedidoRespuesta | null = null;
   almacenOrigen: Almacen | null = null;
   almacenDestino: Almacen | null = null;
   private infoPedido: pedidoRespuesta | null = null;
   private almacenesService = inject(AlmacenService);
+  hayIncidencia: any = true;
+  verIncidencia:any;
 
   async ngOnInit() {
     if (this.pedido?.almacen_origen && this.pedido?.almacen_destino) {
@@ -58,4 +61,9 @@ export class PedidoComponent {
         break;
     }
   }
+
+  incidencia(ver:boolean) {
+    console.log("recibido")
+    this.verIncidencia = !this.verIncidencia;
+    }
 }
