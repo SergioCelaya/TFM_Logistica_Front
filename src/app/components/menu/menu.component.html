@@ -1,4 +1,4 @@
-<nav
+<!-- <nav
   class="sidebar d-flex flex-column border border-dark col-2"
   *ngIf="isLoggedIn$ | async"
 >
@@ -53,4 +53,78 @@
   >
     Log out
   </button>
-</nav>
+</nav> -->
+
+
+<div class="d-flex flex-column align-items-center pt-2 text-white min-vh-100" *ngIf="isLoggedIn$ | async">
+    <a routerLink="/" class="">
+        <img src="assets/logoTFM.png" class="img-fluid w-100 p-3" alt="Logo TFM">
+    </a>
+    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 py-sm-4 align-items-center align-items-sm-start" id="menu">
+        <li class="nav-item">
+            <a routerLink="/" class="nav-link align-middle px-0">
+                <i class="fs-4 bi-house"></i> <span class="fs-4 ms-2 d-none d-lg-inline">Home</span>
+            </a>
+        </li>
+        <li>
+          <a routerLink="/pedidos" class="nav-link px-0 align-middle" *ngIf="isEmpleado()" >
+              <i class="fs-4 bi-table"></i> <span class="fs-4 ms-2 d-none d-lg-inline">Pedidos</span></a>
+        </li>
+        <li>
+            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle"  *ngIf="isEmpleado() || isEncargado()">
+                <i class="fs-4 bi-speedometer2"></i><span class="fs-4 ms-2 d-none d-lg-inline">Incidencias</span> </a>
+            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                <li class="w-100">
+                    <a routerLink="/incidencias" class="nav-link px-0"><i class="fs-5 bi bi-exclamation-triangle"></i><span class="d-none d-lg-inline ms-2">Ver incidencias</span></a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link px-0"><i class="fs-5 bi bi-input-cursor-text"></i><span class="d-none d-lg-inline ms-2">Abrir incidencia</span></a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle" *ngIf="isEncargado() || isAdmin()">
+              <i class="fs-4 bi bi-shop-window"></i><span class="fs-4 ms-2 d-none d-lg-inline">Almacenes</span></a>
+            <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                <li class="w-100">
+                    <a routerLink="/almacenes" class="nav-link px-0"><i class="fs-5 bi bi-list"></i><span class="d-none d-lg-inline ms-2">Ver almacenes</span></a>
+                </li>
+                <li>
+                    <a routerLink="/nuevoAlmacen" class="nav-link px-0"><i class="fs-5 bi bi-pen"></i><span class="d-none d-lg-inline ms-2">Crear almacén</span></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle" *ngIf="isAdmin()">
+              <i class="fs-4 bi bi-people"></i><span class="fs-4 ms-2 d-none d-lg-inline">Empleados</span> </a>
+                <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                <li class="w-100">
+                    <a href="#" class="nav-link px-0"><i class="fs-5 bi bi-person-lines-fill"></i><span class="d-none d-lg-inline ms-2">Ver empleados</span></a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link px-0"><i class="fs-5 bi bi-person-plus"></i><span class="d-none d-lg-inline ms-2">Crear empleado</span></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr>
+    <div class="dropdown pb-4">
+      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+          <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+          <span class="d-none d-lg-inline mx-1">User Name</span>
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownUser1">
+          <li><a class="dropdown-item" href="#">New project...</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li>
+              <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" routerLink="/login" (click)="onLogout()">Sign out</a></li>
+      </ul>
+  </div>
+
+</div>
+
+

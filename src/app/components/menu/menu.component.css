@@ -1,4 +1,4 @@
-.sidebar {
+/* .sidebar {
     height: 100vh;
     position: fixed;
     overflow-y: auto;
@@ -23,7 +23,19 @@
 }
 
 .nav-link-active {
-    background-color: #FFD700; /* Color de fondo para el enlace activo */
-    color: #000000; /* Color de texto para el enlace activo */
-  }
+  background-color: #FFD700;
+  color: #000000;
+} */
+
+i {
+  color: whitesmoke;
+}
+
+span {
+  color: white;
+}
+
+li {
+  color: whitesmoke;
+}
 
