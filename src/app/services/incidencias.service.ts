@@ -14,9 +14,13 @@ export class IncidenciasService {
   private urlNoVista:string = this.baseUrl + `/noVista`;
   private byIdPedido:string = this.baseUrl + `/byIdPedido`;
 
-  
-  // METODO PARA CREAR INCIDENCIA 
+  // Devuelve todos las incidencias en la BBDD
+  getAll(pagina:number): Promise<Incidencia[]> {
+    console.log(pagina)
+    return lastValueFrom(this.httpClient.get<Incidencia[]>(this.baseUrl+"/"+ pagina));
+  }
 
+  // METODO PARA CREAR INCIDENCIA 
   create(incidenciaForm: Incidencia): Promise<Incidencia> {
     return lastValueFrom(this.httpClient.post<Incidencia>(this.baseUrl, incidenciaForm))
   }
