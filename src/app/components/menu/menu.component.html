@@ -59,6 +59,7 @@
 <div class="d-flex flex-column align-items-center pt-2 text-white min-vh-100" *ngIf="isLoggedIn$ | async">
     <a routerLink="/" class="">
         <img src="assets/logoTFM.png" class="img-fluid w-100 p-3" alt="Logo TFM">
+        <p>TFM</p>
     </a>
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 py-sm-4 align-items-center align-items-sm-start" id="menu">
         <li class="nav-item">
@@ -67,18 +68,26 @@
             </a>
         </li>
         <li>
-          <a routerLink="/pedidos" class="nav-link px-0 align-middle" *ngIf="isEmpleado()" >
-              <i class="fs-4 bi-table"></i> <span class="fs-4 ms-2 d-none d-lg-inline">Pedidos</span></a>
+            <a href="#submenu0" data-bs-toggle="collapse" class="nav-link px-0 align-middle" *ngIf="isEmpleado()">
+              <i class="fs-4 bi-table"></i><span class="fs-4 ms-2 d-none d-lg-inline">Pedidos</span> </a>
+            <ul class="collapse nav flex-column ms-2" id="submenu0" data-bs-parent="#menu">
+                <li class="w-100">
+                    <a routerLink="/pedidos" class="nav-link px-0"><i class="fs-5 bi bi-archive"></i><span class="d-none d-lg-inline ms-2">Ver pedidos</span></a>
+                </li>
+                <li>
+                    <a routerLink="/gestionPedido" class="nav-link px-0"><i class="fs-5 bi bi-box-seam"></i><span class="d-none d-lg-inline ms-2">Nuevo pedido</span></a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle"  *ngIf="isEmpleado() || isEncargado()">
                 <i class="fs-4 bi-speedometer2"></i><span class="fs-4 ms-2 d-none d-lg-inline">Incidencias</span> </a>
-            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+            <ul class="collapse nav flex-column ms-2" id="submenu1" data-bs-parent="#menu">
                 <li class="w-100">
                     <a routerLink="/incidencias" class="nav-link px-0"><i class="fs-5 bi bi-exclamation-triangle"></i><span class="d-none d-lg-inline ms-2">Ver incidencias</span></a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link px-0"><i class="fs-5 bi bi-input-cursor-text"></i><span class="d-none d-lg-inline ms-2">Abrir incidencia</span></a>
+                    <a routerLink="/nuevaIncidencia" class="nav-link px-0"><i class="fs-5 bi bi-input-cursor-text"></i><span class="d-none d-lg-inline ms-2">Abrir incidencia</span></a>
                 </li>
             </ul>
         </li>
@@ -86,7 +95,7 @@
         <li>
             <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle" *ngIf="isEncargado() || isAdmin()">
               <i class="fs-4 bi bi-shop-window"></i><span class="fs-4 ms-2 d-none d-lg-inline">Almacenes</span></a>
-            <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+            <ul class="collapse nav flex-column ms-2" id="submenu2" data-bs-parent="#menu">
                 <li class="w-100">
                     <a routerLink="/almacenes" class="nav-link px-0"><i class="fs-5 bi bi-list"></i><span class="d-none d-lg-inline ms-2">Ver almacenes</span></a>
                 </li>
@@ -98,7 +107,7 @@
         <li>
             <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle" *ngIf="isAdmin()">
               <i class="fs-4 bi bi-people"></i><span class="fs-4 ms-2 d-none d-lg-inline">Empleados</span> </a>
-                <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                <ul class="collapse nav flex-column ms-2" id="submenu3" data-bs-parent="#menu">
                 <li class="w-100">
                     <a href="#" class="nav-link px-0"><i class="fs-5 bi bi-person-lines-fill"></i><span class="d-none d-lg-inline ms-2">Ver empleados</span></a>
                 </li>
@@ -109,7 +118,7 @@
         </li>
     </ul>
     <hr>
-    <div class="dropdown pb-4">
+    <div class="dropdown pb-4 userSidebar">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" role="button" aria-expanded="false">
           <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
           <span class="d-none d-lg-inline mx-1">User Name</span>
