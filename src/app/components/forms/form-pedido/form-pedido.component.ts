@@ -121,6 +121,7 @@ export class FormPedidoComponent {
       }
       this.controlDeRolesYestados();
       if (this.pedidoActivo?.estado) {
+        console.log(this.pedidoActivo?.estado)
         this.setImagenEstado(this.pedidoActivo?.estado);
       }
     });
@@ -129,28 +130,25 @@ export class FormPedidoComponent {
   private setImagenEstado(estado: string) {
     switch (estado) {
       case 'Pendiente validar':
-        this.urlImagen = this.servicioImagenes.getImagenEstado(
-          'pendienteRevisar.jpg'
-        );
+        this.urlImagen ='assets/estados/pendienteRevisar.jpg';
         break;
       case 'Rectificar':
-        this.urlImagen =
-          this.servicioImagenes.getImagenEstado('rectificar.jpg');
+        this.urlImagen = 'assets/estados/rectificar.jpg';
         break;
       case 'Validado':
-        this.urlImagen = this.servicioImagenes.getImagenEstado('validado.jpg');
+        this.urlImagen = 'assets/estados/validado.jpg';
         break;
       case 'Pendiente recepcionar':
-        this.urlImagen = this.servicioImagenes.getImagenEstado(
-          'pendienteRecepcionar.jpg'
-        );
+        this.urlImagen = 'assets/estados/pendienteRecepcionar.jpg';
         break;
       case 'Finalizado':
-        this.urlImagen =
-          this.servicioImagenes.getImagenEstado('finalizado.jpg');
+        this.urlImagen = 'assets/estados/finalizado.jpg';
+        break;
+        case 'En tránsito':
+        this.urlImagen = 'assets/estados/enTransito.jpg';
         break;
       default:
-        this.urlImagen = this.servicioImagenes.getImagenEstado('crear.jpg');
+        this.urlImagen = 'assets/estados/crear.jpg';
         break;
     }
   }
@@ -182,7 +180,10 @@ export class FormPedidoComponent {
           if (this.pedidoActivo.estado == 'Rectificar') {
             this.accionPteValidar = true;
           } else if (this.pedidoActivo.estado == 'Validado') {
+            this.pedidoForm.disable();
             this.accionEnvio = true;
+          } else {
+            this.pedidoForm.disable();
           }
         }
       }
@@ -242,8 +243,8 @@ export class FormPedidoComponent {
       id_transporte: new FormControl('', []),
       detalle_pedido: new FormControl('', [Validators.required]),
     });
-    if(this.pedidoActivo?.estado){
-      this.setImagenEstado("crear");
+    if (this.pedidoActivo?.estado) {
+      this.setImagenEstado('crear');
     }
   }
 
@@ -468,5 +469,8 @@ export class FormPedidoComponent {
       return { almacenOrigenDistintoDestino: true };
     }
     return null;
+  }
+  volverPedidos() {
+    this.router.navigate(['/pedidos/']);
   }
 }

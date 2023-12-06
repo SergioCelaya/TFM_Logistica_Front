@@ -7,9 +7,10 @@ export interface EmpleadoRespuesta {
     apellidos: string;
     email: string;
     puesto: string;
-    activo: boolean;
+    activo: number;
     fecha_contratacion: Date;
     idalmacen: number;
     pwd:string;
     imagen_empleado:string;
 }
+

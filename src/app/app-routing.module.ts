@@ -8,13 +8,14 @@ import { FormAlmacenComponent } from './components/forms/form-almacen/form-almac
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { FormPedidoComponent } from './components/forms/form-pedido/form-pedido.component';
 import { FormIncidenciasComponent } from './components/forms/form-incidencias/form-incidencias.component';
-
+import { IncidenciaComponent } from './components/incidencia/incidencia.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirecciona a /login por defecto
   { path: 'login', component: LoginComponent },
   { path: 'pedidos', component: PedidosComponent },
   { path: 'incidencias', component: IncidenciasComponent },
+  { path: 'incidencia', component: IncidenciaComponent },
   { path: 'almacenes', component: AlmacenesComponent },
   { path: 'empleados', component: EmpleadosComponent },
   { path: 'nuevoAlmacen', component: FormAlmacenComponent },

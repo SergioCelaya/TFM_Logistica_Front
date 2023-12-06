@@ -1,0 +1,24 @@
+.globoIncidencia {
+  border-radius: 10px;
+  background-color: white;
+  background-color: hsl(43, 100%, 96%);
+}
+.cardIncidencia {
+  
+  width: 40rem;
+  border-width: 1px;
+  background-color: rgb(255, 252, 74);
+}
+.contenedorIncidencias{
+  position: relative;
+    border: 1px;
+    border-radius: 5px;
+    background-color: white;
+    margin-bottom: 20px;
+}
+.titulo{
+    margin-left: 8rem;
+}
+.alinear{
+    align-items: center;
+}

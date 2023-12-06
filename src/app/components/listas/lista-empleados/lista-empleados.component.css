@@ -1,0 +1,7 @@
+
+  
+  .empleado-item:hover {
+    text-decoration: none;
+    color: darkblue;
+    text-decoration: underline;
+  }

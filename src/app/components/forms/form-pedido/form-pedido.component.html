@@ -1,6 +1,6 @@
 <article class="d-flex">
   <article class="col-6">
-    <h2 class="h2 text-center">Mantenimiento de un pedido</h2>
+    <h2 class="h2 mt-4 text-center">Mantenimiento de pedido</h2>
     <form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" class="m-4 form">
       <div class="mb-3">
         <label for="numero_pedido" class="mb-2 h6">Número del pedido :</label>
@@ -235,12 +235,19 @@
         value="Aceptar"
         [disabled]="!pedidoForm.valid"
       />
+      <input 
+        type="button"
+        class="btn btn-info mx-4"
+        value="Volver a pedidos"
+        (click)="volverPedidos()"
+      />
     </form>
   </article>
   <article  class="col-6 text-center align-middle">
     <section class="derecha">
       <img src="{{urlImagen}}" style="height: 300px;width: 300px;"  alt="Imagen de estado de pedido.">
-      <p class="my-4" *ngIf="accionPteValidar">El pedido debe de ser rectificado. Revisa la incidencia abierta por el encargado y pasa el pedido a pendiente de ser validado para ser enviado.</p>
+      <p class="my-4 fs-5">{{pedidoActivo?.estado}}</p>
+      <p class="my-4" *ngIf="accionPteValidar">El pedido debe de ser rectificado. Revisa la incidencia abierta por el encargado y pasa el pedido a pendiente de ser validado.</p>
       <p class="my-4" *ngIf="accionValidar&&accionRectificar">Si el pedido es correcto, sela validado. En caso contrario, mandar a rectificar.</p>
       <p class="my-4" *ngIf="accionEnvio" >El pedido se encuentra validado un encargado de tu almacen, puede realizarse el envío.</p>
       <p class="my-4" *ngIf="accionRecepcion" >El pedido se encuentra pendiente de recepcionar en tu almacén. Recepciona el envío y crea una incidencia si es el caso.</p>
