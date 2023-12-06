@@ -1,17 +1,20 @@
-<div class="card">
-    <div class="card-header">
-      Detalle de empleado: (aqui irá el nombre del empleado)
-    </div>
-    <ul class="list-group list-group-flush">
-
-      <li class="list-group-item">Id: </li>
-      <li class="list-group-item">Número: </li>
-      <li class="list-group-item">Nombre: </li>
-      <li class="list-group-item">Apellidos: </li>
-      <li class="list-group-item">Email: </li>
-      <li class="list-group-item">Puesto: </li>
-      <li class="list-group-item">Activo?: </li>
-      <li class="list-group-item">Fecha de contratación: </li>
-      <li class="list-group-item">Almacén: </li>
-    </ul>
+<div class="card" *ngIf="empleado">
+  <div class="card-header">
+    Detalle de empleado: {{ empleado.nombre }}
   </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Id: {{ empleado.idempleado }}</li>
+    <li class="list-group-item">Número: {{ empleado.num_empleado }}</li>
+    <li class="list-group-item">Nombre: {{ empleado.nombre }}</li>
+    <li class="list-group-item">Apellidos: {{ empleado.apellidos }}</li>
+    <li class="list-group-item">Email: {{ empleado.email }}</li>
+    <li class="list-group-item">Puesto: {{ empleado.puesto }}</li>
+    <li class="list-group-item">Activo: {{ empleado.activo ? 'Sí' : 'No' }}</li>
+    <li class="list-group-item">Fecha de Contratación: {{ empleado.fecha_contratacion | date: 'dd/MM/yyyy' }}</li>
+    <li class="list-group-item">ID Almacén: {{ empleado.idalmacen }}</li>
+    <li class="list-group-item">
+      Imagen de Empleado: 
+      <img *ngIf="empleado.imagen_empleado" [src]="empleado.imagen_empleado" alt="Imagen de {{ empleado.nombre }}" style="max-width: 100px; max-height: 100px;">
+    </li>
+  </ul>
+</div>

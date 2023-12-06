@@ -13,3 +13,4 @@ export interface EmpleadoRespuesta {
     pwd:string;
     imagen_empleado:string;
 }
+

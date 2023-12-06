@@ -1,26 +1,75 @@
 <div class="container mt-4">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <!-- Buscador -->
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Buscar empleados" aria-label="Buscar empleados" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-warning" type="button">Buscar</button>
-          </div>
-        </div>
-  
-        <button class="btn btn-warning mb-3">Nuevo Empleado</button>
-
-        <div class="card">
-          <div class="card-header">
-            Listado de empleados
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Empleado 1</li>
-            <li class="list-group-item">Empleado 2</li>
-            <li class="list-group-item">Empleado 3</li>
-          </ul>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <!-- Buscador -->
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar empleados"
+          [(ngModel)]="filtroBusqueda"
+          aria-label="Buscar empleados"
+          aria-describedby="basic-addon2"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-warning"
+            type="button"
+            (click)="aplicarFiltro()"
+          >
+            Buscar
+          </button>
         </div>
       </div>
+
+      <button class="btn btn-warning mb-3">Nuevo Empleado</button>
+
+      <div class="card">
+        <div class="card-header">Listado de empleados</div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item empleado-item" *ngFor="let empleado of empleadosFiltrados" (click)="seleccionarEmpleado(empleado)">
+            {{ empleado.num_empleado }} - {{ empleado.nombre }} {{ empleado.apellidos }}
+          </li>
+        </ul>
+      </div>
+      <br>
+
+      <!-- Paginación -->
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="paginaActual === 1">
+            <a
+              class="page-link"
+              href="javascript:void(0)"
+              (click)="cambiarPagina(paginaActual - 1)"
+              >Anterior</a
+            >
+          </li>
+          <li
+            class="page-item"
+            *ngFor="let num of [].constructor(totalPaginas); let i = index"
+            [class.active]="paginaActual === i + 1"
+          >
+            <a
+              class="page-link"
+              href="javascript:void(0)"
+              (click)="cambiarPagina(i + 1)"
+              >{{ i + 1 }}</a
+            >
+          </li>
+          <li
+            class="page-item"
+            [class.disabled]="paginaActual === totalPaginas"
+          >
+            <a
+              class="page-link"
+              href="javascript:void(0)"
+              (click)="cambiarPagina(paginaActual + 1)"
+              >Siguiente</a
+            >
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
+</div>
