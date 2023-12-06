@@ -22,10 +22,6 @@ export class ImagenesService {
     return this.baseUrl + this.urlEmpleados + nombreImg;
   }
 
-  getImagenEstado(nombreImg: string): string {
-    return this.baseUrl + this.urlEstados + nombreImg;
-  }
-
   guardarImagenEmpleado(imagen: File, idEmpleado: number) {
     try {
       if (imagen) {

@@ -129,28 +129,24 @@ export class FormPedidoComponent {
   private setImagenEstado(estado: string) {
     switch (estado) {
       case 'Pendiente validar':
-        this.urlImagen = this.servicioImagenes.getImagenEstado(
-          'pendienteRevisar.jpg'
-        );
+        "assets/estados/pendienteRevisar.jpg";
         break;
       case 'Rectificar':
         this.urlImagen =
-          this.servicioImagenes.getImagenEstado('rectificar.jpg');
+        "assets/estados/rectificar.jpg";
         break;
       case 'Validado':
-        this.urlImagen = this.servicioImagenes.getImagenEstado('validado.jpg');
+        this.urlImagen = "assets/estados/validado.jpg";
         break;
       case 'Pendiente recepcionar':
-        this.urlImagen = this.servicioImagenes.getImagenEstado(
-          'pendienteRecepcionar.jpg'
-        );
+        this.urlImagen = "assets/estados/pendienteRecepcionar.jpg";
         break;
       case 'Finalizado':
         this.urlImagen =
-          this.servicioImagenes.getImagenEstado('finalizado.jpg');
+        "assets/estados/finalizado.jpg";
         break;
       default:
-        this.urlImagen = this.servicioImagenes.getImagenEstado('crear.jpg');
+        this.urlImagen = "assets/estados/crear.jpg";
         break;
     }
   }
