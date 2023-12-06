@@ -54,8 +54,7 @@ export class PedidoComponent {
           title:
             'Error al obtener las incidencias. Consulte con el administrador.',
         });
-      }
-      console.log(this.incidenciasPedido);
+      };
       if (
         this.incidenciasPedido?.length != undefined &&
         this.incidenciasPedido?.length > 0
