@@ -31,7 +31,7 @@ export class LoginComponent {
   }
 
   constructor(private fb: FormBuilder) {
-    
+
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       pwd: ['', Validators.required],
@@ -43,7 +43,7 @@ export class LoginComponent {
   }
 
   async login() {
-    
+
     if (this.loginForm.valid) {
       const result = await this.servicioAuth.login(this.loginForm.value);
       if(result.Error != undefined && result.Error != ""){
@@ -65,7 +65,7 @@ export class LoginComponent {
 
   empleado() {
     const user: User = {
-      email: 'juan.perez@example.com',
+      email: 'luciano.garcia@example.com',
       pwd: '12345678',
     };
     this.servicioAuth.login(user);
