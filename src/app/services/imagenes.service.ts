@@ -50,7 +50,7 @@ export class ImagenesService {
       }
     } catch (Error) {
       //TODO
-      console.log("Errrror al mandar la imagen")
+      console.log("Error al mandar la imagen")
       return Error;
     }
   }

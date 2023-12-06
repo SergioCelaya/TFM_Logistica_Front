@@ -107,7 +107,7 @@
     </div>
 
       <!-- Imagen que debe de subir al back la muestro una vez se selecciona-->
-    <div class="m-5" *ngIf="isNuevoAlmacen">
+    <div class="m-5">
       <input type="file" name="image" class="form-control" formControlName="imagen_almacen" id="imagen_almacen" (change)="onChange($event)" />
       <img style="width: 300px;height: 300px;" *ngIf="url" [src]="url" />
     </div>
