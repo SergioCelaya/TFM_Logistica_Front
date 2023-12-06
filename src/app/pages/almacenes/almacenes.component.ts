@@ -7,12 +7,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./almacenes.component.css']
 })
 export class AlmacenesComponent {
-  // ... No se necesita lógica específica aquí en este momento
+
 }
 
 @NgModule({
   imports: [FormsModule],
 })
 export class AlmacenesModule {
-  // ... No se necesita lógica específica aquí en este momento
+
 }

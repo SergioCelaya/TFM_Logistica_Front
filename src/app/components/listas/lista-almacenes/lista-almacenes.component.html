@@ -1,10 +1,16 @@
 <section class="row justify-content-center mt-4">
   <!-- lista-almacenes.component.html -->
-  <h3 class="text-center">Listado de Almacenes</h3>
+  <h3 class="text-center fs-1 mx-5">Almacenes</h3>
   <ul class="row gap-2 gap-xxl-1 justify-content-center">
     <li class="col-12 col-lg-5 card p-4" *ngFor="let almacen of arrAlmacenes">
       <ul class="list-group">
-        <li class="list-group-item" [ngClass]="getClasesActivo(almacen.activo)"><span class="fw-bold">ID:</span> {{ almacen.idalmacen }}</li>
+        <li class="list-group-item fs-5 align-items-center" [ngClass]="getClasesActivo(almacen.activo)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 16 15" fill="none">
+          <path d="M2.97071 0.349209C3.16069 0.127563 3.43804 0 3.72997 0H12.27C12.562 0 12.8393 0.127562 13.0293 0.349208L15.6389 3.39374C15.8719 3.6656 16 4.01186 16 4.36992V4.625C16 5.93668 14.9367 7 13.625 7C12.8629 7 12.1846 6.64102 11.75 6.08291C11.3154 6.64102 10.6371 7 9.875 7C9.11287 7 8.43458 6.64102 8 6.08291C7.56542 6.64102 6.88714 7 6.125 7C5.36286 7 4.68458 6.64102 4.25 6.08291C3.81542 6.64102 3.13713 7 2.375 7C1.06332 7 0 5.93668 0 4.625V4.36992C0 4.01186 0.128088 3.6656 0.361115 3.39374L2.97071 0.349209ZM4.75 4.625C4.75 5.38439 5.36561 6 6.125 6C6.88439 6 7.5 5.38439 7.5 4.625C7.5 4.34886 7.72386 4.125 8 4.125C8.27614 4.125 8.5 4.34886 8.5 4.625C8.5 5.38439 9.11561 6 9.875 6C10.6344 6 11.25 5.38439 11.25 4.625C11.25 4.34886 11.4739 4.125 11.75 4.125C12.0261 4.125 12.25 4.34886 12.25 4.625C12.25 5.38439 12.8656 6 13.625 6C14.3844 6 15 5.38439 15 4.625V4.36992C15 4.25057 14.9573 4.13515 14.8796 4.04453L12.27 1H3.72997L1.12037 4.04453C1.0427 4.13515 1 4.25057 1 4.36992V4.625C1 5.38439 1.61561 6 2.375 6C3.13439 6 3.75 5.38439 3.75 4.625C3.75 4.34886 3.97386 4.125 4.25 4.125C4.52614 4.125 4.75 4.34886 4.75 4.625ZM1.5 7.5C1.77614 7.5 2 7.72386 2 8V14H14V8C14 7.72386 14.2239 7.5 14.5 7.5C14.7761 7.5 15 7.72386 15 8V14H15.5C15.7761 14 16 14.2239 16 14.5C16 14.7761 15.7761 15 15.5 15H0.5C0.223858 15 0 14.7761 0 14.5C0 14.2239 0.223858 14 0.5 14H1V8C1 7.72386 1.22386 7.5 1.5 7.5ZM3.5 8C3.77614 8 4 8.22386 4 8.5V12H12V8.5C12 8.22386 12.2239 8 12.5 8C12.7761 8 13 8.22386 13 8.5V12C13 12.5523 12.5523 13 12 13H4C3.44772 13 3 12.5523 3 12V8.5C3 8.22386 3.22386 8 3.5 8Z" fill="black"/>
+          </svg>
+          <span class="fw-bold ms-2">ID:</span>
+          {{ almacen.idalmacen }}
+        </li>
         <li class="list-group-item">Nombre: {{ almacen.nombre_almacen }}</li>
         <li class="list-group-item">Longitud: {{ almacen.long }}</li>
         <li class="list-group-item">Latitud: {{ almacen.lat }}</li>
@@ -13,12 +19,12 @@
       <img class="img-fluid rounded mt-2" [src]="imagenesService.getImagenAlmacen(almacen.imagen_almacen)" alt="Imagen almacen">
       <div class="row column-gap-4 mt-4 justify-content-end" role="group">
         <!-- Botón para activar/desactivar el almacén -->
-        <button class="col-5 col-xxl-4 btn btn-block" type="button" [class.btn-outline-success]="almacen.activo" [class.btn-outline-danger]="!almacen.activo"
+        <button class="col-5 col-xxl-3 btn btn-block" type="button" [class.btn-outline-success]="almacen.activo" [class.btn-outline-danger]="!almacen.activo"
           (click)="toggleEstadoAlmacen(almacen)">
           {{ almacen.activo ? 'Activo' : 'Inactivo' }}
         </button>
         <!-- Botón de "Editar" que redirige a la ruta /updateAlmacen/:idalmacen -->
-        <button class="col-5 col-xxl-4 btn btn-light btn-block" type="button" [routerLink]="['/updateAlmacen', almacen.idalmacen]">
+        <button class="col-5 col-xxl-3 btn btn-light btn-block" type="button" [routerLink]="['/updateAlmacen', almacen.idalmacen]">
           Editar
         </button>
       </div>
