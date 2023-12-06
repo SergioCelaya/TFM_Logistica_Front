@@ -50,5 +50,11 @@ export class ListaEmpleadosComponent implements OnInit {
     // Aquí puedes redireccionar al componente de detalles si es necesario
   }
 
-}
+  editarEmpleado(empleado: EmpleadoRespuesta): void {
+    // Agrega aquí la lógica para editar al empleado
+  }
 
+  activarDesactivarEmpleado(empleado: EmpleadoRespuesta): void {
+    // Agrega aquí la lógica para activar o desactivar al empleado
+  }
+}

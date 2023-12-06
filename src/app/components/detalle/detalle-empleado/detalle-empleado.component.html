@@ -13,7 +13,7 @@
     <li class="list-group-item">Fecha de Contratación: {{ empleado.fecha_contratacion | date: 'dd/MM/yyyy' }}</li>
     <li class="list-group-item">ID Almacén: {{ empleado.idalmacen }}</li>
     <li class="list-group-item">
-      Imagen de Empleado: 
+      Foto del empleado: 
       <img *ngIf="empleado.imagen_empleado" [src]="empleado.imagen_empleado" alt="Imagen de {{ empleado.nombre }}" style="max-width: 100px; max-height: 100px;">
     </li>
   </ul>

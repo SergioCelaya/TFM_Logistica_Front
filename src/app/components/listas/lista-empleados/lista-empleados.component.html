@@ -27,8 +27,19 @@
       <div class="card">
         <div class="card-header">Listado de empleados</div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item empleado-item" *ngFor="let empleado of empleadosFiltrados" (click)="seleccionarEmpleado(empleado)">
-            {{ empleado.num_empleado }} - {{ empleado.nombre }} {{ empleado.apellidos }}
+          <li class="list-group-item empleado-item" *ngFor="let empleado of empleadosFiltrados">
+            <div class="card mb-3" [ngClass]="{'bg-success-subtle': empleado.activo === 1, 'bg-danger-subtle': empleado.activo !== 1}" (click)="seleccionarEmpleado(empleado)">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ empleado.num_empleado }}
+                </h5>
+                <p class="card-text">
+                  {{ empleado.nombre }} {{ empleado.apellidos }}
+                </p>
+                <button class="btn btn-secondary mr-2" (click)="editarEmpleado(empleado)">Editar</button>
+                <button class="btn btn-warning" (click)="activarDesactivarEmpleado(empleado)">{{ empleado.activo === 1 ? 'Dar de baja' : 'Dar de alta' }}</button>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -73,3 +84,4 @@
     </div>
   </div>
 </div>
+
