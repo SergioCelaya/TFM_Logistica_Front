@@ -37,21 +37,21 @@ export class ListaPedidosComponent {
         }else if(this.empleado.puesto == 'Encargado'){
           this.respuestaCompleta = await this.pedidosService.getPedidosEncargadoByAlmacen(
             1,
-            this.empleado.idalmacen
+            this.empleado.idalmacen,
+            this.empleado.idempleado
           );
+        }
           this.totalPedidos = this.respuestaCompleta?.TotalElementos!;
           this.pedidosPagina = this.respuestaCompleta?.ElementosPagina!;
           this.paginaActual = 1;
           this.numeroPaginas = Math.ceil(
             this.totalPedidos / this.pedidosPagina
           );
-          console.log(this.numeroPaginas);
           this.arrayPaginas = Array(this.numeroPaginas);
           this.pedidosEmpleado = this.respuestaCompleta?.Resultado!;
           if (this.pedidosEmpleado.length > 0) {
             this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
           }
-        }
       }
     } catch (error) {
       Swal.fire({

@@ -14,6 +14,7 @@ import { Empleado } from 'src/app/models/empleado.interface';
 import { AlmacenService } from 'src/app/services/almacen.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import Swal from 'sweetalert2';
 
@@ -27,6 +28,7 @@ export class FormPedidoComponent {
   servicioEmpleados = inject(EmpleadosService);
   servicioPedido = inject(PedidosService);
   servicioAuth = inject(AuthService);
+  servicioImagenes = inject(ImagenesService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   almacenesOrigen: Almacen[] = [];
@@ -34,7 +36,15 @@ export class FormPedidoComponent {
   empleados: EmpleadoRespuesta[] = [];
   encargados: EmpleadoRespuesta[] = [];
   pedidoForm: FormGroup<any>;
-  pipe = new DatePipe('ESP');
+  //Variables de control de flujo del pedido.
+  accionValidar: boolean = false;
+  accionRectificar: boolean = false;
+  accionEnvio: boolean = false;
+  accionPteValidar: boolean = false;
+  accionRecepcion: boolean = false;
+  accionIncidencia: boolean = false;
+  pedidoActivo: pedidoRespuesta | null = null;
+  urlImagen: string = '';
 
   async ngOnInit() {
     this.activatedRoute.params.subscribe(async (params: any) => {
@@ -51,6 +61,7 @@ export class FormPedidoComponent {
           });
         }
         pedido = respuesta![0];
+        this.pedidoActivo = pedido;
         this.pedidoForm = new FormGroup({
           idPedido: new FormControl(pedido.idPedido, []),
           numero_pedido: new FormControl(pedido.numero_pedido, [
@@ -90,12 +101,17 @@ export class FormPedidoComponent {
         });
       }
       try {
+        let empleado: Empleado = this.inicializacionEmpleado();
+        empleado = await this.servicioAuth.getUser();
         this.almacenesOrigen = await this.servicioAlmacenes.getAll();
         this.almacenesDestino = this.almacenesOrigen;
         this.empleados =
           await this.servicioEmpleados.getEmpleadosByPuestoSinPaginar(1);
         this.encargados =
-          await this.servicioEmpleados.getEmpleadosByPuestoSinPaginar(2);
+          await this.servicioEmpleados.getEmpleadosByPuestoAlmacenSinPaginar(
+            2,
+            empleado.idalmacen
+          );
       } catch (Error) {
         Swal.fire({
           icon: 'error',
@@ -103,48 +119,92 @@ export class FormPedidoComponent {
             'Error al inicializar el formulario. Consulte con el administrador.',
         });
       }
+      this.controlDeRolesYestados();
+      if (this.pedidoActivo?.estado) {
+        this.setImagenEstado(this.pedidoActivo?.estado);
+      }
     });
-
   }
 
-  private async controlDeRolesYestados(){
-    let empleado:Empleado= this.inicializacionEmpleado();
-    try{
-     empleado = await this.servicioAuth.getUser();
-    }catch (Error) {
+  private setImagenEstado(estado: string) {
+    switch (estado) {
+      case 'Pendiente validar':
+        this.urlImagen = this.servicioImagenes.getImagenEstado(
+          'pendienteRevisar.jpg'
+        );
+        break;
+      case 'Rectificar':
+        this.urlImagen =
+          this.servicioImagenes.getImagenEstado('rectificar.jpg');
+        break;
+      case 'Validado':
+        this.urlImagen = this.servicioImagenes.getImagenEstado('validado.jpg');
+        break;
+      case 'Pendiente recepcionar':
+        this.urlImagen = this.servicioImagenes.getImagenEstado(
+          'pendienteRecepcionar.jpg'
+        );
+        break;
+      case 'Finalizado':
+        this.urlImagen =
+          this.servicioImagenes.getImagenEstado('finalizado.jpg');
+        break;
+      default:
+        this.urlImagen = this.servicioImagenes.getImagenEstado('crear.jpg');
+        break;
+    }
+  }
+
+  private async controlDeRolesYestados() {
+    let empleado: Empleado = this.inicializacionEmpleado();
+    try {
+      empleado = await this.servicioAuth.getUser();
+    } catch (Error) {
       Swal.fire({
         icon: 'error',
         title:
           'Error al obtener al usuario logado. Consulte con el administrador.',
       });
     }
-    if(empleado.puesto == "Administrador"){
-
-    }else if(empleado.puesto == "Encargado"){
-
-    }else if(empleado.puesto == "Empleado"){
-
+    if (this.pedidoActivo) {
+      if (empleado.puesto == 'Encargado') {
+        this.pedidoForm.disable();
+        if (this.pedidoActivo.almacen_origen == empleado.idalmacen) {
+          this.accionValidar = true;
+          this.accionRectificar = true;
+        } else if (this.pedidoActivo.almacen_destino == empleado.idalmacen) {
+          this.accionRecepcion = true;
+        }
+      } else if (empleado.puesto == 'Empleado') {
+        if (
+          this.pedidoActivo.usuario_asignado.idempleado == empleado.idempleado
+        ) {
+          if (this.pedidoActivo.estado == 'Rectificar') {
+            this.accionPteValidar = true;
+          } else if (this.pedidoActivo.estado == 'Validado') {
+            this.accionEnvio = true;
+          }
+        }
+      }
     }
   }
 
-
-  private inicializacionEmpleado():Empleado{
-    const emp:Empleado={
+  private inicializacionEmpleado(): Empleado {
+    const emp: Empleado = {
       idempleado: 0,
-    num_empleado: "",
-    nombre: "",
-    apellidos: "",
-    email: "",
-    puesto: "",
-    activo: false,
-    fecha_contratacion: new Date,
-    idalmacen: 0,
-    pwd:"",
-    imagen_empleado:"",
-    }
-return emp
+      num_empleado: '',
+      nombre: '',
+      apellidos: '',
+      email: '',
+      puesto: '',
+      activo: false,
+      fecha_contratacion: new Date(),
+      idalmacen: 0,
+      pwd: '',
+      imagen_empleado: '',
+    };
+    return emp;
   }
-
 
   private obtenerEstadoNumerico(estado: string): number {
     switch (estado) {
@@ -182,6 +242,9 @@ return emp
       id_transporte: new FormControl('', []),
       detalle_pedido: new FormControl('', [Validators.required]),
     });
+    if(this.pedidoActivo?.estado){
+      this.setImagenEstado("crear");
+    }
   }
 
   async submitForm() {
@@ -270,6 +333,131 @@ return emp
       this.pedidoForm.get(formcontrolName)?.hasError(validator) &&
       this.pedidoForm.get(formcontrolName)?.touched
     );
+  }
+
+  toValido() {
+    try {
+      if (this.pedidoActivo?.idPedido) {
+        this.servicioPedido.toValidado(this.pedidoActivo?.idPedido);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Pedido validado.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.router.navigate(['/pedidos/']);
+      }
+    } catch (error) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ha habido un error cambiando el estado del pedido.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.router.navigate(['/pedidos/']);
+    }
+  }
+
+  toPendienteValidar() {
+    try {
+      if (this.pedidoActivo?.idPedido) {
+        this.servicioPedido.toPendientevalidar(this.pedidoActivo?.idPedido);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Pedido pendiente de confirmar',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.router.navigate(['/pedidos/']);
+      }
+    } catch (error) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ha habido un error cambiando el estado del pedido.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.router.navigate(['/pedidos/']);
+    }
+  }
+
+  toRectificar() {
+    try {
+      if (this.pedidoActivo?.idPedido) {
+        this.servicioPedido.toRectificar(this.pedidoActivo?.idPedido);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Pedido pasado a rectificar',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.router.navigate(['/pedidos/']);
+      }
+    } catch (error) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ha habido un error cambiando el estado del pedido.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.router.navigate(['/pedidos/']);
+    }
+  }
+
+  toRecepcionar() {
+    try {
+      if (this.pedidoActivo?.idPedido) {
+        this.servicioPedido.toFinalizado(this.pedidoActivo?.idPedido);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Pedido recepcionado.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.router.navigate(['/pedidos/']);
+      }
+    } catch (error) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ha habido un error cambiando el estado del pedido.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.router.navigate(['/pedidos/']);
+    }
+  }
+  toEnviar() {
+    try {
+      if (this.pedidoActivo?.idPedido) {
+        this.servicioPedido.toEnTransito(this.pedidoActivo?.idPedido);
+        this.servicioPedido.toPendienteRecepcionar(this.pedidoActivo?.idPedido);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Pedido en tránsito, pasara a ser recepcioanado.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.router.navigate(['/pedidos/']);
+      }
+    } catch (error) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ha habido un error cambiando el estado del pedido.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.router.navigate(['/pedidos/']);
+    }
   }
 
   almacenOrigenDistintoDestino(control: AbstractControl) {

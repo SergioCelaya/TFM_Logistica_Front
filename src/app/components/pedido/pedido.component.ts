@@ -2,6 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 import { pedidoRespuesta } from 'src/app/models/Respuestas_API/pedidosRespuesta.interface';
 import { Almacen } from 'src/app/models/almacen.interface';
 import { AlmacenService } from 'src/app/services/almacen.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pedido',
@@ -17,7 +18,6 @@ export class PedidoComponent {
   private almacenesService = inject(AlmacenService);
 
   async ngOnInit() {
-    console.log(this.pedido);
     if (this.pedido?.almacen_origen && this.pedido?.almacen_destino) {
       try{
       this.almacenOrigen = await this.almacenesService.getById(
@@ -27,8 +27,11 @@ export class PedidoComponent {
         this.pedido?.almacen_destino
       );
       }catch(Error){
-        //TODO
-        console.log(Error);
+        Swal.fire({
+          icon: 'error',
+          title:
+            'Error al obtener los almacenes. Consulte con el administrador.',
+        });
       }
     }
     switch (this.pedido?.estado) {

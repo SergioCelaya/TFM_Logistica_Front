@@ -10,6 +10,6 @@
       <li class="list-group-item"><span class="textoCuerpoPedidos">Estado:</span> {{pedidoActivo?.estado}}</li>
       <li class="list-group-item"><span class="textoCuerpoPedidos">Detalle del pedido:</span> {{pedidoActivo?.detalle_pedido}}</li>
       <li class="list-group-item"><span class="textoCuerpoPedidos">Matrícula del transporte:</span> {{pedidoActivo?.id_transporte}}</li>
-      <li class="list-group-item"><span class="textoCuerpoPedidos">Empleado responsable:</span> {{pedidoActivo?.usuario_asignado?.nombre+" "+pedidoActivo?.usuario_asignado?.apellidos}}</li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Encargado:</span> {{pedidoActivo?.usuario_responsable?.nombre+" "+pedidoActivo?.usuario_responsable?.apellidos}}</li>
     </ul>
     <input type="button" value="Gestión del pedido" class="btn btn-dark" (click)="toGestionPedido()"/>

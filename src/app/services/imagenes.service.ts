@@ -12,6 +12,7 @@ export class ImagenesService {
   private urlEmpleados: string = '/getImagenEmpleado/';
   private uploadAlmacen: string = '/uploadImagenAlmacen/';
   private uploadEmpleado: string = '/uploadImagenEmpleado/:idEmpleado';
+  private urlEstados: string = '/getImagenEstado/';
 
   getImagenAlmacen(nombreImg: string): string {
     return this.baseUrl + this.urlAlmacenes + nombreImg;
@@ -19,6 +20,10 @@ export class ImagenesService {
 
   getImagenEmpleado(nombreImg: string): string {
     return this.baseUrl + this.urlEmpleados + nombreImg;
+  }
+
+  getImagenEstado(nombreImg: string): string {
+    return this.baseUrl + this.urlEstados + nombreImg;
   }
 
   guardarImagenEmpleado(imagen: File, idEmpleado: number) {
