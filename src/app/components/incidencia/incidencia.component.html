@@ -1,26 +1,33 @@
 <article class="card cardIncidencia">
   <div class="card-body">
     <div class="d-flex flex-row justify-content-between mt-2 mx-2">
-      <h5 class="card-title mb-3 text-center titulo">Incidencias del pedido: {{pedidoIncidencia?.numero_pedido}}</h5>
+      <h5 class="card-title mb-3 text-center titulo">
+        Incidencias del pedido: {{ pedidoIncidencia?.numero_pedido }}
+      </h5>
       <a class="btn btn-close" (click)="cerrar()"></a>
     </div>
 
     <div class="card-body contenedorIncidencias">
-      <section class="form-check d-flex alinear">
-        <p class="p-3 globoIncidencia">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
+      <section
+        class="form-check d-flex alinear "
+        *ngFor="let incidencia of incidenciasPedido"
+      >
+        <div class="d-flex flex-column">
+          <h5>{{ incidencia.titulo }}</h5>
+          <p class="p-3 globoIncidencia">
+            {{ incidencia.descripcion }}
+          </p>
+        </div>
         <input
           class="form-check-input mx-4"
           type="checkbox"
-          value=""
           id="flexCheckChecked"
-          checked
+          [checked]="incidencia.vista"
+          (change)="cambioValorVista(incidencia.idincidencia,incidencia.vista)"
         />
-        <label class="form-check-label" for="flexCheckChecked"> Vista </label>
+        <label class="form-check-label" for="flexCheckChecked" > Vista </label>
       </section>
     </div>
-    <a class="btn btn-dark">Mantenimiento del pedido</a>
+    <a class="btn btn-dark" routerLink="/gestionPedido/{{pedidoIncidencia?.idPedido}}">Mantenimiento del pedido</a>
   </div>
 </article>

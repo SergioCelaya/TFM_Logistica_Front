@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable,firstValueFrom,lastValueFrom, tap } from 'rxjs';
 import { Incidencia } from '../models/incidencia.interface';
@@ -22,22 +22,22 @@ export class IncidenciasService {
   }
  // METODO PARA EDITAR INCIDENCIA 
   updateIncidencia(incidenciaForm: Incidencia): Promise<Incidencia> {
-    return lastValueFrom(this.httpClient.put<Incidencia>(`${this.baseUrl}/${incidenciaForm.idIncidencia}`, incidenciaForm))
+    return lastValueFrom(this.httpClient.put<Incidencia>(`${this.baseUrl}/${incidenciaForm.idincidencia}`, incidenciaForm))
   }
 
   //METODO PARA CAMBIAR INCIDENCIA A VISTO
-  updateIncidenciaToVista(incidenciaForm: Incidencia): Promise<Incidencia> {
-    return lastValueFrom(this.httpClient.put<Incidencia>(`${this.urlVista}/${incidenciaForm.idIncidencia}`, incidenciaForm))
+  updateIncidenciaToVista(idIncidencia: number): Promise<number> {
+    return lastValueFrom(this.httpClient.put<number>(`${this.urlVista}/${idIncidencia}`, null))
   }
 
   //METODO PARA CAMBIAR INCIDENCIA A NO VISTO
-  updateIncidenciaToNoVista(incidenciaForm: Incidencia): Promise<Incidencia> {
-    return lastValueFrom(this.httpClient.put<Incidencia>(`${this.urlNoVista}/${incidenciaForm.idIncidencia}`, incidenciaForm))
+  updateIncidenciaToNoVista(idIncidencia: number): Promise<boolean> {
+    return lastValueFrom(this.httpClient.put<boolean>(`${this.urlNoVista}/${idIncidencia}`, null))
   }
 
   //METODO PARA OBTENER INCIDENCIAS DE UN PEDIDO
-  getIncidenciaByIdPedido(idPedido:string){
-    return firstValueFrom(this.httpClient.get<Incidencia>(`${this.byIdPedido}/${idPedido}`))
+  getIncidenciaByIdPedido(idPedido:number):Promise<Incidencia[]>{
+    return firstValueFrom(this.httpClient.get<Incidencia[]>(`${this.byIdPedido}/${idPedido}`))
   }
 
 

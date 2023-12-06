@@ -1,4 +1,4 @@
-<div class="card efectoHover">
+<div class="card efectoHover" >
     <div class="card-header d-flex justify-content-between " [ngClass]="claseSegunEstado">
       <div class="mx-2 my-1 textoTituloPedidos">Nº {{pedido?.numero_pedido}}</div>
       <div class="mx-5 my-1 textoTituloPedidos">{{pedido?.estado}} </div>
@@ -15,4 +15,4 @@
       </div>
     </div>
   </div>
-  <div *ngIf="verIncidencia" style="position: absolute; z-index:3;" ><app-incidencia [pedidoIncidencia]="pedido" (ocultarIncidencia)="incidencia($event)"></app-incidencia></div>
+  <div  *ngIf="verIncidencia" class="overlay" ><app-incidencia class="incidencia"  [pedidoIncidencia]="pedido" (ocultarIncidencia)="incidencia($event)"></app-incidencia></div>

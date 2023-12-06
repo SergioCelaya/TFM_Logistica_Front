@@ -1,7 +1,9 @@
 import { Component, Input, inject } from '@angular/core';
 import { pedidoRespuesta } from 'src/app/models/Respuestas_API/pedidosRespuesta.interface';
 import { Almacen } from 'src/app/models/almacen.interface';
+import { Incidencia } from 'src/app/models/incidencia.interface';
 import { AlmacenService } from 'src/app/services/almacen.service';
+import { IncidenciasService } from 'src/app/services/incidencias.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,31 +12,55 @@ import Swal from 'sweetalert2';
   styleUrls: ['./pedido.component.css'],
 })
 export class PedidoComponent {
-
   claseSegunEstado: any;
   @Input() pedido: pedidoRespuesta | null = null;
   almacenOrigen: Almacen | null = null;
   almacenDestino: Almacen | null = null;
   private infoPedido: pedidoRespuesta | null = null;
   private almacenesService = inject(AlmacenService);
-  hayIncidencia: any = true;
-  verIncidencia:any;
+  hayIncidencia: any = false;
+  verIncidencia: any;
+  servicioIncidencias = inject(IncidenciasService);
+  incidenciasPedido: Incidencia[] | null = null;
+  posicionX:number = 0;
+  posicionY:number = 0;
 
   async ngOnInit() {
     if (this.pedido?.almacen_origen && this.pedido?.almacen_destino) {
-      try{
-      this.almacenOrigen = await this.almacenesService.getById(
-        this.pedido?.almacen_origen
-      );
-      this.almacenDestino = await this.almacenesService.getById(
-        this.pedido?.almacen_destino
-      );
-      }catch(Error){
+      try {
+        this.almacenOrigen = await this.almacenesService.getById(
+          this.pedido?.almacen_origen
+        );
+        this.almacenDestino = await this.almacenesService.getById(
+          this.pedido?.almacen_destino
+        );
+      } catch (Error) {
         Swal.fire({
           icon: 'error',
           title:
             'Error al obtener los almacenes. Consulte con el administrador.',
         });
+      }
+    }
+    if (this.pedido?.idPedido) {
+      try {
+        this.incidenciasPedido =
+          await this.servicioIncidencias.getIncidenciaByIdPedido(
+            this.pedido?.idPedido
+          );
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title:
+            'Error al obtener las incidencias. Consulte con el administrador.',
+        });
+      }
+      console.log(this.incidenciasPedido);
+      if (
+        this.incidenciasPedido?.length != undefined &&
+        this.incidenciasPedido?.length > 0
+      ) {
+        this.hayIncidencia = true;
       }
     }
     switch (this.pedido?.estado) {
@@ -62,8 +88,7 @@ export class PedidoComponent {
     }
   }
 
-  incidencia(ver:boolean) {
-    console.log("recibido")
+  incidencia(ver: boolean) {
     this.verIncidencia = !this.verIncidencia;
-    }
+  }
 }
