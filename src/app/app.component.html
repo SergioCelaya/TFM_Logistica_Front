@@ -1,6 +1,7 @@
-<header class="col-2">
-    <app-menu ></app-menu>
+<header class="col-2" *ngIf="!isLoginPage()">
+  <app-menu></app-menu>
 </header>
-<main class="col-10 container-fluid">
+<main class="col-10 container-fluid m-0 p-0">
   <router-outlet></router-outlet>
 </main>
+
