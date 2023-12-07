@@ -1,29 +1,23 @@
-.sidebar {
-    height: 100vh;
-    position: fixed;
-    overflow-y: auto;
+i {
+  color: black;
 }
 
-.navbar-brand {
-    padding: 1rem;
-    text-align: center;
+span {
+  color: black;
 }
 
-.nav-link {
-    color: rgba(0, 0, 0, .9);
+#navItem {
+  color: black;
 }
 
-
-.nav-link:hover {
-    color: rgba(0, 0, 0, .7);
+.navItem:hover {
+  background-color: #FFDF7F;
 }
 
-.btn-danger {
-    margin: 1rem;
+.navItem_sub:hover {
+  background-color: #FFDF7F;
 }
 
-.nav-link-active {
-    background-color: #FFD700; /* Color de fondo para el enlace activo */
-    color: #000000; /* Color de texto para el enlace activo */
-  }
-
+.userSidebar{
+  background-color: #FFDF7F;
+}

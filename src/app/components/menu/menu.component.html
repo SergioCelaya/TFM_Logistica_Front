@@ -1,18 +1,76 @@
-<nav class="sidebar d-flex flex-column border border-dark col-2"  *ngIf="isLoggedIn$ | async">
-    <a class="navbar-brand border border-dark" routerLink="/" routerLinkActive="nav-link-active">TFM</a>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a class="nav-link border border-dark rounded-0" routerLink="/pedidos" routerLinkActive="nav-link-active">MIS PEDIDOS</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link border border-dark rounded-0" routerLink="/incidencias" routerLinkActive="nav-link-active">INCIDENCIAS</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link border border-dark rounded-0" routerLink="/almacenes" routerLinkActive="nav-link-active">ALMACENES</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link border border-dark rounded-0" routerLink="/empleados" routerLinkActive="nav-link-active">EMPLEADOS</a>
-      </li>
+<nav class="sticky-top">
+  <div class="d-flex flex-column align-items-center pt-2 text-white min-vh-100" *ngIf="isLoggedIn$ | async">
+    <a routerLink="/" class="mt-5 icon-link icon-link-hover">
+        <!-- <img src="assets/logoTFM.png" class="img-fluid w-100 p-3" alt="Logo TFM"> -->
+        <i class="fs-1 bi bi-box-seam-fill text-warning"></i>
+    </a>
+    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 mt-5 me-auto py-sm-4 justify-content-center align-items-sm-start w-100" id="menu">
+        <li class="w-100 ps-5 pb-2 navItem">
+          <a routerLink="/" class="nav-link d-flex align-items-center px-0 icon-link icon-link-hover">
+            <i class="fs-3 bi bi-house-door"></i><span class="fs-5 ms-3 pt-3 d-none d-xl-inline">Home</span>
+          </a>
+        </li>
+        <li class="w-100 ps-5 navItem" [ngClass]="{'pb-2': isEmpleado()}">
+          <a href="#submenu0" data-bs-toggle="collapse" class="nav-link px-0 d-flex align-items-center icon-link icon-link-hover" *ngIf="isEmpleado()">
+            <i class="fs-3 bi bi-table"></i><span class="fs-5 ms-3 pt-3 d-none d-xl-inline">Pedidos</span>
+          </a>
+        </li>
+          <ul class="collapse nav flex-column mx-auto" id="submenu0" data-bs-parent="#menu">
+            <li class="w-100 px-3 px-lg-5 rounded-4 navItem_sub">
+                <a routerLink="/pedidos" class="nav-link px-0" data-bs-toggle="tooltip"><i class="fs-5 bi bi-archive"></i><span class="d-none d-xl-inline ms-2">Ver pedidos</span></a>
+            </li>
+            <li class="w-100 px-3 px-lg-5 rounded-4 navItem_sub">
+                <a routerLink="/gestionPedido" class="nav-link px-0" data-bs-toggle="tooltip"><i class="fs-5 bi bi-box-seam"></i><span class="d-none d-xl-inline ms-2">Nuevo pedido</span></a>
+            </li>
+          </ul>
+        <li class="w-100 ps-5 navItem" [ngClass]="{'pb-2': isEmpleado() || isEncargado()}">
+          <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 d-flex align-items-center icon-link icon-link-hover"  *ngIf="isEmpleado() || isEncargado()">
+            <i class="fs-3 bi bi-speedometer2"></i><span class="fs-5 ms-3 pt-3 d-none d-xl-inline">Incidencias</span>
+          </a>
+        </li>
+          <ul class="collapse nav flex-column mx-auto" id="submenu1" data-bs-parent="#menu">
+            <li class="w-100 px-3 px-lg-5 rounded-4 navItem_sub">
+                <a routerLink="/incidencias" class="nav-link px-0" data-bs-toggle="tooltip"><i class="fs-5 bi bi-exclamation-triangle"></i><span class="d-none d-xl-inline ms-2">Ver incidencias</span></a>
+            </li>
+            <li class="w-100 px-3 px-lg-5 rounded-4 navItem_sub">
+                <a routerLink="/nuevaIncidencia" class="nav-link px-0" data-bs-toggle="tooltip"><i class="fs-5 bi bi-input-cursor-text"></i><span class="d-none d-xl-inline ms-2">Abrir incidencia</span></a>
+            </li>
+          </ul>
+        <li class="w-100 ps-5 navItem" [ngClass]="{'pb-2': isEncargado() || isAdmin()}">
+          <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 d-flex align-items-center icon-link icon-link-hover" *ngIf="isEncargado() || isAdmin()">
+            <i class="fs-3 bi bi-shop-window"></i><span class="fs-5 ms-3 pt-3 d-none d-xl-inline">Almacenes</span>
+          </a>
+        </li>
+          <ul class="collapse nav flex-column mx-auto" id="submenu2" data-bs-parent="#menu">
+            <li class="w-100 px-3 px-lg-5 rounded-4 navItem_sub">
+              <a routerLink="/almacenes" class="nav-link px-0" data-bs-toggle="tooltip" data-bs-title="Default tooltip"><i class="fs-5 bi bi-list"></i><span class="d-none d-xl-inline ms-2">Ver almacenes</span></a>
+            </li>
+            <li class="w-100 px-3 px-lg-5 rounded-4 navItem_sub">
+              <a routerLink="/nuevoAlmacen" class="nav-link px-0" data-bs-toggle="tooltip" data-bs-title="Default tooltip"><i class="fs-5 bi bi-pen"></i><span class="d-none d-xl-inline ms-2">Crear almacén</span></a>
+            </li>
+          </ul>
+        <li class="w-100 ps-5 navItem" [ngClass]="{'pb-2': isAdmin()}">
+          <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 d-flex align-items-center icon-link icon-link-hover" *ngIf="isAdmin()">
+            <i class="fs-3 bi bi-people"></i><span class="fs-5 ms-3 pt-3 d-none d-xl-inline">Empleados</span>
+          </a>
+        </li>
+          <ul class="collapse nav flex-column mx-auto" id="submenu3" data-bs-parent="#menu">
+            <li class="w-100 px-3 px-lg-5 rounded-4 navItem_sub">
+              <a href="/empleados" class="nav-link px-0" data-bs-toggle="tooltip"><i class="fs-5 bi bi-person-lines-fill"></i><span class="d-none d-xl-inline ms-2">Ver empleados</span></a>
+            </li>
+            <li class="w-100 px-3 px-lg-5 rounded-4 navItem_sub">
+              <a href="#" class="nav-link px-0" data-bs-toggle="tooltip"><i class="fs-5 bi bi-person-plus"></i><span class="d-none d-xl-inline ms-2">Crear empleado</span></a>
+            </li>
+          </ul>
     </ul>
-    <button class="btn btn-warning mt-auto m-3" routerLink="/login" (click)="onLogout()">Log out</button>
-  </nav>
+  </div>
+  <!-- <hr> -->
+  <div class="p-4 userSidebar sticky-bottom d-flex flex-column justify-content-center bg-warning">
+    <div class="d-flex align-items-center">
+        <img [src]="imagenesService.getImagenEmpleado(empleado.imagen_empleado)" alt="Imagen empleado" width="50" height="50" class="rounded-circle">
+        <span class="d-none d-xl-inline mx-3 fs-4">{{ empleado?.nombre + ' ' + empleado.apellidos || 'User Name' }}</span>
+    </div>
+    <a class="d-flex align-items-center justify-content-center nav-link icon-link icon-link-hover" routerLink="/login" (click)="onLogout()">Sign out <i class="fs-4 bi bi-box-arrow-right ms-1 mb-2"></i></a>
+  </div>
+</nav>
+

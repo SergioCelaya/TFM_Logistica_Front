@@ -18,7 +18,6 @@ export class FormAlmacenComponent {
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   uploadedImage: any;
-  isNuevoAlmacen: boolean = false;
 
   constructor() {
     this.almacenForm = new FormGroup({
@@ -52,7 +51,6 @@ export class FormAlmacenComponent {
       let idalmacen: number = Number(params.idalmacen);
 
       if (idalmacen) {
-        this.isNuevoAlmacen = true;
         //GUARDO EL ID DE ALMACEN PARA GUARDAR LA IMAGEN POSTERIORENTE
         this.idAlmacen = idalmacen;
         //PINTAR ALMACEN EXISTENTE
@@ -101,14 +99,13 @@ export class FormAlmacenComponent {
 
             // Verificar si se ha cargado una nueva imagen antes de intentar guardarla
             if (this.imagenFile) {
-              await this.guardarImagenAlmacen();
+              await this.guardarImagenAlmacen(this.imagenFile, this.almacenForm.value.idalmacen);
             } else if (
               this.almacenForm.get('imagen_almacen')?.value === 'imagen_almacen'
             ) {
               // Si la imagen no ha sido modificada, establecerla como undefined o eliminarla según la necesidad del backend
               this.almacenForm.removeControl('imagen_almacen');
             }
-
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -136,11 +133,15 @@ export class FormAlmacenComponent {
           showCancelButton: true,
           confirmButtonColor: '#FFC007',
           confirmButtonText: 'Crear',
-        }).then((result) => {
+        }).then(async (result) => {
           if (result.isConfirmed) {
             console.log(this.almacenForm.value);
             // CREACIÓN NUEVO ALMACEN
-            let response = this.almacenService.create(this.almacenForm.value);
+            let response = await this.almacenService.create(this.almacenForm.value);
+            // Esperamos a guardarImagen para que no cargue la default
+            const nuevoAlmacenID = response.idalmacen;
+            await this.guardarImagenAlmacen(this.imagenFile, nuevoAlmacenID);
+
             // TRATAR ERROR POR DUPLICADO
             console.log(response);
             Swal.fire({
@@ -195,9 +196,9 @@ export class FormAlmacenComponent {
     this.imagenFile = event.target.files[0];
   }
 
-  async guardarImagenAlmacen() {
-    if (this.imagenFile && this.idAlmacen) {
-      await this.imagenesService.guardarImagenAlmacen(this.imagenFile, this.idAlmacen);
+  async guardarImagenAlmacen(imagenFile: File | undefined, idAlmacen: number | undefined) {
+    if (imagenFile && idAlmacen) {
+      await this.imagenesService.guardarImagenAlmacen(imagenFile, idAlmacen);
     } else {
       Swal.fire({
         icon: 'error',
