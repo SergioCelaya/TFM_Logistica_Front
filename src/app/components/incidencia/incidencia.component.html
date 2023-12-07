@@ -9,7 +9,7 @@
 
     <div class="card-body contenedorIncidencias">
       <section
-        class="form-check d-flex alinear "
+        class="form-check d-flex alinear justify-content-between"
         *ngFor="let incidencia of incidenciasPedido"
       >
         <div class="d-flex flex-column">
@@ -18,16 +18,24 @@
             {{ incidencia.descripcion }}
           </p>
         </div>
-        <input
-          class="form-check-input mx-4"
-          type="checkbox"
-          id="flexCheckChecked"
-          [checked]="incidencia.vista"
-          (change)="cambioValorVista(incidencia.idincidencia,incidencia.vista)"
-        />
-        <label class="form-check-label" for="flexCheckChecked" > Vista </label>
+        <div>
+          <input
+            class="form-check-input mx-4"
+            type="checkbox"
+            id="flexCheckChecked"
+            [checked]="incidencia.vista"
+            (change)="
+              cambioValorVista(incidencia.idincidencia, incidencia.vista)
+            "
+          />
+          <label class="form-check-label" for="flexCheckChecked"> Vista </label>
+        </div>
       </section>
     </div>
-    <a class="btn btn-dark" routerLink="/gestionPedido/{{pedidoIncidencia?.idPedido}}">Mantenimiento del pedido</a>
+    <a
+      class="btn btn-dark"
+      routerLink="/gestionPedido/{{ pedidoIncidencia?.idPedido }}"
+      >Mantenimiento del pedido</a
+    >
   </div>
 </article>
