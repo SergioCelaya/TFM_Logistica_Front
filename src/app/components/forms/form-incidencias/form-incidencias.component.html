@@ -87,6 +87,15 @@
             Campo es requerido</div>
 </div>
 
+<!-- ID PEDIDO ASOCIADO -->
+<div class="mb-3">
+    <label for="vista">Vista:</label>
+    <input class="form-control" type="number" formControlName="vista" id="vista" required />
+    <div>
+        <p class="error" *ngIf="checkControl('vista', 'required')">
+            Campo es requerido</div>
+</div>
+
 
 
     <input type="submit" [class]="incidenciasForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Aceptar"

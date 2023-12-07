@@ -43,6 +43,11 @@ export class FormIncidenciasComponent {
         Validators.required,
       
       ]),
+
+      vista: new FormControl('', [
+        Validators.required,
+      
+      ]),
     
       
     });
