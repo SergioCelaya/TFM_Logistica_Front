@@ -14,6 +14,8 @@ export class FormIncidenciasComponent {
   IncidenciasService = inject(IncidenciasService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
+  idIncidencia:number | undefined;
+
 
   constructor() {
     this.incidenciasForm = new FormGroup({
@@ -35,7 +37,7 @@ export class FormIncidenciasComponent {
       ]),
 
       idIncidencia: new FormControl('', [
-        Validators.required,
+      
       
       ]),
 
@@ -53,6 +55,22 @@ export class FormIncidenciasComponent {
     });
   }
 
+//basado en form Almacen. 
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe(async (params: any) => {
+      //SE NECESITA PARA GUARDAR LA IMAGEN Y TRAERLA
+      let idincidencia: number = Number(params.idincidencia);
+
+      if (idincidencia) {
+        //GUARDO EL ID DE ALMACEN PARA GUARDAR LA IMAGEN POSTERIORENTE
+        this.idIncidencia = idincidencia;
+        //PINTAR ALMACEN EXISTENTE
+        let response = await this.IncidenciasService.getById(idincidencia);
+        console.log(response);
+  }})}
+
+
+
   checkControl(
     formcontrolName: string,
     validator: string
@@ -62,6 +80,11 @@ export class FormIncidenciasComponent {
       this.incidenciasForm.get(formcontrolName)?.touched
     );
   }
+
+
+
+
+
 
 
   async submitForm(): Promise<void> {
@@ -112,9 +135,9 @@ export class FormIncidenciasComponent {
         }).then((result) => {
           if (result.isConfirmed) {
             // CREACIÓN NUEVO INCIDENCIA
-            console.log("create incidencia");
+            
             let response = this.IncidenciasService.create(this.incidenciasForm.value);
-            console.log(this.incidenciasForm.value);
+            
             Swal.fire({
               position: 'center',
               icon: 'success',
