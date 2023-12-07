@@ -1,0 +1,90 @@
+<form [formGroup]="empleadoForm" (ngSubmit)="submitForm()" class="m-4 p-5 justify-content-center row form">
+    <div class="w-50 mt-5">
+      <!-- Número de Empleado -->
+      <div class="mb-3">
+        <label for="num_empleado">Número de Empleado:</label>
+        <input class="form-control" type="text" formControlName="num_empleado" id="num_empleado" placeholder="Número de Empleado"/>
+        <!-- Validaciones para número de empleado -->
+        <!-- ... -->
+      </div>
+  
+      <!-- Nombre -->
+      <div class="mb-3">
+        <label for="nombre">Nombre:</label>
+        <input class="form-control" type="text" formControlName="nombre" id="nombre" placeholder="Nombre del empleado"/>
+        <!-- Validaciones para nombre -->
+        <!-- ... -->
+      </div>
+  
+      <!-- Apellidos -->
+      <div class="mb-3">
+        <label for="apellidos">Apellidos:</label>
+        <input class="form-control" type="text" formControlName="apellidos" id="apellidos" placeholder="Apellidos del empleado"/>
+        <!-- Validaciones para apellidos -->
+        <!-- ... -->
+      </div>
+  
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email">Email:</label>
+        <input class="form-control" type="email" formControlName="email" id="email" placeholder="Email del empleado"/>
+        <!-- Validaciones para email -->
+        <!-- ... -->
+      </div>
+  
+      <!-- Puesto -->
+      <div class="mb-3">
+        <label for="puesto">Puesto:</label>
+        <input class="form-control" type="text" formControlName="puesto" id="puesto" placeholder="Puesto del empleado"/>
+        <!-- Validaciones para puesto -->
+        <!-- ... -->
+      </div>
+  
+      <!-- Fecha de Contratación -->
+      <div class="mb-3">
+        <label for="fecha_contratacion">Fecha de Contratación:</label>
+        <input class="form-control" type="date" formControlName="fecha_contratacion" id="fecha_contratacion"/>
+        <!-- Validaciones para fecha de contratación -->
+        <!-- ... -->
+      </div>
+  
+      <!-- ID Almacén -->
+      <div class="mb-3">
+        <label for="idalmacen">ID Almacén:</label>
+        <input class="form-control" type="number" formControlName="idalmacen" id="idalmacen" placeholder="ID del Almacén"/>
+        <!-- Validaciones para ID Almacén -->
+        <!-- ... -->
+      </div>
+  
+      <!-- Contraseña -->
+      <div class="mb-3">
+        <label for="pwd">Contraseña:</label>
+        <input class="form-control" type="password" formControlName="pwd" id="pwd" placeholder="Contraseña"/>
+        <!-- Validaciones para contraseña -->
+        <!-- ... -->
+      </div>
+  
+      <!-- Activo -->
+      <div class="mb-3">
+        <label for="activo">Activo:</label>
+        <select class="form-control" formControlName="activo" id="activo">
+          <option value="1">Sí</option>
+          <option value="0">No</option>
+        </select>
+        <!-- Validaciones para activo -->
+        <!-- ... -->
+      </div>
+  
+      <!-- Imagen del Empleado -->
+      <div class="mb-3">
+        <label for="imagen_empleado">Imagen del Empleado:</label>
+        <input class="form-control" type="file" formControlName="imagen_empleado" id="imagen_empleado"/>
+        <!-- Validaciones para imagen del empleado -->
+        <!-- ... -->
+      </div>
+  
+      <!-- Botón de envío -->
+      <input type="submit" [class]="empleadoForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Aceptar" [disabled]="!empleadoForm.valid"/>
+    </div>
+  </form>
+  

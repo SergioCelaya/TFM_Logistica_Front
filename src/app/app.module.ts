@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +25,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { FormPedidoComponent } from './components/forms/form-pedido/form-pedido.component';
 import { FormIncidenciasComponent } from './components/forms/form-incidencias/form-incidencias.component';
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
+import { FormEmpleadoComponent } from './components/forms/form-empleado/form-empleado.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { IncidenciaComponent } from './components/incidencia/incidencia.componen
     PedidoComponent,
     FormPedidoComponent,
     FormIncidenciasComponent,
-    IncidenciaComponent
+    IncidenciaComponent,
+    FormEmpleadoComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { IncidenciaComponent } from './components/incidencia/incidencia.componen
     HttpClientModule,
     HttpClientJsonpModule,
     GoogleMapsModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

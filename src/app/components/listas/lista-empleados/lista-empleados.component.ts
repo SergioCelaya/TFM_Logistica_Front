@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { EmpleadoRespuesta } from 'src/app/models/Respuestas_API/empleadoRespuesta.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-empleados',
   templateUrl: './lista-empleados.component.html',
-  styleUrls: ['./lista-empleados.component.css']
+  styleUrls: ['./lista-empleados.component.css'],
 })
 export class ListaEmpleadosComponent implements OnInit {
   empleados: EmpleadoRespuesta[] = [];
@@ -14,21 +15,29 @@ export class ListaEmpleadosComponent implements OnInit {
   totalPaginas: number = 0;
   filtroBusqueda: string = '';
 
-  constructor(private empleadosService: EmpleadosService) {}
+  constructor(
+    private empleadosService: EmpleadosService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.cargarEmpleados(this.paginaActual);
   }
 
   cargarEmpleados(pagina: number): void {
-    this.empleadosService.getEmpleadosPaginados(pagina).then(response => {
-      this.empleados = response.Resultado;
-      this.empleadosFiltrados = response.Resultado; // Inicializa la lista filtrada
-      this.totalPaginas = Math.ceil(response.TotalElementos / response.ElementosPagina);
-      this.paginaActual = response.Pagina;
-    }).catch(error => {
-      console.error('Error al cargar empleados:', error);
-    });
+    this.empleadosService
+      .getEmpleadosPaginados(pagina)
+      .then((response) => {
+        this.empleados = response.Resultado;
+        this.empleadosFiltrados = response.Resultado; // Inicializa la lista filtrada
+        this.totalPaginas = Math.ceil(
+          response.TotalElementos / response.ElementosPagina
+        );
+        this.paginaActual = response.Pagina;
+      })
+      .catch((error) => {
+        console.error('Error al cargar empleados:', error);
+      });
   }
 
   cambiarPagina(pagina: number): void {
@@ -39,20 +48,29 @@ export class ListaEmpleadosComponent implements OnInit {
   }
 
   aplicarFiltro(): void {
-    this.empleadosFiltrados = this.empleados.filter(empleado => 
-      empleado.nombre.toLowerCase().includes(this.filtroBusqueda.toLowerCase()) ||
-      empleado.apellidos.toLowerCase().includes(this.filtroBusqueda.toLowerCase())
+    this.empleadosFiltrados = this.empleados.filter(
+      (empleado) =>
+        empleado.nombre
+          .toLowerCase()
+          .includes(this.filtroBusqueda.toLowerCase()) ||
+        empleado.apellidos
+          .toLowerCase()
+          .includes(this.filtroBusqueda.toLowerCase())
     );
   }
 
   seleccionarEmpleado(empleado: EmpleadoRespuesta): void {
     this.empleadosService.seleccionarEmpleado(empleado);
-    // Aquí puedes redireccionar al componente de detalles si es necesario
+  }
+
+  crearEmpleado(): void {
+    this.router.navigate(['/empleado/nuevo']);
   }
 
   editarEmpleado(empleado: EmpleadoRespuesta): void {
-    // Agrega aquí la lógica para editar al empleado
+    this.router.navigate(['/empleado/editar', empleado.idempleado]);
   }
+  
 
   activarDesactivarEmpleado(empleado: EmpleadoRespuesta): void {
     // Agrega aquí la lógica para activar o desactivar al empleado

@@ -9,6 +9,7 @@ import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { FormPedidoComponent } from './components/forms/form-pedido/form-pedido.component';
 import { FormIncidenciasComponent } from './components/forms/form-incidencias/form-incidencias.component';
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
+import { FormEmpleadoComponent } from './components/forms/form-empleado/form-empleado.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirecciona a /login por defecto
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: 'incidencias', component: IncidenciasComponent },
   { path: 'almacenes', component: AlmacenesComponent },
   { path: 'empleados', component: EmpleadosComponent },
+  { path: 'empleado/nuevo', component: FormEmpleadoComponent },
+  { path: 'empleado/editar/:id', component: FormEmpleadoComponent },
   { path: 'nuevoAlmacen', component: FormAlmacenComponent },
   { path: 'gestionPedido', component: FormPedidoComponent },
   { path: 'nuevaIncidencia', component: FormIncidenciasComponent },
