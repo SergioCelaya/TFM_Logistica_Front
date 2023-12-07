@@ -1,70 +1,182 @@
-.body {
-  background: linear-gradient(45deg, #0f8bae, #fff, #0f8bae ); /* Fondo degradado azul claro, blanco y negro */
-  background-size: 400% 400%;
-  animation: gradient 10s ease infinite;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
-@media screen and (max-width: 1200px) {
-  .body {
-    flex-direction: column;
-  }
-
-}
-
-@keyframes gradient {
-  0% {
-      background-position: 0% 50%;
-  }
-  50% {
-      background-position: 100% 50%;
-  }
-  100% {
-      background-position: 0% 50%;
-  }
-}
-
-.welcome-container {
-  text-align: center;
-  padding: 25px;
-}
-
-.welcome-container h1 {
-  font-size: 5rem;
-  font-family: 'Montserrat', sans-serif;
+h1 {
+  color: whitesmoke;
   font-weight: 100;
 }
 
-.card {
-  width: 600px; /* Ajusta el ancho del card según tus necesidades */
-  border-radius: 15px; /* Bordes redondeados */
-  height: auto; /* Esto permitirá que el card crezca en altura según su contenido */
-  box-shadow: 6px 9px 15px -3px rgba(0,0,0,0.45);
-  background-color: rgb(255, 255, 255,0.2);
+.background {
+    content: "";
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background: linear-gradient(45deg, #0f8bae, #fff, #0f8bae ); /* Fondo degradado azul claro, blanco y negro */
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-.card-header {
-  text-align: center;
-  border-radius: 15px; /* Bordes redondeados */
-  padding: 15px;
+.centering {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
 }
 
-.card-body {
-  padding: 20px;
+.my-form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 16px;
+    background-color: #0f8bae;
+    border: 1px solid #096078;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px #0f8bae;
+    min-width: 280px;
+    max-width: 500px;
+    width: 100%;
+    padding: 32px;
 }
 
-/* Espacio entre los elementos del formulario */
-.form-group {
-  margin-bottom: 15px;
+.login-welcome {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
-/* Botón alineado a la derecha con letras blancas */
-.btn-login {
-  float: right;
-  color: #fff;
+.login-welcome-row {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.my-form__button {
+    background-color: #FFC007;
+    white-space: nowrap;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+    line-height: 50px;
+    outline: none;
+    font-size: 18px;
+    letter-spacing: .025em;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 800;
+    min-height: 50px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.15);
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+.text-field input {
+    color: whitesmoke;
+    font-size: 16px;
+    font-weight: 500;
+    max-width: 100%;
+    width: 100%;
+    border: 1px solid whitesmoke;
+    height: 50px;
+    letter-spacing: .03rem;
+    background-color: transparent;
+    outline: none;
+    transition: .25s;
+    border-radius: 8px;
+    text-indent: 20px;
+    margin-top: 8px;
+}
+
+
+.my-form__button:hover {
+    background-color: #0fb0dc;
+}
+
+.text-field {
+    position: relative;
+}
+
+.text-field input::-webkit-input-placeholder { /* Edge */
+    color: whitesmoke;
+}
+
+.text-field i {
+    position: absolute;
+    right: -2px;
+    bottom: -4px;
+    width: 30px;
+    height: 30px;
+    transform: translate(-50%,-50%);
+    transform-origin: center;
+    color: whitesmoke;
+    font-size: 1.5rem;
+}
+
+.text-field input:focus {
+    border: 1px solid whitesmoke;
+}
+
+.text-field label {
+    color: whitesmoke;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .03rem;
+    z-index: 10;
+}
+
+.input-icon {
+    position: absolute;
+    bottom: 0;
+    top: 55%;
+    right: 8px;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+}
+
+.my-form__actions {
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.my-form__actions a {
+    color: whitesmoke;
+    font-weight: 600;
+}
+
+.my-form__actions a:hover {
+    color: whitesmoke;
+}
+
+.my-form__row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.my-form__signup {
+    display: flex;
+    justify-content: center;
+}
+
+.loginIcon {
+  color: whitesmoke;
+  font-size: 5rem;
 }
