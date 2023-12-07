@@ -96,6 +96,7 @@ export class FormAlmacenComponent {
           if (result.isConfirmed) {
             // ACTUALIZACIÓN ALMACEN
             let response = await this.almacenService.updateAlmacen(this.almacenForm.value);
+            console.log("Datos enviados a la API:", this.almacenForm.value);
 
             // Verificar si se ha cargado una nueva imagen antes de intentar guardarla
             if (this.imagenFile) {

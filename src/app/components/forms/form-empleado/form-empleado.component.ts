@@ -22,6 +22,7 @@ export class FormEmpleadoComponent {
 
   constructor() {
     this.empleadoForm = new FormGroup({
+      idEmpleado: new FormControl(''),
       num_empleado: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
@@ -49,57 +50,62 @@ export class FormEmpleadoComponent {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params: any) => {
-      this.idEmpleado = params['id'];
-      if (this.idEmpleado) {
-        let empleado: EmpleadoRespuesta = await this.empleadosService.getEmpleadoById(+this.idEmpleado);
+      if (params['id'] && params['id'] !== 'nuevo') {
+        this.idEmpleado = +params['id'];
+        let empleado: EmpleadoRespuesta = await this.empleadosService.getEmpleadoById(this.idEmpleado);
         this.empleadoForm.patchValue({
           ...empleado,
-          activo: empleado.activo.toString(), // Convertir a string si es necesario
-          fecha_contratacion: new Date(empleado.fecha_contratacion).toISOString().substring(0, 10), // Formatear la fecha
+          idEmpleado: this.idEmpleado,
+          activo: empleado.activo.toString(),
+          fecha_contratacion: new Date(empleado.fecha_contratacion).toISOString().substring(0, 10),
         });
-        // Cargar imagen actual del empleado si es necesario
-        // ...
+      } else {
+        this.idEmpleado = undefined;
+        // Aquí puedes restablecer el formulario para crear un nuevo empleado
       }
     });
   }
+  
 
-  async submitForm(): Promise<void> {
-    if (this.empleadoForm.valid) {
-      try {
-        let result = await Swal.fire({
-          title: '¿Confirmar acción?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#FFC007',
-          confirmButtonText: 'Aceptar',
-        });
+async submitForm(): Promise<void> {
+  if (this.empleadoForm.valid) {
+    try {
+      let result = await Swal.fire({
+        title: '¿Confirmar acción?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#FFC007',
+        confirmButtonText: 'Aceptar',
+      });
 
-        if (result.isConfirmed) {
-          const empleadoData = this.empleadoForm.value;
-          if (this.idEmpleado !== undefined) {
-            // Actualizar empleado existente
-            await this.empleadosService.updateEmpleadoEstado(this.idEmpleado, empleadoData.activo);
-            if (this.imagenEmpleado) {
-              await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
-            }
-            Swal.fire('¡Actualizado!', 'El empleado ha sido actualizado.', 'success');
-          } else {
-            // Crear nuevo empleado
-            console.log("Datos enviados a la API:", empleadoData);
-            let response = await this.empleadosService.createEmpleado(empleadoData);
-            this.idEmpleado = response.idEmpleado;
-            if (this.imagenEmpleado && this.idEmpleado !== undefined) {
-              await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
-            }
-            Swal.fire('¡Creado!', 'El empleado ha sido creado.', 'success');
+      if (result.isConfirmed) {
+        const empleadoData = this.empleadoForm.value;
+        console.log(empleadoData);
+        if (this.idEmpleado !== undefined) {
+          // Actualizar empleado existente
+          await this.empleadosService.updateEmpleado(this.idEmpleado, empleadoData);
+          if (this.imagenEmpleado) {
+            await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
           }
-          this.router.navigate(['/empleados']);
+          Swal.fire('¡Actualizado!', 'El empleado ha sido actualizado.', 'success');
+        } else {
+          // Crear nuevo empleado
+          console.log(empleadoData);
+          delete empleadoData.idEmpleado;
+          let response = await this.empleadosService.createEmpleado(empleadoData);
+          this.idEmpleado = response.idEmpleado; // Asumiendo que la respuesta tiene un campo idEmpleado
+          if (this.imagenEmpleado && this.idEmpleado) {
+            await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
+          }
+          Swal.fire('¡Creado!', 'El empleado ha sido creado.', 'success');
         }
-      } catch (error) {
-        Swal.fire('Error', 'Ha ocurrido un error durante la operación.', 'error');
+        this.router.navigate(['/empleados']);
       }
+    } catch (error) {
+      Swal.fire('Error', 'Ha ocurrido un error durante la operación.', 'error');
     }
   }
+}
 
   checkControl(name: string, error: string): boolean | undefined {
     return (

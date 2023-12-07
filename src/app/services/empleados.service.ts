@@ -62,6 +62,13 @@ export class EmpleadosService {
   seleccionarEmpleado(empleado: EmpleadoRespuesta) {
     this.empleadoSeleccionadoSource.next(empleado);
   }
+
+  async updateEmpleado(idEmpleado: number, empleadoData: any): Promise<any> {
+    return await firstValueFrom(
+      this.httpClient.put(`${this.baseUrl}/${idEmpleado}`, empleadoData)
+    );
+  }
+  
   
 
 }
