@@ -1,44 +1,23 @@
-/* .sidebar {
-    height: 100vh;
-    position: fixed;
-    overflow-y: auto;
-}
-
-.navbar-brand {
-    padding: 1rem;
-    text-align: center;
-}
-
-.nav-link {
-    color: rgba(0, 0, 0, .9);
-}
-
-
-.nav-link:hover {
-    color: rgba(0, 0, 0, .7);
-}
-
-.btn-danger {
-    margin: 1rem;
-}
-
-.nav-link-active {
-  background-color: #FFD700;
-  color: #000000;
-} */
-
 i {
-  color: whitesmoke;
+  color: black;
 }
 
 span {
-  color: white;
+  color: black;
 }
 
-li {
-  color: whitesmoke;
+#navItem {
+  color: black;
 }
-/*
+
+.navItem:hover {
+  background-color: #FFDF7F;
+}
+
+.navItem_sub:hover {
+  background-color: #FFDF7F;
+}
+
 .userSidebar{
   background-color: #FFDF7F;
-} */
+}

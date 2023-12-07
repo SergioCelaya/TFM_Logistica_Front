@@ -39,5 +39,6 @@ export class MenuComponent implements OnInit {
   isAdmin(): boolean {
     return this.userPuesto === 'Administrador';
   }
+
 }
 

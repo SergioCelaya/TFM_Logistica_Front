@@ -1,7 +1,20 @@
-.bgSidebar{
-  background-color: #FFC007 ;
+header {
+  max-width: 280px;
+  min-width: 120px;
 }
 
-.userSidebar{
-  background-color: #FFDF7F;
+@media screen and (min-width: 1200px) {
+  header {
+    min-width: 230px;
+  }
+}
+
+@media screen and (max-width: 1200px){
+  header {
+    max-width: 120px;
+  }
+}
+
+.bgSidebar{
+  background-color: rgb(229, 229, 229);
 }
