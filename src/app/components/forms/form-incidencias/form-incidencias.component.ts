@@ -35,7 +35,7 @@ export class FormIncidenciasComponent {
       ]),
 
       idIncidencia: new FormControl('', [
-        Validators.required,
+      
       
       ]),
 
@@ -112,9 +112,9 @@ export class FormIncidenciasComponent {
         }).then((result) => {
           if (result.isConfirmed) {
             // CREACIÓN NUEVO INCIDENCIA
-            console.log("create incidencia");
+            
             let response = this.IncidenciasService.create(this.incidenciasForm.value);
-            console.log(this.incidenciasForm.value);
+            
             Swal.fire({
               position: 'center',
               icon: 'success',

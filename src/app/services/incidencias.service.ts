@@ -2,6 +2,7 @@ import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable,firstValueFrom,lastValueFrom, tap } from 'rxjs';
 import { Incidencia } from '../models/incidencia.interface';
+import { allIncidencia } from '../models/Respuestas_API/allIncidencias.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,9 @@ export class IncidenciasService {
   private byIdPedido:string = this.baseUrl + `/byIdPedido`;
 
   // Devuelve todos las incidencias en la BBDD
-  getAll(pagina:number): Promise<Incidencia[]> {
+  getAll(pagina:number): Promise<allIncidencia> {
     console.log(pagina)
-    return lastValueFrom(this.httpClient.get<Incidencia[]>(this.baseUrl+"/"+ pagina));
+    return lastValueFrom(this.httpClient.get<allIncidencia>(this.baseUrl+"/"+ pagina));
   }
 
   // METODO PARA CREAR INCIDENCIA 
