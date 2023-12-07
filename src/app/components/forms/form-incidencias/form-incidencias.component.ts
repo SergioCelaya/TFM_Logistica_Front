@@ -32,8 +32,6 @@ export class FormIncidenciasComponent {
 
       tipo_incidencia: new FormControl('', [
         Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(40),
       ]),
 
       idIncidencia: new FormControl('', [
@@ -42,6 +40,11 @@ export class FormIncidenciasComponent {
       ]),
 
       idpedido_asociado: new FormControl('', [
+        Validators.required,
+      
+      ]),
+
+      vista: new FormControl('', [
         Validators.required,
       
       ]),

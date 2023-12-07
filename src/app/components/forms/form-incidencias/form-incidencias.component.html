@@ -59,27 +59,13 @@
     <!-- TIPO -->
     <div class="mb-3">
         <label for="tipo_incidencia">Tipo de la incicencia:</label>
-        <input class="form-control" type="text" formControlName="tipo_incidencia" id="tipo_incidencia" />
+        <input class="form-control" type="number" formControlName="tipo_incidencia" id="tipo_incidencia" />
         <div class="d-flex justify-content-between">
             <div>
                 <p class="error" *ngIf="checkControl('tipo_incidencia', 'required')">
                     Campo es requerido
                 </p>
-                <p class="error" *ngIf="checkControl('tipo_incidencia', 'minlength')">
-                    El tipo debe de contener más de 4 caracteres
-                </p>
-                <p class="error" *ngIf="checkControl('tipo_incidencia', 'maxlength')">
-                    El tipo de la incicencia no debe de superar los 45 caracteres
-                </p>
             </div>
-            <p [ngClass]="{
-          'red-text':
-            incidenciasForm.get('tipo_incidencia')?.touched &&
-            incidenciasForm.get('tipo_incidencia')?.value?.length > 45
-        }" class="m-0">
-                {{ incidenciasForm.get("tipo_incidencia")?.value?.length || 0 }} / 45
-                caracteres
-            </p>
         </div>
     </div>
 
@@ -98,6 +84,15 @@
     <input class="form-control" type="number" formControlName="idpedido_asociado" id="idpedido_asociado" required />
     <div>
         <p class="error" *ngIf="checkControl('idpedido_asociado', 'required')">
+            Campo es requerido</div>
+</div>
+
+<!-- ID PEDIDO ASOCIADO -->
+<div class="mb-3">
+    <label for="vista">Vista:</label>
+    <input class="form-control" type="number" formControlName="vista" id="vista" required />
+    <div>
+        <p class="error" *ngIf="checkControl('vista', 'required')">
             Campo es requerido</div>
 </div>
 
