@@ -27,6 +27,8 @@
         </div>
     </div>
 
+    
+
     <!-- DESCRIPCION -->
     <div class="mb-3">
         <label for="descripcion">Descripción:</label>
@@ -80,6 +82,25 @@
             </p>
         </div>
     </div>
+
+    <!-- ID INCIDENCIA -->
+<div class="mb-3">
+    <label for="idIncidencia">ID de la Incidencia:</label>
+    <input class="form-control" type="number" formControlName="idIncidencia" id="idIncidencia" required />
+    <div>
+        <p class="error" *ngIf="checkControl('idIncidencia', 'required')">
+            Campo es requerido</div>
+</div>
+
+<!-- ID PEDIDO ASOCIADO -->
+<div class="mb-3">
+    <label for="idpedido_asociado">ID del Pedido Asociado:</label>
+    <input class="form-control" type="number" formControlName="idpedido_asociado" id="idpedido_asociado" required />
+    <div>
+        <p class="error" *ngIf="checkControl('idpedido_asociado', 'required')">
+            Campo es requerido</div>
+</div>
+
 
 
     <input type="submit" [class]="incidenciasForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Aceptar"

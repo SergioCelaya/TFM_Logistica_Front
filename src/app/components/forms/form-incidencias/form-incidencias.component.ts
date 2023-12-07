@@ -36,6 +36,15 @@ export class FormIncidenciasComponent {
         Validators.maxLength(40),
       ]),
 
+      idIncidencia: new FormControl('', [
+        Validators.required,
+      
+      ]),
+
+      idpedido_asociado: new FormControl('', [
+        Validators.required,
+      
+      ]),
     
       
     });
