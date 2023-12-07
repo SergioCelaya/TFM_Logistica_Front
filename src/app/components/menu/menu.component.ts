@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { MapService } from 'src/app/services/map.service';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 
 @Component({
   selector: 'app-menu',
@@ -12,14 +13,18 @@ export class MenuComponent implements OnInit {
   servicioMapa = inject(MapService);
   isLoggedIn$!: Observable<boolean>;
   userPuesto: string = '';
+  empleado: any;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+    public imagenesService: ImagenesService
+    ) { }
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.authService.getUser().then((empleado) => {
       this.userPuesto = empleado.puesto;
-      console.log(this.userPuesto);
+      this.empleado = empleado;
+      console.log(empleado);
     })
   }
 

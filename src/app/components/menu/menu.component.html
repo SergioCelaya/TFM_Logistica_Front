@@ -67,8 +67,8 @@
   <!-- <hr> -->
   <div class="dropdown p-4 userSidebar sticky-bottom d-flex justify-content-center bg-warning">
     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-        <span class="d-none d-xl-inline mx-1">User Name</span>
+        <img [src]="imagenesService.getImagenEmpleado(empleado.imagen_empleado)" alt="Imagen empleado" width="30" height="30" class="rounded-circle">
+        <span class="d-none d-xl-inline mx-1">{{ empleado?.nombre // 'User Name' }}</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="dropdownUser1">
         <li><a class="dropdown-item" href="#">New project...</a></li>
