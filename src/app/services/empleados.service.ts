@@ -66,6 +66,7 @@ export class EmpleadosService {
   async updateEmpleado(idEmpleado: number, empleadoData: any): Promise<any> {
     return await firstValueFrom(
       this.httpClient.put(`${this.baseUrl}/${idEmpleado}`, empleadoData)
+
     );
   }
   

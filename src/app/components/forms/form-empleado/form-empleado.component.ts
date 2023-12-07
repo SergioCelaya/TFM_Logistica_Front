@@ -81,9 +81,17 @@ async submitForm(): Promise<void> {
       if (result.isConfirmed) {
         const empleadoData = this.empleadoForm.value;
         console.log(empleadoData);
+        console.log(this.idEmpleado)
         if (this.idEmpleado !== undefined) {
           // Actualizar empleado existente
-          await this.empleadosService.updateEmpleado(this.idEmpleado, empleadoData);
+          let response = await this.empleadosService.updateEmpleado(this.idEmpleado, empleadoData);
+
+          if(!response.idEmpleado){
+
+            console.log(response.fatal)
+
+          }
+
           if (this.imagenEmpleado) {
             await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
           }
@@ -93,6 +101,11 @@ async submitForm(): Promise<void> {
           console.log(empleadoData);
           delete empleadoData.idEmpleado;
           let response = await this.empleadosService.createEmpleado(empleadoData);
+          if(!response.idEmpleado){
+
+            console.log(response.fatal)
+
+          }
           this.idEmpleado = response.idEmpleado; // Asumiendo que la respuesta tiene un campo idEmpleado
           if (this.imagenEmpleado && this.idEmpleado) {
             await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
