@@ -1,12 +1,20 @@
 .body {
-  background: linear-gradient(45deg, #1cb5e0, #fff, #ffc107); /* Fondo degradado azul claro, blanco y negro */
+  background: linear-gradient(45deg, #0f8bae, #fff, #0f8bae ); /* Fondo degradado azul claro, blanco y negro */
   background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+  animation: gradient 10s ease infinite;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .body {
+    flex-direction: column;
+  }
+
 }
 
 @keyframes gradient {
@@ -23,26 +31,24 @@
 
 .welcome-container {
   text-align: center;
-  padding: 100px;
+  padding: 25px;
 }
 
-.welcome-container h1{
-  font-size: 70px;
-}
-.welcome-container h2{
-  font-size: 50px;
-  opacity: 80%;
+.welcome-container h1 {
+  font-size: 5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 100;
 }
 
 .card {
-  width: 400px; /* Ajusta el ancho del card según tus necesidades */
-  max-width: 100%;
+  width: 600px; /* Ajusta el ancho del card según tus necesidades */
   border-radius: 15px; /* Bordes redondeados */
   height: auto; /* Esto permitirá que el card crezca en altura según su contenido */
+  box-shadow: 6px 9px 15px -3px rgba(0,0,0,0.45);
+  background-color: rgb(255, 255, 255,0.2);
 }
 
 .card-header {
-  background-color: #fff; /* Color de fondo del card header */
   text-align: center;
   border-radius: 15px; /* Bordes redondeados */
   padding: 15px;
