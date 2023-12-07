@@ -78,7 +78,7 @@
       <!-- Imagen del Empleado -->
       <div class="mb-3">
         <label for="imagen_empleado">Imagen del Empleado:</label>
-        <input class="form-control" type="file" formControlName="imagen_empleado" id="imagen_empleado"/>
+        <input class="form-control" type="file" id="imagen_empleado" (change)="onChange($event)">
         <!-- Validaciones para imagen del empleado -->
         <!-- ... -->
       </div>
