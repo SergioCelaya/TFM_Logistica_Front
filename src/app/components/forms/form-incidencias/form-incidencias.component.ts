@@ -32,8 +32,6 @@ export class FormIncidenciasComponent {
 
       tipo_incidencia: new FormControl('', [
         Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(40),
       ]),
 
       idIncidencia: new FormControl('', [
