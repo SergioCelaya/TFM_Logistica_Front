@@ -45,5 +45,9 @@ export class IncidenciasService {
     return firstValueFrom(this.httpClient.get<Incidencia[]>(`${this.byIdPedido}/${idPedido}`))
   }
 
+  // Obtener una incidencia por su ID
+  getById(idIncidencia: number): Promise<Incidencia> {
+    return lastValueFrom(this.httpClient.get<Incidencia>(`${this.baseUrl}/${idIncidencia}`));
+  }
 
 }

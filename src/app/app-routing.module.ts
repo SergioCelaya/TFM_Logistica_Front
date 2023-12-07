@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'nuevoAlmacen', component: FormAlmacenComponent },
   { path: 'gestionPedido', component: FormPedidoComponent },
   { path: 'nuevaIncidencia', component: FormIncidenciasComponent },
-  { path: 'editarIncidencia', component: FormIncidenciasComponent },
+  { path: 'editarIncidencia/:idincidencia', component: FormIncidenciasComponent },
   { path: 'gestionPedido/:idpedido', component: FormPedidoComponent },
   { path: 'updateAlmacen/:idalmacen', component: FormAlmacenComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirecciona a /login por defecto
