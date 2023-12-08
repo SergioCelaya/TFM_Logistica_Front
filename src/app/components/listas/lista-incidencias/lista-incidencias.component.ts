@@ -3,6 +3,7 @@ import { IncidenciasService } from 'src/app/services/incidencias.service';
 import { Router } from '@angular/router';
 import { Incidencia } from 'src/app/models/incidencia.interface';
 import { allIncidencia } from 'src/app/models/Respuestas_API/allIncidencias.interface';
+import { IncidenciaRespuesta } from 'src/app/models/Respuestas_API/incidenciaRespuesta.interface';
 
 @Component({
   selector: 'app-lista-incidencias',
@@ -17,6 +18,8 @@ export class ListaIncidenciasComponent {
   Resultado: allIncidencia|null=null;
   paginaActual: number = 1;
   totalPaginas: number = 0;
+  incidencias: IncidenciaRespuesta[] = [];
+  incidencia: any
 
   constructor(
     private incidenciasService: IncidenciasService,
@@ -57,6 +60,9 @@ export class ListaIncidenciasComponent {
     }
   }
 
+  // seleccionarIncidencia(incidencia: IncidenciaRespuesta): void {
+  //   this.incidenciasService.seleccionarIncidencia(incidencia);
+  // }
 
   iraeditarincidencia(idincidencia: any) {
     this.router.navigate(['/editarIncidencia/'+ idincidencia]);

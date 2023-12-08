@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable,firstValueFrom,lastValueFrom, tap } from 'rxjs';
 import { Incidencia } from '../models/incidencia.interface';
 import { allIncidencia } from '../models/Respuestas_API/allIncidencias.interface';
+import { IncidenciaRespuesta } from '../models/Respuestas_API/incidenciaRespuesta.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class IncidenciasService {
   private urlVista:string = this.baseUrl + `/vista`;
   private urlNoVista:string = this.baseUrl + `/noVista`;
   private byIdPedido:string = this.baseUrl + `/byIdPedido`;
+  private byId: string = this.baseUrl + `/byId`;
 
   // Devuelve todos las incidencias en la BBDD
   getAll(pagina:number): Promise<allIncidencia> {
@@ -47,7 +49,15 @@ export class IncidenciasService {
 
   // Obtener una incidencia por su ID
   getById(idIncidencia: number): Promise<Incidencia> {
-    return lastValueFrom(this.httpClient.get<Incidencia>(`${this.baseUrl}/${idIncidencia}`));
+    return lastValueFrom(this.httpClient.get<Incidencia>(`${this.byId}/${idIncidencia}`));
   }
 
+
+//   //mostrar detalle de incidencia
+//   private incidenciaSeleccionadaSource = new BehaviorSubject<IncidenciaRespuesta | null>(null);
+//   incidenciaSeleccionada$ = this.incidenciaSeleccionadaSource.asObservable();
+
+//   seleccionarIncidencia(incidencia: IncidenciaRespuesta) {
+//     this.incidenciaSeleccionadaSource.next(incidencia);
+//   }
 }

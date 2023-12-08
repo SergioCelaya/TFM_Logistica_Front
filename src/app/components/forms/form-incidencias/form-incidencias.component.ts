@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IncidenciasService } from 'src/app/services/incidencias.service';
 import Swal from 'sweetalert2';
+import { allIncidencia } from 'src/app/models/Respuestas_API/allIncidencias.interface';
 
 @Component({
   selector: 'app-form-incidencias',
@@ -15,6 +16,7 @@ export class FormIncidenciasComponent {
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   idIncidencia:number | undefined;
+  Resultado: allIncidencia|null=null;
 
 
   constructor() {
@@ -67,7 +69,43 @@ export class FormIncidenciasComponent {
         console.log(idincidencia)
         //PINTAR INCIDENCIA EXISTENTE
         let response = await this.IncidenciasService.getById(idincidencia);
-        console.log(response);
+        console.log(response)
+        
+        this.incidenciasForm = new FormGroup({
+          idincidencia: new FormControl(response.idincidencia, []),
+          titulo: new FormControl(response.titulo, [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(40),
+          ]),
+    
+          descripcion: new FormControl(response.descripcion, [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(450),
+          ]),
+    
+          tipo_incidencia: new FormControl(response.tipo_incidencia, [
+            Validators.required,
+          ]),
+    
+          idIncidencia: new FormControl(response.idincidencia, [
+          
+          
+          ]),
+    
+          idpedido_asociado: new FormControl(response.idpedido_asociado, [
+            Validators.required,
+          
+          ]),
+    
+          vista: new FormControl(response.vista, [
+            Validators.required,
+          
+          ]),
+        
+          
+        });
   }})}
 
 
@@ -81,12 +119,6 @@ export class FormIncidenciasComponent {
       this.incidenciasForm.get(formcontrolName)?.touched
     );
   }
-
-
-
-
-
-
 
   async submitForm(): Promise<void> {
     if (this.incidenciasForm.value.idIncidencia) {
