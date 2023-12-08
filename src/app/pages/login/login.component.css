@@ -42,9 +42,9 @@ h1 {
     border-radius: 16px;
     box-shadow: 0 20px 60px #0f8bae;
     min-width: 280px;
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
-    padding: 32px;
+    padding: 60px;
 }
 
 .login-welcome {

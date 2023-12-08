@@ -15,7 +15,129 @@ input.ng-valid.ng-touched{
   color: tomato;
 }
 
-.form {
-  height: 100%;
-  width: 80vw;
+.formInput{
+  padding: 1rem;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid grey;
+}
+.formInput::placeholder{
+  color: grey;
+}
+.formInput:focus{
+  outline-color: transparent;
+  outline-style: none;
+  box-shadow: none;
+  font-size: 1rem;
+  font-weight: bolder;
+}
+
+.formIcon {
+  width: 100px;
+  align-self: center;
+}
+
+.modale {
+	border-radius: .5rem;
+	box-shadow: 0 5px 15px rgba(#ce1b1b, .2);
+}
+
+.logo-circle {
+	width: 3.5rem;
+	height: 3.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	background-color: whitesmoke;
+	svg {
+		max-width: 1.5rem;
+	}
+}
+
+.modale-body {
+  position: relative;
+	padding: 1rem 1.5rem;
+}
+
+.modal-title {
+	font-weight: 700;
+}
+
+.modal-description {
+	color: black;
+}
+
+.upload-area {
+	margin-top: 1.25rem;
+	border: none;
+	background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23ccc' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+	background-color: transparent;
+	padding: 3rem;
+	max-width: 500px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	&:hover, &:focus {
+			background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%232e44ff' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+	}
+}
+
+.upload-area-icon {
+	width: 2.25rem;
+	height: 2.25rem;
+	svg {
+		max-height: 100%;
+		max-width: 100%;
+	}
+}
+
+.upload-area-title {
+	margin-top: 1rem;
+	font-weight: 700;
+		color: blue;
+}
+
+.upload-area-description {
+		color: blue;
+	strong {
+		color: blue;
+		font-weight: 700;
+	}
+}
+
+.file-input {
+  position: absolute;
+  left: 0;
+  top: 120px;
+  height: 250px;
+  width: 500px;
+  cursor: pointer;
+  opacity: 0;
+  &:focus {
+    outline: none;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .upload-area {
+    max-width: 500px;
+  }
+  .imgInput {
+    min-width: 300px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .file-input{
+    top: 166px;
+    height: 200px;
+    width: 380px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .file-input{
+    top: 166px;
+    height: 350px;
+    width: 200px;
+  }
 }

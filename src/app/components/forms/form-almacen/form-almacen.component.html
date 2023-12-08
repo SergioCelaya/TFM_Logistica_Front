@@ -1,9 +1,14 @@
-<form [formGroup]="almacenForm" (ngSubmit)="submitForm()" class="m-4 p-5 justify-content-center row form">
-  <div class="w-50 mt-5">
+<form
+  [formGroup]="almacenForm"
+  (ngSubmit)="submitForm()"
+  class="justify-content-center row form"
+>
+  <div class="col-12 col-md-7 mt-5 d-flex flex-column justify-content-center">
+    <img class="formIcon mb-3" src="/assets/formicon.png" alt="Icono formulario">
+    <h3 class="mb-5 text-center">Crear nuevo almacén</h3>
     <div class="mb-3">
-      <label for="nombre_almacen">Nombre del almacén:</label>
       <input
-        class="form-control"
+        class="formInput form-control"
         type="text"
         formControlName="nombre_almacen"
         id="nombre_almacen"
@@ -35,8 +40,13 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="long">Longitud:</label>
-      <input class="form-control" type="text" formControlName="long" id="long" placeholder="Long."/>
+      <input
+        class="form-control formInput"
+        type="text"
+        formControlName="long"
+        id="long"
+        placeholder="Longitud"
+      />
       <div class="d-flex justify-content-between">
         <div>
           <p class="error" *ngIf="checkControl('long', 'required')">
@@ -65,8 +75,13 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="lat">Latitud:</label>
-      <input class="form-control" type="text" formControlName="lat" id="lat" placeholder="Lat."/>
+      <input
+        class="form-control formInput"
+        type="text"
+        formControlName="lat"
+        id="lat"
+        placeholder="Latitud"
+      />
       <div class="d-flex justify-content-between">
         <div>
           <p class="error" *ngIf="checkControl('lat', 'required')">
@@ -95,8 +110,8 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="activo">Activo:</label>
-      <select class="form-control" formControlName="activo" id="activo">
+      <select class="form-control formInput" formControlName="activo" id="activo">
+        <option value="" disabled selected hidden>Activo</option>
         <option value="1">Sí</option>
         <option value="0">No</option>
       </select>
@@ -105,16 +120,48 @@
         Campo es requerido
       </p>
     </div>
-
-      <!-- Imagen que debe de subir al back la muestro una vez se selecciona-->
-    <div class="m-5">
-      <input type="file" name="image" class="form-control" formControlName="imagen_almacen" id="imagen_almacen" (change)="onChange($event)" />
-      <img style="width: 300px;height: 300px;" *ngIf="url" [src]="url" />
+    <div class="row">
+      <!-- Area input imagen -->
+      <div class="modale ms-xxl-5 mb-xxl-5">
+        <div class="modale-body">
+          <div class="d-flex align-items-center">
+            <span class="logo-circle">
+              <i class="fs-2 bi bi-filetype-jpg"></i>
+            </span>
+            <div class="ms-3">
+              <h2 class="modal-title">Carga una imagen</h2>
+              <p class="modal-description">Agrega una imagen al almacén</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-xxl-6">
+              <button class="upload-area">
+                <span class="upload-area-icon mb-3"><i class="fs-1 bi bi-file-earmark-image text-primary"></i></span>
+                <span class="upload-area-title text-primary">Arrastra aquí para cargar</span>
+                <span class="upload-area-description text-primary">Como alternativa, puedes escoger un archivo <br/>
+                  <strong class="text-primary">Hacienclo click aquí</strong>
+                </span>
+                <input
+                      type="file"
+                      name="image"
+                      class="file-input form-control container"
+                      formControlName="imagen_almacen"
+                      id="imagen_almacen"
+                      (change)="onChange($event)"
+                    />
+              </button>
+              </div>
+            <!-- Previsualización imagen -->
+            <img class="col-12 col-md-8 col-xl-6 mt-3 mt-xxl-0 col-xxl-4 img-fluid imgInput rounded-2" *ngIf="url" [src]="url" />
+          </div>
+        </div>
+      </div>
     </div>
 
     <input
       type="submit"
       [class]="almacenForm.valid ? 'btn btn-info' : 'btn btn-secondary'"
+      class="mt-3 align-self-start"
       value="Aceptar"
       [disabled]="!almacenForm.valid"
     />
