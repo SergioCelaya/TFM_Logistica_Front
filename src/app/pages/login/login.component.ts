@@ -65,7 +65,7 @@ export class LoginComponent {
 
   empleado() {
     const user: User = {
-      email: 'juan.perez@example.com',
+      email: 'luciano.garcia@example.com',
       pwd: '12345678',
     };
     this.servicioAuth.login(user);
