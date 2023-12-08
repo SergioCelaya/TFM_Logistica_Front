@@ -75,21 +75,23 @@ export class ListaEmpleadosComponent implements OnInit {
 
   activarDesactivarEmpleado(empleado: EmpleadoRespuesta): void {
     let nuevoEstado = empleado.activo === 1 ? 0 : 1;
-  
+
     this.empleadosService.updateEmpleadoEstado(empleado.idempleado, nuevoEstado)
       .then(response => {
-        console.log(response); // Imprime la respuesta para depuración
-        if (response && response.success) { // Asegúrate de que la respuesta indica éxito
-          empleado.activo = nuevoEstado;
-          Swal.fire('¡Éxito!', 'El estado del empleado ha sido actualizado.', 'success');
-        } else {
-          Swal.fire('Error', 'No se pudo cambiar el estado del empleado.', 'error');
-        }
+        // Mostrar SweetAlert y esperar a que el usuario presione "OK"
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'El estado del empleado ha sido actualizado.',
+          icon: 'success'
+        }).then(() => {
+          location.reload(); // Recarga la página después de que se presione "OK"
+        });
       })
       .catch(error => {
         console.error('Error al cambiar el estado:', error);
         Swal.fire('Error', 'Ha ocurrido un error al cambiar el estado.', 'error');
       });
-  }
+}
+
   
 }
