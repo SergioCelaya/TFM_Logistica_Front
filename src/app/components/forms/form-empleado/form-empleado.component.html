@@ -34,10 +34,14 @@
   
       <!-- Puesto -->
       <div class="mb-3">
+
         <label for="puesto">Puesto:</label>
-        <input class="form-control" type="number" formControlName="puesto" id="puesto" placeholder="Puesto del empleado"/>
-        <!-- Validaciones para puesto -->
-        <!-- ... -->
+        <select class="form-control" type="number" formControlName="puesto" id="puesto">
+          <option value=1>Empleado</option>
+          <option value=2>Encargado</option>
+          <option value=3>Administrador</option>
+        </select>
+
       </div>
   
       <!-- Fecha de Contratación -->

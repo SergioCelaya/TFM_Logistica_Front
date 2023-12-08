@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { EmpleadoRespuesta } from 'src/app/models/Respuestas_API/empleadoRespuesta.interface';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-empleados',
@@ -73,6 +74,22 @@ export class ListaEmpleadosComponent implements OnInit {
   
 
   activarDesactivarEmpleado(empleado: EmpleadoRespuesta): void {
-    // Agrega aquí la lógica para activar o desactivar al empleado
+    let nuevoEstado = empleado.activo === 1 ? 0 : 1;
+  
+    this.empleadosService.updateEmpleadoEstado(empleado.idempleado, nuevoEstado)
+      .then(response => {
+        console.log(response); // Imprime la respuesta para depuración
+        if (response && response.success) { // Asegúrate de que la respuesta indica éxito
+          empleado.activo = nuevoEstado;
+          Swal.fire('¡Éxito!', 'El estado del empleado ha sido actualizado.', 'success');
+        } else {
+          Swal.fire('Error', 'No se pudo cambiar el estado del empleado.', 'error');
+        }
+      })
+      .catch(error => {
+        console.error('Error al cambiar el estado:', error);
+        Swal.fire('Error', 'Ha ocurrido un error al cambiar el estado.', 'error');
+      });
   }
+  
 }

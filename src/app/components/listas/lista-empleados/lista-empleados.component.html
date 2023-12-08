@@ -30,12 +30,18 @@
           <li class="list-group-item empleado-item" *ngFor="let empleado of empleadosFiltrados">
             <div class="card mb-3" [ngClass]="{'bg-success-subtle': empleado.activo === 1, 'bg-danger-subtle': empleado.activo !== 1}" (click)="seleccionarEmpleado(empleado)">
               <div class="card-body">
-                <h5 class="card-title">
-                  {{ empleado.num_empleado }}
-                </h5>
-                <p class="card-text">
+                <h3 class="card-title">
                   {{ empleado.nombre }} {{ empleado.apellidos }}
-                </p>
+                </h3>
+                <h4 class="card-text">
+                  {{ empleado.num_empleado }}
+                </h4>
+                <h5 class="card-text">
+                  Puesto: {{ empleado.puesto }}
+                  {{empleado.imagen_empleado}}
+                </h5>
+
+                <br>
                 <button class="btn btn-secondary mr-2" (click)="editarEmpleado(empleado)">Editar</button>
                 <button class="btn btn-warning" (click)="activarDesactivarEmpleado(empleado)">{{ empleado.activo === 1 ? 'Dar de baja' : 'Dar de alta' }}</button>
               </div>

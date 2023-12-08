@@ -77,18 +77,13 @@ async submitForm(): Promise<void> {
 
       if (result.isConfirmed) {
         const empleadoData = this.empleadoForm.value;
+        empleadoData.puesto = +empleadoData.puesto; // Convierte el valor de puesto a número
         console.log(empleadoData);
         console.log(this.idEmpleado)
         if (this.idEmpleado !== undefined) {
           // Actualizar empleado existente
           let response = await this.empleadosService.updateEmpleado(this.idEmpleado, empleadoData);
-
-          if(!response){
-
-            console.log(response.fatal)
-
-          }
-
+          
           if (this.imagenEmpleado) {
             await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
           }
