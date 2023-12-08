@@ -16,15 +16,13 @@
           <div class="card-header">
             Listado de Incidencias
           </div>
-          <ul class="list-group list-group-flush">
-            <div  class="list-group-item " *ngFor="let resultado of arrIncidencias">
-              <div >
+          <ul class="list-group list-group-flush ">
+            <div  class="list-group-item  " *ngFor="let resultado of arrIncidencias">
+              <div class="d-flex flex-row justify-content-between" (click)="seleccionarIncidencia(resultado)">
               <p class="badge bg-danger rounded-pill">Id: {{ resultado.idincidencia }}</p>              
-              <p class="h3 ">{{ resultado.titulo }}</p>
-              <p class="h6"> {{ resultado.descripcion }}</p>
-              <!-- <p class="h6 bg-dark-subtle rounded-5 text-center">Enviado por: {{ resultado.usuario_asignado.email }}</p> -->
-              <!-- <button (click)="seleccionarIncidencia(incidencia)">Detalle</button> -->
-              <button class="btn btn-secondary" (click)="iraeditarincidencia( resultado.idincidencia )">Editar</button>
+              <p class="h6 ">{{ resultado.titulo }}</p>
+              
+                            <button class="btn btn-secondary" (click)="iraeditarincidencia( resultado.idincidencia )">Editar</button>
             </div>
               
             </div>
@@ -37,7 +35,7 @@
 
 
   <!-- Paginación -->
-      <nav class="mt-2" aria-label="Page navigation example">
+      <nav class="mt-4" aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
           <li class="page-item" [class.disabled]="paginaActual === 1">
             <a

@@ -1,24 +1,14 @@
 
-<div class="card">
-    <div class="card-header">
-      Detalle de incidencia: (aqui irá el nombre de la incidencia)
+  <div class="card p-" *ngIf="incidencia">
+    <div class="card-header bg-danger-subtle">
+      Detalle de la incidencia: 
     </div>
-    <ul class="list-group list-group-flush">
-
-      <li class="list-group-item">Id: </li>
-      <li class="list-group-item">Titulo: </li>
-      <li class="list-group-item">Descripcion: </li>
-      <li class="list-group-item">Tipo de incidencia: </li>
+    <ul class="list-group list-group-flush ">
+      <li class="list-group-item bg-body-secondary">Título: {{ incidencia.titulo }}</li>
+      <li class="list-group-item bg-body-secondary">Descripción: {{ incidencia.descripcion }}</li>
+      <li class="list-group-item bg-body-secondary">Id: {{ incidencia.idIncidencia }}</li>
+      <li class="list-group-item bg-body-secondary">ID pedido: {{ incidencia.idpedido_asociado }}</li>
+      <li class="list-group-item bg-body-secondary">Responsable: {{ incidencia.usuario_asignado.nombre}}</li>
+      <li class="list-group-item bg-body-secondary">Vista: {{ incidencia.vista }}</li>
     </ul>
   </div>
-
-  <!-- <div class="card" *ngIf="incidencia">
-    <div class="card-header">
-      Detalle de empleado: {{ incidencia.titulo }}
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Id: {{ incidencia.idIncidencia }}</li>
-      <li class="list-group-item">Número: {{ incidencia.descripcion }}</li>
-     
-    </ul>
-  </div> -->

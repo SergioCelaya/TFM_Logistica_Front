@@ -60,12 +60,16 @@ export class ListaIncidenciasComponent {
     }
   }
 
-  // seleccionarIncidencia(incidencia: IncidenciaRespuesta): void {
-  //   this.incidenciasService.seleccionarIncidencia(incidencia);
-  // }
+
 
   iraeditarincidencia(idincidencia: any) {
     this.router.navigate(['/editarIncidencia/'+ idincidencia]);
     console.log(idincidencia)
+    }
+
+//AQUI VA EL CLICK PARA SELECCIONAR QUÉ INCIDENCIA VER EN DETALLE INCIDENCIA
+    seleccionarIncidencia(incidencia: IncidenciaRespuesta): void {
+      this.incidenciasService.seleccionarIncidencia(incidencia);
+      console.log("EL CLICK PASA POR EL TS DE LISTA INCIDENCIAS")
     }
 }

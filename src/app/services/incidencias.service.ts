@@ -53,11 +53,13 @@ export class IncidenciasService {
   }
 
 
-//   //mostrar detalle de incidencia
-//   private incidenciaSeleccionadaSource = new BehaviorSubject<IncidenciaRespuesta | null>(null);
-//   incidenciaSeleccionada$ = this.incidenciaSeleccionadaSource.asObservable();
+  //mostrar detalle de incidencia
+  private incidenciaSeleccionadaSource = new BehaviorSubject<IncidenciaRespuesta | null>(null);
+  incidenciaSeleccionada$ = this.incidenciaSeleccionadaSource.asObservable();
 
-//   seleccionarIncidencia(incidencia: IncidenciaRespuesta) {
-//     this.incidenciaSeleccionadaSource.next(incidencia);
-//   }
+  seleccionarIncidencia(incidencia: IncidenciaRespuesta) {
+    this.incidenciaSeleccionadaSource.next(incidencia);
+    console.log("el click pasa por el servicio incidencias")
+    console.log("servicio de incidencias " + incidencia)
+  }
 }
