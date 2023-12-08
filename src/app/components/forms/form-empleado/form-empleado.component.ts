@@ -22,7 +22,6 @@ export class FormEmpleadoComponent {
 
   constructor() {
     this.empleadoForm = new FormGroup({
-      idEmpleado: new FormControl(''),
       num_empleado: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
@@ -55,8 +54,6 @@ export class FormEmpleadoComponent {
         let empleado: EmpleadoRespuesta = await this.empleadosService.getEmpleadoById(this.idEmpleado);
         this.empleadoForm.patchValue({
           ...empleado,
-          idEmpleado: this.idEmpleado,
-          activo: empleado.activo.toString(),
           fecha_contratacion: new Date(empleado.fecha_contratacion).toISOString().substring(0, 10),
         });
       } else {
@@ -86,7 +83,7 @@ async submitForm(): Promise<void> {
           // Actualizar empleado existente
           let response = await this.empleadosService.updateEmpleado(this.idEmpleado, empleadoData);
 
-          if(!response.idEmpleado){
+          if(!response){
 
             console.log(response.fatal)
 

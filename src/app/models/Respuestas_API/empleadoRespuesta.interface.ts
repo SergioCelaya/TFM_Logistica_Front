@@ -6,7 +6,7 @@ export interface EmpleadoRespuesta {
     nombre: string;
     apellidos: string;
     email: string;
-    puesto: string;
+    puesto: number;
     activo: number;
     fecha_contratacion: Date;
     idalmacen: number;

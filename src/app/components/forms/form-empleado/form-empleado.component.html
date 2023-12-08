@@ -35,7 +35,7 @@
       <!-- Puesto -->
       <div class="mb-3">
         <label for="puesto">Puesto:</label>
-        <input class="form-control" type="text" formControlName="puesto" id="puesto" placeholder="Puesto del empleado"/>
+        <input class="form-control" type="number" formControlName="puesto" id="puesto" placeholder="Puesto del empleado"/>
         <!-- Validaciones para puesto -->
         <!-- ... -->
       </div>
@@ -67,9 +67,9 @@
       <!-- Activo -->
       <div class="mb-3">
         <label for="activo">Activo:</label>
-        <select class="form-control" formControlName="activo" id="activo">
-          <option value="1">Sí</option>
-          <option value="0">No</option>
+        <select class="form-control" type="number" formControlName="activo" id="activo">
+          <option value=1>Sí</option>
+          <option value=0>No</option>
         </select>
         <!-- Validaciones para activo -->
         <!-- ... -->
