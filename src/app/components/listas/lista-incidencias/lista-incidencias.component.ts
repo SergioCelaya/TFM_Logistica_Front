@@ -59,5 +59,6 @@ export class ListaIncidenciasComponent {
 
   iraeditarincidencia(idincidencia: any) {
     this.router.navigate(['/editarIncidencia/'+ idincidencia]);
+    console.log(idincidencia)
     }
 }
