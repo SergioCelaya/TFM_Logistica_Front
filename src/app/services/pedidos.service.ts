@@ -31,6 +31,7 @@ export class PedidosService {
   private toRect:string = "toRectificar";
   private toPteVal:string = "toPendienteValidar";
   private encargadoByAlmacen: string = 'deEncargadoByAlmacen';
+  private byEmpleadoEstado:string= 'byEmpleadoEstado';
 
   getPedidoActivo$(): Observable<pedidoRespuesta> {
     return this.pedidoActivo.asObservable();
@@ -63,6 +64,14 @@ export class PedidosService {
     return await firstValueFrom(
       this.httpClient.get<pedidoRespuesta[]>(
         `${this.baseUrl}/${this.urlById}/${idpedido}}`
+      )
+    );
+  }
+
+  async getPedidoByIdEmpleadoEstado(usuario: number,estado:number,pagina:number): Promise<allPedidos> {
+    return await firstValueFrom(
+      this.httpClient.get<allPedidos>(
+        `${this.baseUrl}/${this.byEmpleadoEstado}/${usuario}/${estado}/${pagina}`
       )
     );
   }

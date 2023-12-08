@@ -11,10 +11,36 @@
       <button class="btn btn-warning" type="button">Buscar</button>
     </div>
   </div>
+  <div class="d-flex">
+    <button class="btn btn-warning mb-3 mx-3" (click)="crearPedido()">
+      Nuevo pedido
+    </button>
 
-  <button class="btn btn-warning mb-3 mx-3" (click)="crearPedido()">
-    Nuevo pedido
-  </button>
+    <div
+      class="btn-warning mb-3 mx-3"
+      role="group"
+      aria-label="Opciones de filtrado"
+    >
+      <div class="btn-group" role="group">
+        <button
+          type="button"
+          class="btn btn-primary dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Filtrar peticiones por estado
+        </button>
+        <ul class="dropdown-menu">
+          <li><button class="dropdown-item" type="button" (click)="filtroEstado(1)">Pendientes de validar</button></li>
+          <li><button class="dropdown-item" type="button" (click)="filtroEstado(2)">Rectificar</button></li>
+          <li><button class="dropdown-item" type="button" (click)="filtroEstado(3)">Validadas</button></li>
+          <li><button class="dropdown-item" type="button" (click)="filtroEstado(4)">En tránsito</button></li>
+          <li><button class="dropdown-item" type="button" (click)="filtroEstado(5)">Espera de recepción</button></li>
+          <li><button class="dropdown-item" type="button" (click)="filtroEstado(6)">Finalizadas</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <div class="card">
     <div class="card-header">Listado de Pedidos</div>

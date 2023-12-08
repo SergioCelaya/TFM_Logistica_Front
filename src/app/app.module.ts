@@ -26,6 +26,11 @@ import { FormPedidoComponent } from './components/forms/form-pedido/form-pedido.
 import { FormIncidenciasComponent } from './components/forms/form-incidencias/form-incidencias.component';
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
 import { FormEmpleadoComponent } from './components/forms/form-empleado/form-empleado.component';
+import {  HTTP_INTERCEPTORS } from '@angular/common/http';
+
+// Interceptors
+import { AuthIntereceptorService } from './interceptors/auth.intereceptor.service';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +66,11 @@ import { FormEmpleadoComponent } from './components/forms/form-empleado/form-emp
     FormsModule,
     CommonModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthIntereceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

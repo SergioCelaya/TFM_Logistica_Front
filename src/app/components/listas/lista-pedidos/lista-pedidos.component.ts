@@ -34,24 +34,23 @@ export class ListaPedidosComponent {
             1,
             this.empleado.idempleado
           );
-        }else if(this.empleado.puesto == 'Encargado'){
-          this.respuestaCompleta = await this.pedidosService.getPedidosEncargadoByAlmacen(
-            1,
-            this.empleado.idalmacen,
-            this.empleado.idempleado
-          );
+        } else if (this.empleado.puesto == 'Encargado') {
+          this.respuestaCompleta =
+            await this.pedidosService.getPedidosEncargadoByAlmacen(
+              1,
+              this.empleado.idalmacen,
+              this.empleado.idempleado
+            );
         }
-          this.totalPedidos = this.respuestaCompleta?.TotalElementos!;
-          this.pedidosPagina = this.respuestaCompleta?.ElementosPagina!;
-          this.paginaActual = 1;
-          this.numeroPaginas = Math.ceil(
-            this.totalPedidos / this.pedidosPagina
-          );
-          this.arrayPaginas = Array(this.numeroPaginas);
-          this.pedidosEmpleado = this.respuestaCompleta?.Resultado!;
-          if (this.pedidosEmpleado.length > 0) {
-            this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
-          }
+        this.totalPedidos = this.respuestaCompleta?.TotalElementos!;
+        this.pedidosPagina = this.respuestaCompleta?.ElementosPagina!;
+        this.paginaActual = 1;
+        this.numeroPaginas = Math.ceil(this.totalPedidos / this.pedidosPagina);
+        this.arrayPaginas = Array(this.numeroPaginas);
+        this.pedidosEmpleado = this.respuestaCompleta?.Resultado!;
+        if (this.pedidosEmpleado.length > 0) {
+          this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
+        }
       }
     } catch (error) {
       Swal.fire({
@@ -69,10 +68,19 @@ export class ListaPedidosComponent {
     try {
       this.paginaActual = pagina;
       if (this.empleado) {
-        this.respuestaCompleta = await this.pedidosService.getPedidosEmpleado(
-          pagina,
-          this.empleado?.idempleado
-        );
+        if (this.empleado.puesto == 'Empleado') {
+          this.respuestaCompleta = await this.pedidosService.getPedidosEmpleado(
+            pagina,
+            this.empleado.idempleado
+          );
+        } else if (this.empleado.puesto == 'Encargado') {
+          this.respuestaCompleta =
+            await this.pedidosService.getPedidosEncargadoByAlmacen(
+              pagina,
+              this.empleado.idalmacen,
+              this.empleado.idempleado
+            );
+        }
         this.pedidosEmpleado = this.respuestaCompleta?.Resultado!;
         if (this.pedidosEmpleado.length > 0) {
           this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
@@ -106,5 +114,27 @@ export class ListaPedidosComponent {
 
   crearPedido() {
     this.router.navigate(['/gestionPedido']);
+  }
+
+  async filtroEstado(estado: number) {
+    console.log("entra en estados "+estado)
+    if (this.empleado?.idempleado) {
+      this.respuestaCompleta =
+        await this.pedidosService.getPedidoByIdEmpleadoEstado(
+          this.empleado?.idempleado,
+          estado,
+          1
+        );
+        console.log(this.respuestaCompleta)
+      this.totalPedidos = this.respuestaCompleta?.TotalElementos!;
+      this.pedidosPagina = this.respuestaCompleta?.ElementosPagina!;
+      this.paginaActual = 1;
+      this.numeroPaginas = Math.ceil(this.totalPedidos / this.pedidosPagina);
+      this.arrayPaginas = Array(this.numeroPaginas);
+      this.pedidosEmpleado = this.respuestaCompleta?.Resultado!;
+      if (this.pedidosEmpleado.length > 0) {
+        this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
+      }
+    }
   }
 }
