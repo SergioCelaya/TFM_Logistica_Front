@@ -24,15 +24,17 @@ export class PedidosService {
   private baseUrl: string = 'http://localhost:3000/api/pedidos';
   private urlByEmpleado: string = 'byEmpleadoId';
   private urlById: string = 'byId';
-  private toFin:string = "toFinalizado";
-  private toPteRecepcionar:string = "toPendienteRecepcionar";
-  private toTrans:string = "toEnTransito";
-  private toVal:string = "toValidado";
-  private toRect:string = "toRectificar";
-  private toPteVal:string = "toPendienteValidar";
+  private toFin: string = 'toFinalizado';
+  private toPteRecepcionar: string = 'toPendienteRecepcionar';
+  private toTrans: string = 'toEnTransito';
+  private toVal: string = 'toValidado';
+  private toRect: string = 'toRectificar';
+  private toPteVal: string = 'toPendienteValidar';
   private encargadoByAlmacen: string = 'deEncargadoByAlmacen';
-  private byEmpleadoEstado:string= 'byEmpleadoEstado';
-
+  private encargadoByAlmacenValdar: string = 'deEncargadoValidar';
+  private encargadoByAlmacenRecepcionar: string = 'deEncargadoRecepcionar';
+  private byEmpleadoEstado: string = 'byEmpleadoEstado';
+  private byNumPedido: string = 'byNumPedido';
   getPedidoActivo$(): Observable<pedidoRespuesta> {
     return this.pedidoActivo.asObservable();
   }
@@ -52,10 +54,37 @@ export class PedidosService {
     );
   }
 
-  async getPedidosEncargadoByAlmacen(pagina: number,idalmacen: number,idEmpleado:number ) {
+  async getPedidosEncargadoByAlmacen(
+    pagina: number,
+    idalmacen: number,
+    idEmpleado: number
+  ) {
     return await firstValueFrom(
       this.httpClient.get<allPedidos>(
         `${this.baseUrl}/${this.encargadoByAlmacen}/${idalmacen}/${idEmpleado}/${pagina}`
+      )
+    );
+  }
+
+  async getPedidosEncargadoByAlmacenValidar(
+    pagina: number,
+    idalmacen: number,
+    idEmpleado: number
+  ) {
+    return await firstValueFrom(
+      this.httpClient.get<allPedidos>(
+        `${this.baseUrl}/${this.encargadoByAlmacenValdar}/${idalmacen}/${idEmpleado}/${pagina}`
+      )
+    );
+  }
+
+  async getPedidosEncargadoByAlmacenRecepcionar(
+    pagina: number,
+    idalmacen: number
+  ) {
+    return await firstValueFrom(
+      this.httpClient.get<allPedidos>(
+        `${this.baseUrl}/${this.encargadoByAlmacenRecepcionar}/${idalmacen}/${pagina}`
       )
     );
   }
@@ -68,10 +97,22 @@ export class PedidosService {
     );
   }
 
-  async getPedidoByIdEmpleadoEstado(usuario: number,estado:number,pagina:number): Promise<allPedidos> {
+  async getPedidoByIdEmpleadoEstado(
+    usuario: number,
+    estado: number,
+    pagina: number
+  ): Promise<allPedidos> {
     return await firstValueFrom(
       this.httpClient.get<allPedidos>(
         `${this.baseUrl}/${this.byEmpleadoEstado}/${usuario}/${estado}/${pagina}`
+      )
+    );
+  }
+
+  async getPedidoByNumPedido(numPedido: string):Promise<pedidoRespuesta> {
+    return await firstValueFrom(
+      this.httpClient.get<pedidoRespuesta>(
+        `${this.baseUrl}/${this.byNumPedido}/${numPedido}`
       )
     );
   }
@@ -88,39 +129,57 @@ export class PedidosService {
     );
   }
 
-async toPendientevalidar(idPedido:number){
-  return await firstValueFrom(
-    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toPteVal}/${idPedido}`,null)
-  );
-}
+  async toPendientevalidar(idPedido: number) {
+    return await firstValueFrom(
+      this.httpClient.put<Pedido>(
+        `${this.baseUrl}/${this.toPteVal}/${idPedido}`,
+        null
+      )
+    );
+  }
 
-async toRectificar(idPedido:number){
-  return await firstValueFrom(
-    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toRect}/${idPedido}`,null)
-  );
-}
+  async toRectificar(idPedido: number) {
+    return await firstValueFrom(
+      this.httpClient.put<Pedido>(
+        `${this.baseUrl}/${this.toRect}/${idPedido}`,
+        null
+      )
+    );
+  }
 
-async toValidado(idPedido:number){
-  return await firstValueFrom(
-    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toVal}/${idPedido}`,null)
-  );
-}
+  async toValidado(idPedido: number) {
+    return await firstValueFrom(
+      this.httpClient.put<Pedido>(
+        `${this.baseUrl}/${this.toVal}/${idPedido}`,
+        null
+      )
+    );
+  }
 
-async toEnTransito(idPedido:number){
-  return await firstValueFrom(
-    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toTrans}/${idPedido}`,null)
-  );
-}
-async toPendienteRecepcionar(idPedido:number){
-  return await firstValueFrom(
-    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toPteRecepcionar}/${idPedido}`,null)
-  );
-}
+  async toEnTransito(idPedido: number) {
+    return await firstValueFrom(
+      this.httpClient.put<Pedido>(
+        `${this.baseUrl}/${this.toTrans}/${idPedido}`,
+        null
+      )
+    );
+  }
+  async toPendienteRecepcionar(idPedido: number) {
+    return await firstValueFrom(
+      this.httpClient.put<Pedido>(
+        `${this.baseUrl}/${this.toPteRecepcionar}/${idPedido}`,
+        null
+      )
+    );
+  }
 
-async toFinalizado(idPedido:number){
-  return await firstValueFrom(
-    this.httpClient.put<Pedido>(`${this.baseUrl}/${this.toFin}/${idPedido}`,null)
-  );
-}
+  async toFinalizado(idPedido: number) {
+    return await firstValueFrom(
+      this.httpClient.put<Pedido>(
+        `${this.baseUrl}/${this.toFin}/${idPedido}`,
+        null
+      )
+    );
+  }
   constructor() {}
 }

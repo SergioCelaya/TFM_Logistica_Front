@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { MapService } from 'src/app/services/map.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-menu',
@@ -10,7 +10,6 @@ import { ImagenesService } from 'src/app/services/imagenes.service';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
-  servicioMapa = inject(MapService);
   isLoggedIn$!: Observable<boolean>;
   userPuesto: string = '';
   empleado: any;
@@ -20,12 +19,25 @@ export class MenuComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    console.log("Entra")
     this.isLoggedIn$ = this.authService.isLoggedIn;
+    console.log(this.isLoggedIn$)
     this.authService.getUser().then((empleado) => {
+      console.log("Entra 3")
       this.userPuesto = empleado.puesto;
+      console.log("Entra 4")
       this.empleado = empleado;
       console.log(empleado);
-    })
+    }).catch(
+      error=>{
+        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title:
+            'Error al cargar la lista de pedidos. Consulte con el administrador.',
+        });
+      }
+    )
   }
 
   onLogout() {

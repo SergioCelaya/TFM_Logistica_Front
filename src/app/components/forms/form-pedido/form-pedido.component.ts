@@ -37,6 +37,7 @@ export class FormPedidoComponent {
   encargados: EmpleadoRespuesta[] = [];
   pedidoForm: FormGroup<any>;
   //Variables de control de flujo del pedido.
+  crearPedido:boolean = false;
   accionValidar: boolean = false;
   accionRectificar: boolean = false;
   accionEnvio: boolean = false;
@@ -120,9 +121,13 @@ export class FormPedidoComponent {
         });
       }
       this.controlDeRolesYestados();
+      console.log("estao: ")
+      console.log(this.pedidoActivo?.estado)
       if (this.pedidoActivo?.estado) {
-        console.log(this.pedidoActivo?.estado)
         this.setImagenEstado(this.pedidoActivo?.estado);
+      }else{
+        this.crearPedido = true;
+        this.urlImagen = 'assets/estados/crear.jpg';
       }
     });
   }

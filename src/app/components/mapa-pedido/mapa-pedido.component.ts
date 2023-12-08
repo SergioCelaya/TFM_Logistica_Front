@@ -2,7 +2,6 @@ import { Component, Input, inject } from '@angular/core';
 import { Observable, Subject, map, takeUntil } from 'rxjs';
 import { Pedido } from 'src/app/models/pedido.interface';
 import { MapDirectionsService } from '@angular/google-maps';
-import { MapService } from 'src/app/services/map.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { AlmacenService } from 'src/app/services/almacen.service';
 
@@ -30,12 +29,8 @@ export class MapaPedidoComponent {
   directionsResults$!: Observable<google.maps.DirectionsResult | undefined>; 
 
   constructor(
-    mapDirectionsService: MapDirectionsService,
-    private _mapService: MapService
+    mapDirectionsService: MapDirectionsService
   ) {
-    this._mapService.obsCurrentApiStatus.subscribe((status) => {
-      this.apiLoaded = status.valueOf();
-    });
 
     this.pedidosService
       .getPedidoActivo$()

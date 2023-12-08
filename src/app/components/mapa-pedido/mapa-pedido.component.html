@@ -1,4 +1,4 @@
-<div  *ngIf="apiLoaded" id="main">
+<div  id="main">
   <google-map height="41.6rem" width="100%" [options]="options" [center]="myposition">
     <map-directions-renderer
       *ngIf="(directionsResults$ | async) as directionsResults"
