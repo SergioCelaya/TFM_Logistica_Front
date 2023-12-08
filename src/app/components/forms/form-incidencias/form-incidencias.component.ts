@@ -62,9 +62,10 @@ export class FormIncidenciasComponent {
       let idincidencia: number = Number(params.idincidencia);
 
       if (idincidencia) {
-        //GUARDO EL ID DE ALMACEN PARA GUARDAR LA IMAGEN POSTERIORENTE
+        //GUARDO EL ID DE INCIDENCIA PARA GUARDAR LA IMAGEN POSTERIORENTE
         this.idIncidencia = idincidencia;
-        //PINTAR ALMACEN EXISTENTE
+        console.log(idincidencia)
+        //PINTAR INCIDENCIA EXISTENTE
         let response = await this.IncidenciasService.getById(idincidencia);
         console.log(response);
   }})}

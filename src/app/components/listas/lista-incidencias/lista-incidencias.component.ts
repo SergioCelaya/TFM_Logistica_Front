@@ -15,6 +15,8 @@ export class ListaIncidenciasComponent {
   resultados: any = {};
   currentpagina: number = 0;
   Resultado: allIncidencia|null=null;
+  paginaActual: number = 1;
+  totalPaginas: number = 0;
 
   constructor(
     private incidenciasService: IncidenciasService,
@@ -36,7 +38,8 @@ export class ListaIncidenciasComponent {
       this.Resultado = await this.incidenciasService.getAll(pagina);
       console.log(this.Resultado)
       this.arrIncidencias = this.Resultado.Resultado;
-      console.log("pasando por aqui")
+      this.totalPaginas = Math.ceil(this.Resultado.TotalElementos / this.Resultado.ElementosPagina);
+      this.paginaActual = pagina;
       console.log(this.arrIncidencias)
 
     } catch (error: any) {
@@ -45,15 +48,13 @@ export class ListaIncidenciasComponent {
   }
 
   
-  async siguientePagina() {
-    this.currentpagina = this.currentpagina + 1;
-    try {
-      this.cargarIncidencias(this.currentpagina);
-      
-    } catch (error: any) {
-      this.router.navigate(['/login']);   
-    }
 
+
+  cambiarPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPaginas) {
+      this.paginaActual = pagina;
+      this.cargarIncidencias(pagina);
+    }
   }
 
 
