@@ -20,8 +20,16 @@ export class LoginComponent {
   private loggedIn = new BehaviorSubject<boolean>(this.tokenAvailable());
 
   async ngOnInit() {
-    if (localStorage.getItem('token')) {
-      this.servicioAuth.logout();
+    try {
+      if (localStorage.getItem('token')) {
+        this.servicioAuth.logout();
+      }
+    } catch (error) {
+     Swal.fire({
+      icon: 'error',
+      title: ''
+     });
+      //TODO Rellenar motivo de error
     }
   }
 
@@ -47,18 +55,27 @@ export class LoginComponent {
   }
 
   async login() {
-    if (this.loginForm.valid) {
-      const result = await this.servicioAuth.login(this.loginForm.value);
-      if (result.Error != undefined && result.Error != '') {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Login error',
-          text: result.Error.toString(),
-          showConfirmButton: false,
-          timer: 4000,
-        });
+    try {
+      if (this.loginForm.valid) {
+        const result = await this.servicioAuth.login(this.loginForm.value);
+        if (result.Error != undefined && result.Error != '') {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Login error',
+            text: result.Error.toString(),
+            showConfirmButton: false,
+            timer: 4000,
+          });
+        }
       }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error en el inicio de sesión'
+        //TODO Revisar titulo
+      });
+      // Puedes agregar más lógica de manejo de errores si es necesario
     }
   }
   onClickSubmit(data:any) {
@@ -68,26 +85,49 @@ export class LoginComponent {
     return !!localStorage.getItem('token');
   }
 
-  empleado() {
-    const user: User = {
-      email: 'juan.perez@example.com',
-      pwd: '12345678',
-    };
-    this.servicioAuth.login(user);
+  async empleado() {
+    try {
+      const user: User = {
+        email: 'juan.perez@example.com',
+        pwd: '12345678',
+      };
+      await this.servicioAuth.login(user);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al realizar la operación'
+      });
+  
+    }
   }
 
-  encargado() {
-    const user: User = {
-      email: 'Fermin.Lopez@example.com',
-      pwd: '12345679',
-    };
-    this.servicioAuth.login(user);
+  async encargado() {
+    try {
+      const user: User = {
+        email: 'Fermin.Lopez@example.com',
+        pwd: '12345679',
+      };
+      await this.servicioAuth.login(user);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al realizar la operación'
+      });
+    }
   }
-  admin() {
-    const user: User = {
-      email: 'Leire.rins@example.com',
-      pwd: '12345779',
-    };
-    this.servicioAuth.login(user);
+  async admin() {
+    try {
+      const user: User = {
+        email: 'Leire.rins@example.com',
+        pwd: '12345779',
+      };
+      await this.servicioAuth.login(user);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al realizar la operación'
+      });
+    }
   }
+  
 }
