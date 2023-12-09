@@ -48,6 +48,7 @@ export class FormPedidoComponent {
   urlImagen: string = '';
   //Mostrar cuadro para dar de alta incidencia;
   verIncidencia:boolean=false;
+  cargarFormIncidencia:boolean=false;
 
   async ngOnInit() {
     this.activatedRoute.params.subscribe(async (params: any) => {
@@ -180,12 +181,14 @@ export class FormPedidoComponent {
         } else if (this.pedidoActivo.almacen_destino == empleado.idalmacen) {
           this.accionRecepcion = true;
         }
+        this.verIncidencia = true;
       } else if (empleado.puesto == 'Empleado') {
         if (
           this.pedidoActivo.usuario_asignado.idempleado == empleado.idempleado
         ) {
           if (this.pedidoActivo.estado == 'Rectificar') {
             this.accionPteValidar = true;
+            this.verIncidencia = true;
           } else if (this.pedidoActivo.estado == 'Validado') {
             this.pedidoForm.disable();
             this.accionEnvio = true;
@@ -195,6 +198,10 @@ export class FormPedidoComponent {
         }
       }
     }
+  }
+
+  verCrearIncidencia(){
+    this.cargarFormIncidencia = true;
   }
 
   private inicializacionEmpleado(): Empleado {
@@ -344,7 +351,7 @@ export class FormPedidoComponent {
   }
 
   incidencia(ver: boolean) {
-    this.verIncidencia = !this.verIncidencia;
+    this.cargarFormIncidencia = !this.cargarFormIncidencia;
   }
 
   toValido() {

@@ -22,8 +22,8 @@ export class PedidoComponent {
   verIncidencia: any;
   servicioIncidencias = inject(IncidenciasService);
   incidenciasPedido: Incidencia[] | null = null;
-  posicionX:number = 0;
-  posicionY:number = 0;
+  posicionX: number = 0;
+  posicionY: number = 0;
 
   async ngOnInit() {
     if (this.pedido?.almacen_origen && this.pedido?.almacen_destino) {
@@ -42,26 +42,7 @@ export class PedidoComponent {
         });
       }
     }
-    if (this.pedido?.idPedido) {
-      try {
-        this.incidenciasPedido =
-          await this.servicioIncidencias.getIncidenciaByIdPedido(
-            this.pedido?.idPedido
-          );
-      } catch (error) {
-        Swal.fire({
-          icon: 'error',
-          title:
-            'Error al obtener las incidencias. Consulte con el administrador.',
-        });
-      };
-      if (
-        this.incidenciasPedido?.length != undefined &&
-        this.incidenciasPedido?.length > 0
-      ) {
-        this.hayIncidencia = true;
-      }
-    }
+    this.mostrarIcoIncidencias();
     switch (this.pedido?.estado) {
       case 'Pendiente validar':
         this.claseSegunEstado = { pendienteValidar: true };
@@ -89,5 +70,31 @@ export class PedidoComponent {
 
   incidencia(ver: boolean) {
     this.verIncidencia = !this.verIncidencia;
+    this.mostrarIcoIncidencias();
+  }
+
+  async mostrarIcoIncidencias() {
+    if (this.pedido?.idPedido) {
+      try {
+        this.incidenciasPedido =
+          await this.servicioIncidencias.getIncidenciaByIdPedido(
+            this.pedido?.idPedido
+          );
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title:
+            'Error al obtener las incidencias. Consulte con el administrador.',
+        });
+      }
+      if (
+        this.incidenciasPedido?.length != undefined &&
+        this.incidenciasPedido?.length > 0
+      ) {
+        this.hayIncidencia = true;
+      }else{
+        this.hayIncidencia = false;
+      }
+    }
   }
 }

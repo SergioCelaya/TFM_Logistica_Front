@@ -33,6 +33,7 @@ export class NewIncidenciaComponent {
         titulo: this.titulo,
         vista: false,
       };
+      console.log(incidencia)
       try {
         await this.servicioIncidencias.create(incidencia);
       } catch (error) {
@@ -42,6 +43,12 @@ export class NewIncidenciaComponent {
             'Error al guardar la incidencia. Consulte con el administrador.',
         });
       }
+      Swal.fire({
+        icon: 'success',
+        title:
+          'Incidencia guardada correctamente.',
+      });
+      this.ocultarIncidencia.emit(true);
     }
   }
 }
