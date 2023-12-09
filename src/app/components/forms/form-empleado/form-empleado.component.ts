@@ -86,26 +86,26 @@ export class FormEmpleadoComponent {
           confirmButtonColor: '#FFC007',
           confirmButtonText: 'Aceptar',
         });
-
+  
         if (result.isConfirmed) {
           const empleadoData = this.empleadoForm.value;
           empleadoData.puesto = +empleadoData.puesto;
-
+  
           if (this.idEmpleado !== undefined) {
-            let response = await this.empleadosService.updateEmpleado(this.idEmpleado, empleadoData);
-            
+            await this.empleadosService.updateEmpleado(this.idEmpleado, empleadoData);
+  
             if (this.imagenEmpleado) {
               await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
             }
             Swal.fire('¡Actualizado!', 'El empleado ha sido actualizado.', 'success');
           } else {
             delete empleadoData.idEmpleado;
-            let response = await this.empleadosService.createEmpleado(empleadoData);
-
-            if(!response.idEmpleado){
+            const response = await this.empleadosService.createEmpleado(empleadoData);
+  
+            if (!response.idEmpleado) {
               console.error(response.fatal);
             }
-
+  
             this.idEmpleado = response.idEmpleado;
             if (this.imagenEmpleado && this.idEmpleado) {
               await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
@@ -120,6 +120,7 @@ export class FormEmpleadoComponent {
       }
     }
   }
+  
 
   checkControl(name: string, error: string): boolean | undefined {
     return (
