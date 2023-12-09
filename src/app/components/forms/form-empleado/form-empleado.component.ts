@@ -15,6 +15,8 @@ export class FormEmpleadoComponent {
   empleadoForm: FormGroup;
   idEmpleado: number | undefined;
   imagenEmpleado: File | undefined;
+  imagenEmpleadoUrl: string | ArrayBuffer | null = null; // URL para previsualizar la imagen
+  showFileBox: boolean = true; // Controla la visualización del área de carga de imagen
 
   constructor(
     private empleadosService: EmpleadosService,
@@ -128,10 +130,24 @@ export class FormEmpleadoComponent {
       this.empleadoForm.get(name)?.touched
     );
   }
-
-  onChange(event: any) {
-    if (event.target.files.length > 0) {
+  
+  onChange(event: any): void {
+    if (event.target.files && event.target.files.length > 0) {
       this.imagenEmpleado = event.target.files[0];
+  
+      if (this.imagenEmpleado) { // Asegúrate de que imagenEmpleado no sea undefined
+        const reader = new FileReader();
+        reader.onload = e => this.imagenEmpleadoUrl = reader.result;
+        reader.readAsDataURL(this.imagenEmpleado);
+        this.showFileBox = false; // Oculta el área de carga cuando se selecciona una imagen
+      }
     }
+  }
+  
+
+  refrescarImagen(): void {
+    this.showFileBox = true; // Muestra de nuevo el área de carga
+    this.imagenEmpleadoUrl = null; // Resetea la previsualización
+    // También puedes resetear el valor del control de formulario relacionado con la imagen si es necesario
   }
 }

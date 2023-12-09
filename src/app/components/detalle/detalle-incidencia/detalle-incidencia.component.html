@@ -3,15 +3,15 @@
 </div>
   <div class="card pt-0 mt-0" *ngIf="incidencia">
     <div class="card-header bg-danger-subtle">
-      Detalle de la incidencia: 
+      <h3>{{ incidencia.titulo }}</h3>
     </div>
     <ul class="list-group list-group-flush ">
-      <li class="list-group-item bg-body-secondary">Título: {{ incidencia.titulo }}</li>
-      <li class="list-group-item bg-body-secondary">Descripción: {{ incidencia.descripcion }}</li>
-      <li class="list-group-item bg-body-secondary">Id: {{ incidencia.idIncidencia }}</li>
-      <li class="list-group-item bg-body-secondary">ID pedido: {{ incidencia.idpedido_asociado }}</li>
-      <li class="list-group-item bg-body-secondary">Responsable: {{ incidencia.usuario_asignado.nombre}}</li>
-      <li class="list-group-item bg-body-secondary">Vista: {{ incidencia.vista }}</li>
+      
+      <li class="list-group-item bg-body-secondary"> <h6>  Descripción: {{ incidencia.descripcion }} </h6></li>
+      <li class="list-group-item bg-body-secondary"> <h6>Id: {{ incidencia.idIncidencia }}</h6></li>
+      <li class="list-group-item bg-body-secondary"> <h6>ID pedido: {{ incidencia.idpedido_asociado }}</h6></li>
+      <li class="list-group-item bg-body-secondary"> <h6>Responsable: {{ incidencia.usuario_asignado.nombre}}</h6></li>
+      <li class="list-group-item bg-body-secondary"> <h6>Vista: {{ incidencia.vista }}</h6></li>
     </ul>
-    <input type="button" value="Editar incidencia" class="btn btn-dark" (click)="iraeditarincidencia(incidencia.idIncidencia)"/>
+    <input type="button" value="Editar incidencia" class="btn btn-dark" (click)="iraeditarincidencia(incidencia.idIncidencia )"/>
   </div>

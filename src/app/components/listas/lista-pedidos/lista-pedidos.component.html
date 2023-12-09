@@ -1,67 +1,66 @@
-<div class="container mt-4">
+<div class="container mt-4 p-4" style="background-color: #f0f0f0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+
   <div class="input-group mb-3">
     <input
-      type="number"
-      minlength="0"
-      maxlength="9999999999"
+      type="text"
       class="form-control"
       placeholder="Buscar por número de pedido"
       aria-label="Buscar por número de pedido"
       aria-describedby="basic-addon2"
       id="inputNumPedido"
       [(ngModel)]="numPedido"
+      style="border-radius: 5px;"
     />
     <div class="input-group-append">
-      <button class="btn btn-warning" type="button" (click)="buscarPedidoId()">Buscar</button>
+      <button class="btn btn-warning ms-1" type="button" (click)="buscarPedidoId()"><i class="bi bi-search"></i></button>
+      
     </div>
   </div>
-  <div class="d-flex">
-    <button *ngIf="esEmpleado" class="btn btn-warning mb-3 mx-3" (click)="crearPedido()">
+
+  <div class="d-flex flex-wrap justify-content-between mb-3">
+    <button *ngIf="esEmpleado" class="btn btn-success mb-2" (click)="crearPedido()">
+      <i class="bi bi-plus"></i>
       Nuevo pedido
     </button>
 
-    <div
-      class="btn-warning mb-3 mx-3"
-      role="group"
-      aria-label="Opciones de filtrado"
-    >
-      <div class="btn-group" role="group">
-        <button
-          type="button"
-          class="btn btn-primary dropdown-toggle"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Filtrar peticiones por estado
-        </button>
-        <ul class="dropdown-menu">
-          <li><button class="dropdown-item" type="button" (click)="filtroEstado(1,1)">Pendientes de validar</button></li>
-          <li><button class="dropdown-item" type="button" *ngIf="esEmpleado" (click)="filtroEstado(2,1)">Rectificar</button></li>
-          <li><button class="dropdown-item" type="button" *ngIf="esEmpleado" (click)="filtroEstado(3,1)">Validadas</button></li>
-          <li><button class="dropdown-item" type="button" *ngIf="esEmpleado" (click)="filtroEstado(4,1)">En tránsito</button></li>
-          <li><button class="dropdown-item" type="button" (click)="filtroEstado(5,1)">Espera de recepción</button></li>
-          <li><button class="dropdown-item" type="button" *ngIf="esEmpleado" (click)="filtroEstado(6,1)">Finalizadas</button></li>
-        </ul>
-      </div>
+    <div class="btn-group mb-2" role="group" aria-label="Opciones de filtrado">
+      <button
+        type="button"
+        class="btn btn-primary dropdown-toggle"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="bi bi-filter"></i> Filtrar pedidos
+      </button>
+      <ul class="dropdown-menu">
+        <li><button class="dropdown-item" type="button" (click)="filtroEstado(1,1)">Pendientes de validar</button></li>
+        <li><button class="dropdown-item" type="button" *ngIf="esEmpleado" (click)="filtroEstado(2,1)">Rectificar</button></li>
+        <li><button class="dropdown-item" type="button" *ngIf="esEmpleado" (click)="filtroEstado(3,1)">Validadas</button></li>
+        <li><button class="dropdown-item" type="button" *ngIf="esEmpleado" (click)="filtroEstado(4,1)">En tránsito</button></li>
+        <li><button class="dropdown-item" type="button" (click)="filtroEstado(5,1)">Espera de recepción</button></li>
+        <li><button class="dropdown-item" type="button" *ngIf="esEmpleado" (click)="filtroEstado(6,1)">Finalizadas</button></li>
+      </ul>
     </div>
-    <button class="btn btn-warning mb-3 mx-3" (click)="borrarfiltro()">
-      Borrar filtro
-    </button>
   </div>
 
-  <div class="card">
-    <div class="card-header">Listado de Pedidos</div>
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" id="aplicarFiltro" [(ngModel)]="aplicarFiltro" [disabled]="!aplicarFiltro" (click)="borrarfiltro()">
+    <label class="form-check-label" for="aplicarFiltro">
+      Aplicar filtro
+    </label>
+  </div>
+
+  <div class="card mb-4" style="border: 1px solid #ccc; border-radius: 10px;">
+    <div class="card-header" style="background-color: #f0f0f0; border-bottom: 1px solid #ccc;">Listado de Pedidos</div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let pedido of pedidosEmpleado">
-        <app-pedido
-          [pedido]="pedido"
-          (click)="cargarPedido(pedido)"
-        ></app-pedido>
+      <li class="list-group-item mb-2" *ngFor="let pedido of pedidosEmpleado">
+        <app-pedido [pedido]="pedido" (click)="cargarPedido(pedido)"></app-pedido>
       </li>
     </ul>
   </div>
-  <nav aria-label="Paginacion">
-    <ul class="pagination justify-content-center m-5">
+
+  <nav aria-label="Paginacion" class="mb-5">
+    <ul class="pagination justify-content-center">
       <li class="page-item">
         <button class="page-link" (click)="irAnterior()">Anterior</button>
       </li>

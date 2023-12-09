@@ -22,12 +22,19 @@ export class DetalleIncidenciaComponent implements OnInit {
   ngOnInit(): void {
     this.incidenciasService.incidenciaSeleccionada$.subscribe(incidencia => {
       this.incidencia = incidencia;
-      console.log("el click pasa por el ts de detalle incidencia" + " " + this.incidencia)
+      console.log("el click pasa por el ts de detalle incidencia" + " " + this.incidencia?.idIncidencia)
     });
+
+    
   }
+
+  
 // aqui para el boton de editar
-  iraeditarincidencia(idincidencia: any) {
-    this.router.navigate(['/editarIncidencia/'+ idincidencia]);
-    console.log(idincidencia)
-    }
+iraeditarincidencia(idincidencia: any) {
+  if (this.incidencia && this.incidencia.idIncidencia) {
+    this.router.navigate(['/editarIncidencia', this.incidencia.idIncidencia]);
+    
+  }
+}
+
 }

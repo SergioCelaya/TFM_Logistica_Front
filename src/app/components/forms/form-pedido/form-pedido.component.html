@@ -231,13 +231,13 @@
       </div>
       <input 
         type="submit"
-        [class]="pedidoForm.valid ? 'btn btn-info' : 'btn btn-secondary'"
+        [class]="pedidoForm.valid ? 'btn btn-success' : 'btn btn-secondary'"
         value="Aceptar"
         [disabled]="!pedidoForm.valid"
       />
       <input 
         type="button"
-        class="btn btn-info mx-4"
+        class="btn btn-primary mx-4"
         value="Volver a pedidos"
         (click)="volverPedidos()"
       />

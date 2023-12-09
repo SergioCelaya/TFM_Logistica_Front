@@ -58,16 +58,16 @@
 
     <!-- TIPO -->
     <div class="mb-3">
-        <label for="tipo_incidencia">Tipo de la incicencia:</label>
+        <label for="tipo_incidencia">Tipo de la incidencia:</label>
         <input class="form-control" type="number" formControlName="tipo_incidencia" id="tipo_incidencia" />
         <div class="d-flex justify-content-between">
-            <div>
-                <p class="error" *ngIf="checkControl('tipo_incidencia', 'required')">
-                    Campo es requerido
-                </p>
-            </div>
+          <div>
+            <p class="error" *ngIf="checkControl('tipo_incidencia', 'required')">
+              Este campo es requerido y debe ser un número
+            </p>
+          </div>
         </div>
-    </div>
+      </div>
 
 
 
@@ -77,7 +77,7 @@
     <input class="form-control" type="number" formControlName="idpedido_asociado" id="idpedido_asociado" required />
     <div>
         <p class="error" *ngIf="checkControl('idpedido_asociado', 'required')">
-            Campo es requerido</div>
+            Este campo es requerido y debe ser un número</div>
 </div>
 
 <!-- ID VISTA -->
@@ -86,12 +86,12 @@
     <input class="form-control" type="number" formControlName="vista" id="vista" required />
     <div>
         <p class="error" *ngIf="checkControl('vista', 'required')">
-            Campo es requerido</div>
+            Este campo es requerido y debe ser un número</div>
 </div>
 
 
 
-    <input type="submit" [class]="incidenciasForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Aceptar"
+    <input type="submit" [class]="incidenciasForm.valid ? 'btn btn-primary' : 'btn btn-secondary'" value="Aceptar"
         [disabled]="!incidenciasForm.valid" />
 
 </form>

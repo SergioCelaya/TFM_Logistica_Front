@@ -72,4 +72,8 @@ export class ListaIncidenciasComponent {
       this.incidenciasService.seleccionarIncidencia(incidencia);
       console.log("EL CLICK PASA POR EL TS DE LISTA INCIDENCIAS")
     }
+
+    vistaNoVista(value: number): string {
+      return value === 0 ? 'noVista' : 'vista';
+    }
 }
