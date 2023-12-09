@@ -1,94 +1,103 @@
 <form [formGroup]="empleadoForm" (ngSubmit)="submitForm()" class="m-4 p-5 justify-content-center row form">
-    <div class="w-50 mt-5">
-      <!-- Número de Empleado -->
-      <div class="mb-3">
-        <label for="num_empleado">Número de Empleado:</label>
-        <input class="form-control" type="text" formControlName="num_empleado" id="num_empleado" placeholder="Número de Empleado"/>
-        <!-- Validaciones para número de empleado -->
-        <!-- ... -->
-      </div>
-  
-      <!-- Nombre -->
-      <div class="mb-3">
-        <label for="nombre">Nombre:</label>
-        <input class="form-control" type="text" formControlName="nombre" id="nombre" placeholder="Nombre del empleado"/>
-        <!-- Validaciones para nombre -->
-        <!-- ... -->
-      </div>
-  
-      <!-- Apellidos -->
-      <div class="mb-3">
-        <label for="apellidos">Apellidos:</label>
-        <input class="form-control" type="text" formControlName="apellidos" id="apellidos" placeholder="Apellidos del empleado"/>
-        <!-- Validaciones para apellidos -->
-        <!-- ... -->
-      </div>
-  
-      <!-- Email -->
-      <div class="mb-3">
-        <label for="email">Email:</label>
-        <input class="form-control" type="email" formControlName="email" id="email" placeholder="Email del empleado"/>
-        <!-- Validaciones para email -->
-        <!-- ... -->
-      </div>
-  
-      <!-- Puesto -->
-      <div class="mb-3">
-
-        <label for="puesto">Puesto:</label>
-        <select class="form-control" type="number" formControlName="puesto" id="puesto">
-          <option value=1>Empleado</option>
-          <option value=2>Encargado</option>
-          <option value=3>Administrador</option>
-        </select>
-
-      </div>
-  
-      <!-- Fecha de Contratación -->
-      <div class="mb-3">
-        <label for="fecha_contratacion">Fecha de Contratación:</label>
-        <input class="form-control" type="date" formControlName="fecha_contratacion" id="fecha_contratacion"/>
-        <!-- Validaciones para fecha de contratación -->
-        <!-- ... -->
-      </div>
-  
-      <!-- ID Almacén -->
-      <div class="mb-3">
-        <label for="idalmacen">ID Almacén:</label>
-        <input class="form-control" type="number" formControlName="idalmacen" id="idalmacen" placeholder="ID del Almacén"/>
-        <!-- Validaciones para ID Almacén -->
-        <!-- ... -->
-      </div>
-  
-      <!-- Contraseña -->
-      <div class="mb-3">
-        <label for="pwd">Contraseña:</label>
-        <input class="form-control" type="password" formControlName="pwd" id="pwd" placeholder="Contraseña"/>
-        <!-- Validaciones para contraseña -->
-        <!-- ... -->
-      </div>
-  
-      <!-- Activo -->
-      <div class="mb-3">
-        <label for="activo">Activo:</label>
-        <select class="form-control" type="number" formControlName="activo" id="activo">
-          <option value=1>Sí</option>
-          <option value=0>No</option>
-        </select>
-        <!-- Validaciones para activo -->
-        <!-- ... -->
-      </div>
-  
-      <!-- Imagen del Empleado -->
-      <div class="mb-3">
-        <label for="imagen_empleado">Imagen del Empleado:</label>
-        <input class="form-control" type="file" id="imagen_empleado" (change)="onChange($event)">
-        <!-- Validaciones para imagen del empleado -->
-        <!-- ... -->
-      </div>
-  
-      <!-- Botón de envío -->
-      <input type="submit" [class]="empleadoForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Aceptar" [disabled]="!empleadoForm.valid"/>
+  <div class="w-50 mt-5">
+    <!-- Número de Empleado -->
+    <div class="mb-3">
+      <label for="num_empleado">Número de Empleado:</label>
+      <input class="form-control" type="text" formControlName="num_empleado" id="num_empleado" placeholder="Número de Empleado"/>
+      <small>{{ empleadoForm.get('num_empleado')?.value?.length ?? 0 }} / 45</small>
+      <!-- Validaciones para número de empleado -->
+      <p class="error" *ngIf="checkControl('num_empleado', 'required')">Campo es requerido</p>
+      <p class="error" *ngIf="checkControl('num_empleado', 'maxlength')">El número de empleado no debe superar los 45 caracteres</p>
     </div>
-  </form>
+
+    <!-- Nombre -->
+    <div class="mb-3">
+      <label for="nombre">Nombre:</label>
+      <input class="form-control" type="text" formControlName="nombre" id="nombre" placeholder="Nombre del empleado"/>
+      <small>{{ empleadoForm.get('nombre')?.value?.length ?? 0 }} / 20</small>
+      <!-- Validaciones para nombre -->
+      <p class="error" *ngIf="checkControl('nombre', 'required')">Campo es requerido</p>
+      <p class="error" *ngIf="checkControl('nombre', 'maxlength')">El nombre no debe superar los 20 caracteres</p>
+    </div>
+
+    <!-- Apellidos -->
+    <div class="mb-3">
+      <label for="apellidos">Apellidos:</label>
+      <input class="form-control" type="text" formControlName="apellidos" id="apellidos" placeholder="Apellidos del empleado"/>
+      <small>{{ empleadoForm.get('apellidos')?.value?.length ?? 0 }} / 45</small>
+      <!-- Validaciones para apellidos -->
+      <p class="error" *ngIf="checkControl('apellidos', 'required')">Campo es requerido</p>
+      <p class="error" *ngIf="checkControl('apellidos', 'maxlength')">Los apellidos no deben superar los 45 caracteres</p>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="email">Email:</label>
+      <input class="form-control" type="email" formControlName="email" id="email" placeholder="Email del empleado"/>
+      <small>{{ empleadoForm.get('email')?.value?.length ?? 0 }} / 45</small>
+      <!-- Validaciones para email -->
+      <p class="error" *ngIf="checkControl('email', 'required')">Campo es requerido</p>
+      <p class="error" *ngIf="checkControl('email', 'maxlength')">El email no debe superar los 45 caracteres</p>
+    </div>
+
+    <!-- Puesto -->
+    <div class="mb-3">
+      <label for="puesto">Puesto:</label>
+      <select class="form-control" formControlName="puesto" id="puesto">
+        <option value="">Seleccione un puesto</option>
+        <option value="1">Empleado</option>
+        <option value="2">Encargado</option>
+        <option value="3">Administrador</option>
+      </select>
+      <p class="error" *ngIf="checkControl('puesto', 'required')">Debe seleccionar un puesto</p>
+    </div>
+
+    <!-- Fecha de Contratación -->
+    <div class="mb-3">
+      <label for="fecha_contratacion">Fecha de Contratación:</label>
+      <input class="form-control" type="date" formControlName="fecha_contratacion" id="fecha_contratacion"/>
+      <p class="error" *ngIf="checkControl('fecha_contratacion', 'required')">Campo es requerido</p>
+    </div>
+
+    <!-- ID Almacén -->
+    <div class="mb-3">
+      <label for="idalmacen">ID Almacén:</label>
+      <input class="form-control" type="number" formControlName="idalmacen" id="idalmacen" placeholder="ID del Almacén"/>
+      <p class="error" *ngIf="checkControl('idalmacen', 'required')">Campo es requerido</p>
+      <p class="error" *ngIf="checkControl('idalmacen', 'min')">El ID de almacén debe ser mayor que 0</p>
+    </div>
+
+    <!-- Contraseña -->
+    <div class="mb-3">
+      <label for="pwd">Contraseña:</label>
+      <input class="form-control" type="password" formControlName="pwd" id="pwd" placeholder="Contraseña"/>
+      <small>{{ empleadoForm.get('pwd')?.value?.length ?? 0 }} / 100</small>
+      <p class="error" *ngIf="checkControl('pwd', 'required')">Campo es requerido</p>
+      <p class="error" *ngIf="checkControl('pwd', 'minlength')">La contraseña debe tener al menos 6 caracteres</p>
+      <p class="error" *ngIf="checkControl('pwd', 'maxlength')">La contraseña no debe superar los 100 caracteres</p>
+    </div>
+
+    <!-- Activo -->
+    <div class="mb-3">
+      <label for="activo">Activo:</label>
+      <select class="form-control" formControlName="activo" id="activo">
+        <option value="">Seleccione una opción</option>
+        <option value="1">Sí</option>
+        <option value="0">No</option>
+      </select>
+      <p class="error" *ngIf="checkControl('activo', 'required')">Debe indicar si está activo</p>
+    </div>
+
+    <!-- Imagen del Empleado -->
+    <div class="mb-3">
+      <label for="imagen_empleado">Imagen del Empleado:</label>
+      <input class="form-control" type="file" id="imagen_empleado" (change)="onChange($event)">
+      <!-- Aquí podrías agregar validaciones para la imagen si las necesitas -->
+    </div>
+
+    <!-- Botón de envío -->
+    <input type="submit" [class]="empleadoForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Aceptar" [disabled]="!empleadoForm.valid"/>
+  </div>
+</form>
+
   
