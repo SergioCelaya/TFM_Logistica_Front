@@ -35,18 +35,14 @@ export class ListaPedidosComponent {
   async cargarListadoInicial() {
     try {
       this.empleado = await this.authService.getUser();
-      console.log("Empleado: ")
-      console.log(this.empleado);
       if (this.empleado.activo) {
         if (this.empleado.puesto == 'Empleado') {
-          console.log("Es empleado")
           this.respuestaCompleta = await this.pedidosService.getPedidosEmpleado(
             1,
             this.empleado.idempleado
           );
           
         } else if (this.empleado.puesto == 'Encargado') {
-          console.log("Es encargado")
           this.esEmpleado = false;
           this.respuestaCompleta =
             await this.pedidosService.getPedidosEncargadoByAlmacen(
@@ -56,7 +52,6 @@ export class ListaPedidosComponent {
             );
         }
         if (this.respuestaCompleta) {
-          console.log(this.respuestaCompleta)
           this.paginado(this.respuestaCompleta);
         }
       }
@@ -162,7 +157,6 @@ export class ListaPedidosComponent {
     try {
       pedido = await this.pedidosService.getPedidoByNumPedido(this.numPedido.toString());
     } catch (error) {
-      console.log('Error');
       Swal.fire({
         icon: 'error',
         title:

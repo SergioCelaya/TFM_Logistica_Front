@@ -10,9 +10,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmpleadoRespuesta } from 'src/app/models/Respuestas_API/empleadoRespuesta.interface';
 import { pedidoRespuesta } from 'src/app/models/Respuestas_API/pedidosRespuesta.interface';
 import { Almacen } from 'src/app/models/almacen.interface';
+import { Correo } from 'src/app/models/correo.interface';
 import { Empleado } from 'src/app/models/empleado.interface';
 import { AlmacenService } from 'src/app/services/almacen.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CorreoService } from 'src/app/services/correo.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
@@ -29,15 +31,16 @@ export class FormPedidoComponent {
   servicioPedido = inject(PedidosService);
   servicioAuth = inject(AuthService);
   servicioImagenes = inject(ImagenesService);
+  servicioCorreo = inject(CorreoService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   almacenesOrigen: Almacen[] = [];
-  almacenesDestino: Almacen[]|undefined = [];
+  almacenesDestino: Almacen[] | undefined = [];
   empleados: EmpleadoRespuesta[] = [];
   encargados: EmpleadoRespuesta[] = [];
   pedidoForm: FormGroup<any>;
   //Variables de control de flujo del pedido.
-  crearPedido:boolean = false;
+  crearPedido: boolean = false;
   accionValidar: boolean = false;
   accionRectificar: boolean = false;
   accionEnvio: boolean = false;
@@ -47,8 +50,8 @@ export class FormPedidoComponent {
   pedidoActivo: pedidoRespuesta | null = null;
   urlImagen: string = '';
   //Mostrar cuadro para dar de alta incidencia;
-  verIncidencia:boolean=false;
-  cargarFormIncidencia:boolean=false;
+  verIncidencia: boolean = false;
+  cargarFormIncidencia: boolean = false;
 
   async ngOnInit() {
     this.activatedRoute.params.subscribe(async (params: any) => {
@@ -107,9 +110,13 @@ export class FormPedidoComponent {
       try {
         let empleado: Empleado = this.inicializacionEmpleado();
         empleado = await this.servicioAuth.getUser();
-        this.almacenesOrigen.push( await this.servicioAlmacenes.getById(empleado.idalmacen));
-        this.almacenesDestino=  await this.servicioAlmacenes.getAllActivos();
-        this.empleados.push( await this.servicioEmpleados.getEmpleadoById(empleado.idempleado));
+        this.almacenesOrigen.push(
+          await this.servicioAlmacenes.getById(empleado.idalmacen)
+        );
+        this.almacenesDestino = await this.servicioAlmacenes.getAllActivos();
+        this.empleados.push(
+          await this.servicioEmpleados.getEmpleadoById(empleado.idempleado)
+        );
         this.encargados =
           await this.servicioEmpleados.getEmpleadosByPuestoAlmacenSinPaginar(
             2,
@@ -125,7 +132,7 @@ export class FormPedidoComponent {
       this.controlDeRolesYestados();
       if (this.pedidoActivo?.estado) {
         this.setImagenEstado(this.pedidoActivo?.estado);
-      }else{
+      } else {
         this.crearPedido = true;
         this.urlImagen = 'assets/estados/crear.jpg';
       }
@@ -135,7 +142,7 @@ export class FormPedidoComponent {
   private setImagenEstado(estado: string) {
     switch (estado) {
       case 'Pendiente validar':
-        this.urlImagen ='assets/estados/pendienteRevisar.jpg';
+        this.urlImagen = 'assets/estados/pendienteRevisar.jpg';
         break;
       case 'Rectificar':
         this.urlImagen = 'assets/estados/rectificar.jpg';
@@ -149,7 +156,7 @@ export class FormPedidoComponent {
       case 'Finalizado':
         this.urlImagen = 'assets/estados/finalizado.jpg';
         break;
-        case 'En tránsito':
+      case 'En tránsito':
         this.urlImagen = 'assets/estados/enTransito.jpg';
         break;
       default:
@@ -197,7 +204,7 @@ export class FormPedidoComponent {
     }
   }
 
-  verCrearIncidencia(){
+  verCrearIncidencia() {
     this.cargarFormIncidencia = true;
   }
 
@@ -238,7 +245,6 @@ export class FormPedidoComponent {
   }
 
   constructor() {
-    
     this.pedidoForm = new FormGroup({
       numero_pedido: new FormControl('', [
         Validators.required,
@@ -307,7 +313,7 @@ export class FormPedidoComponent {
     }
   }
 
-  async actualizarForm(){
+  async actualizarForm() {
     try {
       await Swal.fire({
         title: '¿Quiere guardar los cambios?',
@@ -366,7 +372,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.router.navigate(['/pedidos/']);
+        this.mandarCorreoCambioEstado("Validado");
       }
     } catch (error) {
       Swal.fire({
@@ -392,6 +398,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.mandarCorreoCambioEstado("Pendiente de validar");
         this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
@@ -417,6 +424,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.mandarCorreoCambioEstado("Rectificar");
         this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
@@ -442,6 +450,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.mandarCorreoCambioEstado("Pedido recepcionado");
         this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
@@ -467,6 +476,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.mandarCorreoCambioEstado("Enviado");
         this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
@@ -490,6 +500,52 @@ export class FormPedidoComponent {
     }
     return null;
   }
+
+  async mandarCorreoCambioEstado(estado: string) {
+    if (this.pedidoActivo?.idPedido) {
+      let empleado;
+      try {
+        empleado = await this.servicioEmpleados.getEmpleadoById(
+          this.pedidoActivo.usuario_asignado.idempleado
+        );
+      } catch (error) {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ha habido un error enviando el correo de cambio de estado',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      if (empleado) {
+        const correo: Correo = {
+          asunto: `Cambio de estado del pedido ${this.pedidoActivo.numero_pedido}`,
+          contenido: `${empleado.nombre} ${empleado.apellidos}, el pedido con nº: ${this.pedidoActivo.numero_pedido} a pasado a estado ${estado}. Atentamente TFM Logistics SL`,
+          destinatario: empleado.email,
+        };
+        try {
+          let response = await this.servicioCorreo.mandarCorreo(correo)
+        } catch (Error) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Ha habido un error envio del correo de cambio de estado',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      }
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ha habido un error enviando el correo de cambio de estado',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }
+
   volverPedidos() {
     this.router.navigate(['/pedidos/']);
   }
