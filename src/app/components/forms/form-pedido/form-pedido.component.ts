@@ -32,7 +32,7 @@ export class FormPedidoComponent {
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   almacenesOrigen: Almacen[] = [];
-  almacenesDestino: Almacen[] = [];
+  almacenesDestino: Almacen[]|undefined = [];
   empleados: EmpleadoRespuesta[] = [];
   encargados: EmpleadoRespuesta[] = [];
   pedidoForm: FormGroup<any>;
@@ -107,10 +107,9 @@ export class FormPedidoComponent {
       try {
         let empleado: Empleado = this.inicializacionEmpleado();
         empleado = await this.servicioAuth.getUser();
-        this.almacenesOrigen = await this.servicioAlmacenes.getAll();
-        this.almacenesDestino = this.almacenesOrigen;
-        this.empleados =
-          await this.servicioEmpleados.getEmpleadosByPuestoSinPaginar(1);
+        this.almacenesOrigen.push( await this.servicioAlmacenes.getById(empleado.idalmacen));
+        this.almacenesDestino=  await this.servicioAlmacenes.getAllActivos();
+        this.empleados.push( await this.servicioEmpleados.getEmpleadoById(empleado.idempleado));
         this.encargados =
           await this.servicioEmpleados.getEmpleadosByPuestoAlmacenSinPaginar(
             2,
@@ -124,8 +123,6 @@ export class FormPedidoComponent {
         });
       }
       this.controlDeRolesYestados();
-      console.log("estao: ")
-      console.log(this.pedidoActivo?.estado)
       if (this.pedidoActivo?.estado) {
         this.setImagenEstado(this.pedidoActivo?.estado);
       }else{
@@ -241,6 +238,7 @@ export class FormPedidoComponent {
   }
 
   constructor() {
+    
     this.pedidoForm = new FormGroup({
       numero_pedido: new FormControl('', [
         Validators.required,

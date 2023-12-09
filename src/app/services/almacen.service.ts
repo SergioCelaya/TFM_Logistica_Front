@@ -11,6 +11,7 @@ export class AlmacenService {
 
   private httpClient = inject(HttpClient);
   private baseUrl: string = 'http://localhost:3000/api/almacenes';
+  private activos:string = '/activos';
 
   // ACTUALIZAR ESTADO ACTIVO/DESATIVADO ALMACENES
   public actualizarAlmacenSubject: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
@@ -25,6 +26,9 @@ export class AlmacenService {
   // Devuelve todos los almacenes en la BBDD
   getAll(): Promise<Almacen[]> {
     return lastValueFrom(this.httpClient.get<Almacen[]>(this.baseUrl));
+  }
+  getAllActivos(): Promise<Almacen[]> {
+    return lastValueFrom(this.httpClient.get<Almacen[]>(`${this.baseUrl}${this.activos}`));
   }
 
   // Crear un almacén
