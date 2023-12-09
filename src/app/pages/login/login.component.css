@@ -20,7 +20,6 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
 }
 
@@ -43,7 +42,7 @@ h1 {
     box-shadow: 0 20px 60px #0f8bae;
     min-width: 280px;
     max-width: 600px;
-    width: 100%;
+    width: 70%;
     padding: 60px;
 }
 
