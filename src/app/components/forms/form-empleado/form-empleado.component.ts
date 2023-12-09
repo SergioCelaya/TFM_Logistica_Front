@@ -24,24 +24,32 @@ export class FormEmpleadoComponent {
     this.empleadoForm = new FormGroup({
       num_empleado: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(20),
+        Validators.maxLength(45), // Longitud máxima según la base de datos
       ]),
       nombre: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50),
+        Validators.maxLength(20), // Longitud máxima según la base de datos
       ]),
       apellidos: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50),
+        Validators.maxLength(45), // Longitud máxima según la base de datos
       ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
+        Validators.maxLength(45), // Longitud máxima según la base de datos
+      ]),
       puesto: new FormControl('', [Validators.required]),
       fecha_contratacion: new FormControl('', [Validators.required]),
-      idalmacen: new FormControl('', [Validators.required, Validators.min(1)]),
-      pwd: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      idalmacen: new FormControl('', [
+        Validators.required,
+        Validators.min(1)
+      ]),
+      pwd: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(100), // Longitud máxima según la base de datos
+      ]),
       activo: new FormControl('', [Validators.required]),
       imagen_empleado: new FormControl(null),
     });
