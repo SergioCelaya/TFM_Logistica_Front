@@ -2,9 +2,7 @@
 
   <div class="input-group mb-3">
     <input
-      type="number"
-      minlength="0"
-      maxlength="9999999999"
+      type="text"
       class="form-control"
       placeholder="Buscar por número de pedido"
       aria-label="Buscar por número de pedido"
@@ -14,12 +12,14 @@
       style="border-radius: 5px;"
     />
     <div class="input-group-append">
-      <button class="btn btn-warning" type="button" (click)="buscarPedidoId()">Buscar</button>
+      <button class="btn btn-warning" type="button" (click)="buscarPedidoId()"><i class="bi bi-search"></i></button>
+      
     </div>
   </div>
 
   <div class="d-flex flex-wrap justify-content-between mb-3">
     <button *ngIf="esEmpleado" class="btn btn-success mb-2" (click)="crearPedido()">
+      <i class="bi bi-plus"></i>
       Nuevo pedido
     </button>
 

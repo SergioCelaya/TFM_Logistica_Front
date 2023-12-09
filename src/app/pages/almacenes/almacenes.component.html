@@ -1,27 +1,30 @@
-<div class="container-fluid row justify-content-center mt-5">
-  <section class="col-md-8">
-    <!-- Buscador -->
-    <div class="d-flex">
-      <input type="text" class="form-control" placeholder="Buscar almacenes" [(ngModel)]="listaAlmacenes.filtroNombre" (keyup.enter)="listaAlmacenes.buscarAlmacenes()" (keyup.escape)="listaAlmacenes.limpiarFiltro()">
-      <button class="btn btn-warning ms-1 btn-block" type="button" (click)="listaAlmacenes.buscarAlmacenes()">
-        <i class="bi bi-filter"></i>
-      </button>
-      <button class="btn btn-light btn-block ms-1" type="button" (click)="listaAlmacenes.limpiarFiltro()">
-        <i class="bi bi-x"></i>
-      </button>
-    </div>
-    <div class="d-flex justify-content-between">
-      <!-- Botón nuevo almacen form -->
-      <button class="btn btn-warning m-3 btn-block" routerLink="/nuevoAlmacen">
-        <i class="bi bi-input-cursor-text"></i>
-        <span class="ms-2">Nuevo almacen</span>
-      </button>
-      <!-- Botón de filtro de activos e inactivos -->
-      <button class="btn btn-warning m-3 btn-block" type="button" (click)="listaAlmacenes.toggleFiltroActivo()">
-        {{ listaAlmacenes.mostrarSoloActivosTexto }}
-      </button>
-    </div>
-  </section>
-  <!-- Componente lista almacenes -->
-  <app-lista-almacenes #listaAlmacenes></app-lista-almacenes>
+<div class="container mt-4 p-4" style="background-color: #f0f0f0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+  <div class="container-fluid row justify-content-center mt-5">
+    <section class="col-md-8">
+      <!-- Buscador -->
+      <div class="d-flex">
+        <input type="text" class="form-control" placeholder="Buscar almacenes por nombre" [(ngModel)]="listaAlmacenes.filtroNombre" (keyup.enter)="listaAlmacenes.buscarAlmacenes()" (keyup.escape)="listaAlmacenes.limpiarFiltro()">
+        <button class="btn btn-warning ms-1 btn-block" type="button" (click)="listaAlmacenes.buscarAlmacenes()">
+          <i class="bi bi-search"></i>
+        </button>
+        <button class="btn btn-light btn-block ms-1" type="button" (click)="listaAlmacenes.limpiarFiltro()">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+      <div class="d-flex justify-content-between">
+        <!-- Botón nuevo almacen form -->
+        <button class="btn btn-success m-3 btn-block" routerLink="/nuevoAlmacen">
+          <i class="bi bi-plus"></i>
+          <span class="ms-2">Nuevo almacen</span>
+        </button>
+        <!-- Botón de filtro de activos e inactivos -->
+        <button class="btn btn-primary m-3 btn-block" type="button" (click)="listaAlmacenes.toggleFiltroActivo()">
+          <i class="bi bi-funnel"></i>
+          {{ listaAlmacenes.mostrarSoloActivosTexto }}
+        </button>
+      </div>
+    </section>
+    <!-- Componente lista almacenes -->
+    <app-lista-almacenes #listaAlmacenes></app-lista-almacenes>
+  </div>
 </div>
