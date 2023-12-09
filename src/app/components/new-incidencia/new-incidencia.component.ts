@@ -46,7 +46,6 @@ export class NewIncidenciaComponent {
           let respuesta :any = null;
            respuesta = await this.servicioIncidencias.create(incidencia)
           if(respuesta.fatal){
-            console.log(respuesta)
             Swal.fire({
               icon: 'error',
               title:
