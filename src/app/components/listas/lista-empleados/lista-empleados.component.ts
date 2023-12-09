@@ -61,15 +61,39 @@ export class ListaEmpleadosComponent implements OnInit {
   }
 
   seleccionarEmpleado(empleado: EmpleadoRespuesta): void {
-    this.empleadosService.seleccionarEmpleado(empleado);
+    try {
+      this.empleadosService.seleccionarEmpleado(empleado);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al seleccionar empleado',
+        text: 'Ocurrió un error al seleccionar el empleado. Por favor, inténtalo de nuevo.'
+      });
+    }
   }
-
+  
   crearEmpleado(): void {
-    this.router.navigate(['/empleado/nuevo']);
+    try {
+      this.router.navigate(['/empleado/nuevo']);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al crear empleado',
+        text: 'Ocurrió un error al intentar crear un nuevo empleado. Por favor, inténtalo de nuevo.'
+      });
+    }
   }
-
+  
   editarEmpleado(empleado: EmpleadoRespuesta): void {
-    this.router.navigate(['/empleado/editar', empleado.idempleado]);
+    try {
+      this.router.navigate(['/empleado/editar', empleado.idempleado]);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al editar empleado',
+        text: 'Ocurrió un error al intentar editar el empleado. Por favor, inténtalo de nuevo.'
+      });
+    }
   }
   
 
