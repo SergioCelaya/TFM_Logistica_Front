@@ -5,43 +5,43 @@
         <i class="fs-1 bi bi-box-seam-fill text-warning"></i>
     </a>
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 mt-5 me-auto py-sm-4 justify-content-center align-items-sm-start w-100" id="menu">
-        <li class="w-100 ps-5 pb-2 navItem" ngxTippy="Página principal" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
+        <li class="w-100 ps-5 py-2 navItem" ngxTippy="Página principal" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
           <a routerLink="/" class="nav-link d-flex align-items-center px-0 icon-link icon-link-hover">
             <i class="fs-3 bi bi-house-door"></i><span class="fs-5 ms-3 pt-3 d-none d-xl-inline">Home</span>
           </a>
         </li>
-        <li class="w-100 navItem" [ngClass]="{'ps-5 mt-2 pb-2': isEmpleado() || isEncargado()}">
+        <li class="w-100 navItem" [ngClass]="{'ps-5 pt-2': isEmpleado() || isEncargado()}">
           <a href="#submenu0" data-bs-toggle="collapse" class="nav-link px-0 d-flex align-items-center" *ngIf="isEmpleado() || isEncargado()" ngxTippy="Pedidos" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
             <i class="fs-3 bi bi-table"></i><span class="fs-5 ms-3 d-none d-xl-inline">Pedidos</span><i class="ms-3 bi bi-caret-down d-none d-xl-inline"></i><span class="d-none d-xl-inline"></span>
           </a>
         </li>
-          <ul class="collapse nav flex-column mx-auto" id="submenu0" data-bs-parent="#menu">
+          <ul class="collapse list-unstyled flex-column mx-auto" id="submenu0" data-bs-parent="#menu">
             <li class="w-100 px-3 px-lg-4 rounded-4 navItem_sub" ngxTippy="Ver pedidos" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
-                <a routerLink="/pedidos" class="nav-link px-0 icon-link icon-link-hover" *ngIf="isEmpleado() || isEncargado()"><i class="fs-5 bi bi-archive"></i><span class="d-none d-xl-inline ms-2">Ver pedidos</span></a>
+                <a routerLink="/pedidos" class="nav-link px-0 icon-link icon-link-hover" *ngIf="isEmpleado() || isEncargado()"><i class="fs-5 pb-4 bi bi-archive"></i><span class="d-none d-xl-inline ms-2">Ver pedidos</span></a>
             </li>
             <li class="w-100 px-3 px-lg-4 rounded-4 navItem_sub" ngxTippy="Nuevo pedido" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
-                <a routerLink="/gestionPedido" class="nav-link px-0 icon-link icon-link-hover" *ngIf="isEmpleado()"><i class="fs-5 bi bi-box-seam"></i><span class="d-none d-xl-inline ms-2">Nuevo pedido</span></a>
+                <a routerLink="/gestionPedido" class="nav-link px-0 icon-link icon-link-hover" *ngIf="isEmpleado()"><i class="fs-5 pb-4 bi bi-box-seam"></i><span class="d-none d-xl-inline ms-2">Nuevo pedido</span></a>
             </li>
           </ul>
-        <li class="w-100 navItem" [ngClass]="{'ps-5 mt-2 pb-2': isEmpleado() || isEncargado()}" ngxTippy="Incidencias" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
+        <li class="w-100 navItem" [ngClass]="{'ps-5 pt-2': isEmpleado() || isEncargado()}" ngxTippy="Incidencias" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
           <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 d-flex align-items-center" *ngIf="isEmpleado() || isEncargado()">
             <i class="fs-3 bi bi-speedometer2"></i><span class="fs-5 ms-3 d-none d-xl-inline">Incidencias</span><i class="ms-3 bi bi-caret-down d-none d-xl-inline"></i>
           </a>
         </li>
-          <ul class="collapse nav flex-column mx-auto" id="submenu1" data-bs-parent="#menu">
+          <ul class="collapse list-unstyled flex-column mx-auto" id="submenu1" data-bs-parent="#menu">
             <li class="w-100 px-3 px-lg-4 rounded-4 navItem_sub" ngxTippy="Ver incidencias" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
-                <a routerLink="/incidencias" class="nav-link px-0 icon-link icon-link-hover" *ngIf="isEmpleado() || isEncargado()"><i class="fs-5 bi bi-exclamation-triangle"></i><span class="d-none d-xl-inline ms-2">Ver incidencias</span></a>
+                <a routerLink="/incidencias" class="nav-link px-0 icon-link icon-link-hover" *ngIf="isEmpleado() || isEncargado()"><i class="fs-5 pb-4 bi bi-exclamation-triangle"></i><span class="d-none d-xl-inline ms-2">Ver incidencias</span></a>
             </li>
             <li class="w-100 px-3 px-lg-4 rounded-4 navItem_sub" ngxTippy="Abrir incidencia" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
                 <a routerLink="/nuevaIncidencia" class="nav-link px-0 icon-link icon-link-hover"*ngIf="isEmpleado()"><i class="fs-5 bi bi-input-cursor-text"></i><span class="d-none d-xl-inline ms-2">Abrir incidencia</span></a>
             </li>
           </ul>
-        <li class="w-100 ps-5 navItem mt-2" [ngClass]="{'pb-2': isAdmin()}" ngxTippy="Almacenes" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
+        <li class="w-100 navItem" [ngClass]="{'ps-5 pt-2': isAdmin()}" ngxTippy="Almacenes" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
           <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 d-flex align-items-center" *ngIf="isAdmin()">
             <i class="fs-3 bi bi-shop-window"></i><span class="fs-5 ms-3 d-none d-xl-inline">Almacenes</span><i class="ms-3 bi bi-caret-down d-none d-xl-inline"></i>
           </a>
         </li>
-          <ul class="collapse nav flex-column mx-auto" id="submenu2" data-bs-parent="#menu">
+          <ul class="collapse list-unstyled flex-column mx-auto" id="submenu2" data-bs-parent="#menu">
             <li class="w-100 px-3 px-lg-4 rounded-4 navItem_sub" ngxTippy="Ver almacenes" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
               <a routerLink="/almacenes" class="nav-link px-0 icon-link icon-link-hover"><i class="fs-5 bi bi-list"></i><span class="d-none d-xl-inline ms-2">Ver almacenes</span></a>
             </li>
@@ -49,12 +49,12 @@
               <a routerLink="/nuevoAlmacen" class="nav-link px-0 icon-link icon-link-hover"><i class="fs-5 bi bi-pen"></i><span class="d-none d-xl-inline ms-2">Crear almacén</span></a>
             </li>
           </ul>
-        <li class="w-100 ps-5 navItem mt-2" [ngClass]="{'pb-2': isAdmin()}" ngxTippy="Empleados" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
+        <li class="w-100 navItem" [ngClass]="{'ps-5 pt-2': isAdmin()}" ngxTippy="Empleados" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
           <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 d-flex align-items-center" *ngIf="isAdmin()">
             <i class="fs-3 bi bi-people"></i><span class="fs-5 ms-3 d-none d-xl-inline">Empleados</span><i class="ms-3 bi bi-caret-down d-none d-xl-inline"></i>
           </a>
         </li>
-          <ul class="collapse nav flex-column mx-auto" id="submenu3" data-bs-parent="#menu">
+          <ul class="collapse list-unstyled flex-column mx-auto" id="submenu3" data-bs-parent="#menu">
             <li class="w-100 px-3 px-lg-4 rounded-4 navItem_sub" ngxTippy="Ver empleados" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
               <a routerLink="/empleados" class="nav-link px-0 icon-link icon-link-hover"><i class="fs-5 bi bi-person-lines-fill"></i><span class="d-none d-xl-inline ms-2">Ver empleados</span></a>
             </li>
