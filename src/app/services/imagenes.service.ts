@@ -12,7 +12,6 @@ export class ImagenesService {
   private urlEmpleados: string = '/getImagenEmpleado/';
   private uploadAlmacen: string = '/uploadImagenAlmacen/';
   private uploadEmpleado: string = '/uploadImagenEmpleado/:idEmpleado';
-  private urlEstados: string = '/getImagenEstado/';
 
   getImagenAlmacen(nombreImg: string): string {
     return this.baseUrl + this.urlAlmacenes + nombreImg;
@@ -41,9 +40,7 @@ export class ImagenesService {
       if (imagen) {
         const data = new FormData();
         data.append('imagen', imagen, imagen.name);
-        console.log(imagen.name);
         let req = await firstValueFrom(this.httpClient.post(this.baseUrl + this.uploadAlmacen + idAlmacen, data));
-        console.log(req);
         return req;
       } else {
         return null;
