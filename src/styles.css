@@ -6,3 +6,23 @@
 
 /* LOGIN */
 @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+/* MENU TOOLTIP TIPPI */
+@import 'tippy.js/dist/tippy.css';
+/** Arrow */
+@import 'tippy.js/dist/svg-arrow.css';
+/** Themes */
+@import 'tippy.js/themes/light-border.css';
+@import 'tippy.js/themes/light.css';
+@import 'tippy.js/themes/material.css';
+@import 'tippy.js/themes/translucent.css';
+
+.custom-class {
+  background-color: #FFDF7F;
+  color: black;
+}
+
+.tippy-arrow {
+  color: #FFDF7F;
+}
+
