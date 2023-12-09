@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { EmpleadoRespuesta } from 'src/app/models/Respuestas_API/empleadoRespuesta.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-empleado',
@@ -13,31 +13,32 @@ import { EmpleadoRespuesta } from 'src/app/models/Respuestas_API/empleadoRespues
 })
 export class FormEmpleadoComponent {
   empleadoForm: FormGroup;
-  empleadosService = inject(EmpleadosService);
-  imagenesService = inject(ImagenesService);
-  activatedRoute = inject(ActivatedRoute);
-  router = inject(Router);
-  imagenEmpleado: File | undefined;
   idEmpleado: number | undefined;
+  imagenEmpleado: File | undefined;
 
-  constructor() {
+  constructor(
+    private empleadosService: EmpleadosService,
+    private imagenesService: ImagenesService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
     this.empleadoForm = new FormGroup({
       num_empleado: new FormControl('', [
         Validators.required,
-        Validators.maxLength(45), // Longitud máxima según la base de datos
+        Validators.maxLength(45),
       ]),
       nombre: new FormControl('', [
         Validators.required,
-        Validators.maxLength(20), // Longitud máxima según la base de datos
+        Validators.maxLength(20),
       ]),
       apellidos: new FormControl('', [
         Validators.required,
-        Validators.maxLength(45), // Longitud máxima según la base de datos
+        Validators.maxLength(45),
       ]),
       email: new FormControl('', [
         Validators.required,
         Validators.email,
-        Validators.maxLength(45), // Longitud máxima según la base de datos
+        Validators.maxLength(45),
       ]),
       puesto: new FormControl('', [Validators.required]),
       fecha_contratacion: new FormControl('', [Validators.required]),
@@ -48,7 +49,7 @@ export class FormEmpleadoComponent {
       pwd: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(100), // Longitud máxima según la base de datos
+        Validators.maxLength(100),
       ]),
       activo: new FormControl('', [Validators.required]),
       imagen_empleado: new FormControl(null),
@@ -59,66 +60,66 @@ export class FormEmpleadoComponent {
     this.activatedRoute.params.subscribe(async (params: any) => {
       if (params['id'] && params['id'] !== 'nuevo') {
         this.idEmpleado = +params['id'];
-        let empleado: EmpleadoRespuesta = await this.empleadosService.getEmpleadoById(this.idEmpleado);
-        this.empleadoForm.patchValue({
-          ...empleado,
-          fecha_contratacion: new Date(empleado.fecha_contratacion).toISOString().substring(0, 10),
-        });
+        try {
+          let empleado: EmpleadoRespuesta = await this.empleadosService.getEmpleadoById(this.idEmpleado);
+          this.empleadoForm.patchValue({
+            ...empleado,
+            fecha_contratacion: new Date(empleado.fecha_contratacion).toISOString().substring(0, 10),
+          });
+        } catch (error) {
+          console.error('Error al obtener datos del empleado:', error);
+        }
       } else {
         this.idEmpleado = undefined;
-        // Aquí puedes restablecer el formulario para crear un nuevo empleado
+        this.empleadoForm.reset();
       }
     });
   }
-  
 
-async submitForm(): Promise<void> {
-  if (this.empleadoForm.valid) {
-    try {
-      let result = await Swal.fire({
-        title: '¿Confirmar acción?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#FFC007',
-        confirmButtonText: 'Aceptar',
-      });
+  async submitForm(): Promise<void> {
+    if (this.empleadoForm.valid) {
+      try {
+        let result = await Swal.fire({
+          title: '¿Confirmar acción?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#FFC007',
+          confirmButtonText: 'Aceptar',
+        });
 
-      if (result.isConfirmed) {
-        const empleadoData = this.empleadoForm.value;
-        empleadoData.puesto = +empleadoData.puesto; // Convierte el valor de puesto a número
-        console.log(empleadoData);
-        console.log(this.idEmpleado)
-        if (this.idEmpleado !== undefined) {
-          // Actualizar empleado existente
-          let response = await this.empleadosService.updateEmpleado(this.idEmpleado, empleadoData);
-          
-          if (this.imagenEmpleado) {
-            await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
+        if (result.isConfirmed) {
+          const empleadoData = this.empleadoForm.value;
+          empleadoData.puesto = +empleadoData.puesto;
+
+          if (this.idEmpleado !== undefined) {
+            let response = await this.empleadosService.updateEmpleado(this.idEmpleado, empleadoData);
+            
+            if (this.imagenEmpleado) {
+              await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
+            }
+            Swal.fire('¡Actualizado!', 'El empleado ha sido actualizado.', 'success');
+          } else {
+            delete empleadoData.idEmpleado;
+            let response = await this.empleadosService.createEmpleado(empleadoData);
+
+            if(!response.idEmpleado){
+              console.error(response.fatal);
+            }
+
+            this.idEmpleado = response.idEmpleado;
+            if (this.imagenEmpleado && this.idEmpleado) {
+              await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
+            }
+            Swal.fire('¡Creado!', 'El empleado ha sido creado.', 'success');
           }
-          Swal.fire('¡Actualizado!', 'El empleado ha sido actualizado.', 'success');
-        } else {
-          // Crear nuevo empleado
-          console.log(empleadoData);
-          delete empleadoData.idEmpleado;
-          let response = await this.empleadosService.createEmpleado(empleadoData);
-          if(!response.idEmpleado){
-
-            console.log(response.fatal)
-
-          }
-          this.idEmpleado = response.idEmpleado; // Asumiendo que la respuesta tiene un campo idEmpleado
-          if (this.imagenEmpleado && this.idEmpleado) {
-            await this.imagenesService.guardarImagenEmpleado(this.imagenEmpleado, this.idEmpleado);
-          }
-          Swal.fire('¡Creado!', 'El empleado ha sido creado.', 'success');
+          this.router.navigate(['/empleados']);
         }
-        this.router.navigate(['/empleados']);
+      } catch (error) {
+        console.error('Error durante la operación:', error);
+        Swal.fire('Error', 'Ha ocurrido un error durante la operación.', 'error');
       }
-    } catch (error) {
-      Swal.fire('Error', 'Ha ocurrido un error durante la operación.', 'error');
     }
   }
-}
 
   checkControl(name: string, error: string): boolean | undefined {
     return (
@@ -132,5 +133,4 @@ async submitForm(): Promise<void> {
       this.imagenEmpleado = event.target.files[0];
     }
   }
-  
 }
