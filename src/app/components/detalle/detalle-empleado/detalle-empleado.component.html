@@ -1,18 +1,22 @@
 <div class="card" *ngIf="empleado">
-<div class="card-header">
-  <h5>Detalle del empleado: {{ empleado.nombre }} {{ empleado.apellidos }}</h5>
+  <div class="card-header">
+    <h5>Detalle del empleado: {{ empleado.nombre }} {{ empleado.apellidos }}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Número: {{ empleado.num_empleado }}</li>
+    <li class="list-group-item">Email: {{ empleado.email }}</li>
+    <li class="list-group-item">Puesto: {{ empleado.puesto }}</li>
+    <li class="list-group-item">Activo: {{ empleado.activo ? 'Sí' : 'No' }}</li>
+    <li class="list-group-item">Fecha de Contratación: {{ empleado.fecha_contratacion | date: 'dd/MM/yyyy' }}</li>
+    <li class="list-group-item">ID Almacén: {{ empleado.idalmacen }}</li>
+    <li class="list-group-item">
+      Foto del empleado: 
+      <img *ngIf="empleado.imagen_empleado" [src]="empleado.imagen_empleado" alt="Imagen de {{ empleado.nombre }}" style="max-width: 100px; max-height: 100px;">
+    </li>
+  </ul>
+  <div class="card-footer">
+    <button class="btn btn-secondary" (click)="editarEmpleado()">Editar</button>
+  </div>
 </div>
-<ul class="list-group list-group-flush">
-  <li class="list-group-item">Número: {{ empleado.num_empleado }}</li>
-  <li class="list-group-item">Email: {{ empleado.email }}</li>
-  <li class="list-group-item">Puesto: {{ empleado.puesto }}</li>
-  <li class="list-group-item">Activo: {{ empleado.activo ? 'Sí' : 'No' }}</li>
-  <li class="list-group-item">Fecha de Contratación: {{ empleado.fecha_contratacion | date: 'dd/MM/yyyy' }}</li>
-  <li class="list-group-item">ID Almacén: {{ empleado.idalmacen }}</li>
-  <li class="list-group-item">
-    Foto del empleado: 
-    <img *ngIf="empleado.imagen_empleado" [src]="empleado.imagen_empleado" alt="Imagen de {{ empleado.nombre }}" style="max-width: 100px; max-height: 100px;">
-  </li>
-</ul>
-</div>
+
 

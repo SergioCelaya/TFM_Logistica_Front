@@ -84,18 +84,6 @@ export class ListaEmpleadosComponent implements OnInit {
     }
   }
   
-  editarEmpleado(empleado: EmpleadoRespuesta): void {
-    try {
-      this.router.navigate(['/empleado/editar', empleado.idempleado]);
-    } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error al editar empleado',
-        text: 'Ocurrió un error al intentar editar el empleado. Por favor, inténtalo de nuevo.'
-      });
-    }
-  }
-  
 
   activarDesactivarEmpleado(empleado: EmpleadoRespuesta): void {
     let nuevoEstado = empleado.activo === 1 ? 0 : 1;

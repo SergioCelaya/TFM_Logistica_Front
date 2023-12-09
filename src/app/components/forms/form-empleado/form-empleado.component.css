@@ -1,0 +1,40 @@
+input.ng-invalid.ng-touched {
+    border-bottom: 3px solid tomato;
+  }
+  
+  input.ng-valid.ng-touched {
+    border-bottom: 3px solid lightgreen;
+  }
+  
+  .error {
+    color: tomato;
+    font-size: 12px;
+  }
+  
+  .red-text {
+    color: tomato;
+  }
+  
+  .formInput {
+    padding: 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+  }
+  
+  .formInput::placeholder {
+    color: grey;
+  }
+  
+  .formInput:focus {
+    outline-color: transparent;
+    outline-style: none;
+    box-shadow: none;
+    font-size: 1rem;
+    font-weight: bolder;
+  }
+  
+  .formIcon {
+    width: 100px;
+    align-self: center;
+  }
