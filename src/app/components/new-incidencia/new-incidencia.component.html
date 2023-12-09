@@ -1,0 +1,16 @@
+<article class="card cardIncidencia">
+    <div class="card-body">
+      <div class="d-flex flex-row justify-content-between mt-2 mx-2">
+        <h5 class="card-title mb-3 text-center titulo">
+          Incidencia para el pedido: {{ pedidoIncidencia?.numero_pedido }}
+        </h5>
+        <a class="btn btn-close" (click)="cerrar()"></a>
+      </div>
+        <input type="text" class="form-control my-3" placeholder="Escribe un título de incidencia" [(ngModel)]="titulo" aria-label="Escribe un título de incidencia" aria-describedby="basic-addon2"> 
+        <textarea class="form-control mb-3" placeholder="Texto de la incdencia" [(ngModel)]="textoIncidencia" aria-label="Texto incidencia"></textarea>
+      <a
+        class="btn btn-dark"
+        (click)="guardarIncidencia()"
+        >Guardar incidencia</a>
+    </div>
+  </article>

@@ -261,4 +261,5 @@
       </div>
     </section>
   </article>
+  <div  *ngIf="verIncidencia" class="overlay" ><app-new-incidencia class="incidencia"  [pedidoIncidencia]="pedidoActivo" (ocultarIncidencia)="incidencia($event)"></app-new-incidencia></div>
 </article>

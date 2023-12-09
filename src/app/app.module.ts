@@ -30,6 +30,7 @@ import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Interceptors
 import { AuthIntereceptorService } from './interceptors/auth.intereceptor.service';
+import { NewIncidenciaComponent } from './components/new-incidencia/new-incidencia.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AuthIntereceptorService } from './interceptors/auth.intereceptor.servic
     FormPedidoComponent,
     FormIncidenciasComponent,
     IncidenciaComponent,
-    FormEmpleadoComponent
+    FormEmpleadoComponent,
+    NewIncidenciaComponent
   ],
   imports: [
     BrowserModule,

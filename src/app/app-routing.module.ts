@@ -10,6 +10,7 @@ import { FormPedidoComponent } from './components/forms/form-pedido/form-pedido.
 import { FormIncidenciasComponent } from './components/forms/form-incidencias/form-incidencias.component';
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
 import { FormEmpleadoComponent } from './components/forms/form-empleado/form-empleado.component';
+import { NewIncidenciaComponent } from './components/new-incidencia/new-incidencia.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirecciona a /login por defecto
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'editarIncidencia/:idincidencia', component: FormIncidenciasComponent },
   { path: 'gestionPedido/:idpedido', component: FormPedidoComponent },
   { path: 'updateAlmacen/:idalmacen', component: FormAlmacenComponent },
+  { path: 'newIncidencia', component: NewIncidenciaComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirecciona a /login por defecto
   { path: '**', redirectTo: '/login' }, // Manejo de rutas no encontradas, redirecciona a /login
 ];

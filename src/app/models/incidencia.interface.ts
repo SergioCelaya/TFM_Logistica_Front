@@ -1,6 +1,6 @@
 export interface Incidencia {
 
-    idincidencia: number;
+    idincidencia: any;
     titulo: string;
     descripcion: string;
     idpedido_asociado: number;

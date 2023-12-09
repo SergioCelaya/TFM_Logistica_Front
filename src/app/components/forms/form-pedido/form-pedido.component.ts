@@ -46,6 +46,8 @@ export class FormPedidoComponent {
   accionIncidencia: boolean = false;
   pedidoActivo: pedidoRespuesta | null = null;
   urlImagen: string = '';
+  //Mostrar cuadro para dar de alta incidencia;
+  verIncidencia:boolean=false;
 
   async ngOnInit() {
     this.activatedRoute.params.subscribe(async (params: any) => {
@@ -339,6 +341,10 @@ export class FormPedidoComponent {
       this.pedidoForm.get(formcontrolName)?.hasError(validator) &&
       this.pedidoForm.get(formcontrolName)?.touched
     );
+  }
+
+  incidencia(ver: boolean) {
+    this.verIncidencia = !this.verIncidencia;
   }
 
   toValido() {
