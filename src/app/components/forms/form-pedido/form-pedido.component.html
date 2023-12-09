@@ -249,7 +249,7 @@
       <p class="my-4 fs-5">{{pedidoActivo?.estado}}</p>
       <p class="my-4" *ngIf="crearPedido">Crea un nuevo pedido.</p>
       <p class="my-4" *ngIf="accionPteValidar">El pedido debe de ser rectificado. Revisa la incidencia abierta por el encargado y pasa el pedido a pendiente de ser validado.</p>
-      <p class="my-4" *ngIf="accionValidar&&accionRectificar">Si el pedido es correcto, sela validado. En caso contrario, mandar a rectificar.</p>
+      <p class="my-4" *ngIf="accionValidar&&accionRectificar">Si el pedido es correcto, será validado. En caso contrario, mandar a rectificar.</p>
       <p class="my-4" *ngIf="accionEnvio" >El pedido se encuentra validado un encargado de tu almacen, puede realizarse el envío.</p>
       <p class="my-4" *ngIf="accionRecepcion" >El pedido se encuentra pendiente de recepcionar en tu almacén. Recepciona el envío y crea una incidencia si es el caso.</p>
       <div class="btn-group-lg" role="group" >

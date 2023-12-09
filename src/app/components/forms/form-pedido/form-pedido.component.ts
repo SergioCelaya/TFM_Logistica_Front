@@ -264,38 +264,7 @@ export class FormPedidoComponent {
 
   async submitForm() {
     if (this.pedidoForm.value.idPedido) {
-      try {
-        await Swal.fire({
-          title: '¿Quiere guardar los cambios?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#FFC007',
-          confirmButtonText: 'Guardar',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // ACTUALIZACIÓN ALMACEN
-            let response = this.servicioPedido.updatePedido(
-              this.pedidoForm.value
-            );
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Pedido actualizado correctamente',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        });
-        this.router.navigate(['/pedidos']);
-      } catch (error) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Error al actualizar el almacen',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
+      this.actualizarForm();
     } else {
       try {
         await Swal.fire({
@@ -337,6 +306,40 @@ export class FormPedidoComponent {
           timer: 1500,
         });
       }
+    }
+  }
+
+  async actualizarForm(){
+    try {
+      await Swal.fire({
+        title: '¿Quiere guardar los cambios?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#FFC007',
+        confirmButtonText: 'Guardar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // ACTUALIZACIÓN ALMACEN
+          let response = this.servicioPedido.updatePedido(
+            this.pedidoForm.value
+          );
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Pedido actualizado correctamente',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+    } catch (error) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Error al actualizar el almacen',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   }
 
@@ -382,6 +385,7 @@ export class FormPedidoComponent {
   toPendienteValidar() {
     try {
       if (this.pedidoActivo?.idPedido) {
+        this.actualizarForm();
         this.servicioPedido.toPendientevalidar(this.pedidoActivo?.idPedido);
         Swal.fire({
           position: 'center',
