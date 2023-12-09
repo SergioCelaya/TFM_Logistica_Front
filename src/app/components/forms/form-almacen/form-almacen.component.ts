@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { response } from 'express';
+import { Almacen } from 'src/app/models/almacen.interface';
 import { AlmacenService } from 'src/app/services/almacen.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import Swal from 'sweetalert2';
@@ -18,6 +19,9 @@ export class FormAlmacenComponent {
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   uploadedImage: any;
+  showFileBox: boolean = true;
+  updateAlmacen: string = 'response.imagen_almacen';
+  modo: 'create' | 'update' = 'create';
 
   constructor() {
     this.almacenForm = new FormGroup({
@@ -51,11 +55,16 @@ export class FormAlmacenComponent {
       let idalmacen: number = Number(params.idalmacen);
 
       if (idalmacen) {
+        this.showFileBox = false;
+        this.modo = 'update';
         //GUARDO EL ID DE ALMACEN PARA GUARDAR LA IMAGEN POSTERIORENTE
         this.idAlmacen = idalmacen;
         //PINTAR ALMACEN EXISTENTE
         let response = await this.almacenService.getById(idalmacen);
         console.log(response);
+
+        this.updateAlmacen = this.imagenesService.getImagenAlmacen(response.imagen_almacen);
+        console.log(this.updateAlmacen);
 
         this.almacenForm = new FormGroup({
           idalmacen: new FormControl(response.idalmacen, []),
@@ -84,86 +93,91 @@ export class FormAlmacenComponent {
   }
 
   async submitForm(): Promise<void> {
-    if (this.almacenForm.value.idalmacen) {
-      try {
-        await Swal.fire({
-          title: '¿Quiere guardar los cambios?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#FFC007',
-          confirmButtonText: 'Guardar',
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            // ACTUALIZACIÓN ALMACEN
-            let response = await this.almacenService.updateAlmacen(this.almacenForm.value);
-            console.log("Datos enviados a la API:", this.almacenForm.value);
+    if(this.url && !this.showFileBox){
+      if (this.almacenForm.value.idalmacen) {
+        try {
+          await Swal.fire({
+            title: '¿Quiere guardar los cambios?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#FFC007',
+            confirmButtonText: 'Guardar',
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              // ACTUALIZACIÓN ALMACEN
+              let response = await this.almacenService.updateAlmacen(this.almacenForm.value);
+              console.log("Datos enviados a la API:", this.almacenForm.value);
 
-            // Verificar si se ha cargado una nueva imagen antes de intentar guardarla
-            if (this.imagenFile) {
-              await this.guardarImagenAlmacen(this.imagenFile, this.almacenForm.value.idalmacen);
-            } else if (
-              this.almacenForm.get('imagen_almacen')?.value === 'imagen_almacen'
-            ) {
-              // Si la imagen no ha sido modificada, establecerla como undefined o eliminarla según la necesidad del backend
-              this.almacenForm.removeControl('imagen_almacen');
+              // Verificar si se ha cargado una nueva imagen antes de intentar guardarla
+              if (this.imagenFile) {
+                await this.guardarImagenAlmacen(this.imagenFile, this.almacenForm.value.idalmacen);
+              } else if (
+                this.almacenForm.get('imagen_almacen')?.value === 'imagen_almacen'
+              ) {
+                // Si la imagen no ha sido modificada, establecerla como undefined o eliminarla según la necesidad del backend
+                this.almacenForm.removeControl('imagen_almacen');
+              }
+              this.showFileBox = true;
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Almacén actualizado correctamente',
+                showConfirmButton: false,
+                timer: 1500,
+              });
             }
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Almacén actualizado correctamente',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        });
-        this.router.navigate(['/almacenes']);
-      } catch (error) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Error al actualizar el almacen',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+          });
+          this.router.navigate(['/almacenes']);
+        } catch (error) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Error al actualizar el almacen',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      } else {
+        try {
+          await Swal.fire({
+            title: '¿Quiere crear el almacén?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#FFC007',
+            confirmButtonText: 'Crear',
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              console.log(this.almacenForm.value);
+              // CREACIÓN NUEVO ALMACEN
+              let response = await this.almacenService.create(this.almacenForm.value);
+              // Esperamos a guardarImagen para que no cargue la default
+              const nuevoAlmacenID = response.idalmacen;
+              await this.guardarImagenAlmacen(this.imagenFile, nuevoAlmacenID);
+              console.log(response);
+
+              this.showFileBox = true;
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Almacén creado correctamente',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+          this.router.navigate(['/almacenes']);
+        } catch (error) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Ha habido un error, inténtelo de nuevo',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       }
     } else {
-      try {
-        await Swal.fire({
-          title: '¿Quiere crear el almacén?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#FFC007',
-          confirmButtonText: 'Crear',
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            console.log(this.almacenForm.value);
-            // CREACIÓN NUEVO ALMACEN
-            let response = await this.almacenService.create(this.almacenForm.value);
-            // Esperamos a guardarImagen para que no cargue la default
-            const nuevoAlmacenID = response.idalmacen;
-            await this.guardarImagenAlmacen(this.imagenFile, nuevoAlmacenID);
-
-            // TRATAR ERROR POR DUPLICADO
-            console.log(response);
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Almacén creado correctamente',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        });
-        this.router.navigate(['/almacenes']);
-      } catch (error) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Ha habido un error, inténtelo de nuevo',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
+      this.showFileBox = true;
     }
   }
 
@@ -195,6 +209,7 @@ export class FormAlmacenComponent {
     };
     reader.readAsDataURL(event.target.files[0]);
     this.imagenFile = event.target.files[0];
+    this.showFileBox = false; //Ocultar bloque al cargar imagen
   }
 
   async guardarImagenAlmacen(imagenFile: File | undefined, idAlmacen: number | undefined) {
@@ -216,5 +231,13 @@ export class FormAlmacenComponent {
     if (activoControl) {
       activoControl.setValue(activoControl.value === '1' ? '0' : '1');
     }
+  }
+
+  // Método para volver a cargar el bloque fileBox
+  refrescarImagen() {
+    this.showFileBox = true;
+    this.url = null; // Restablece la URL para ocultar la imagen
+    // También puedes restablecer el valor del control de formulario relacionado con la imagen si es necesario
+    this.almacenForm.get('imagen_almacen')?.setValue(null);
   }
 }
