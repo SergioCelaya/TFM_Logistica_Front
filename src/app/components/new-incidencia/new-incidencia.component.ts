@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { left } from '@popperjs/core';
 import { pedidoRespuesta } from 'src/app/models/Respuestas_API/pedidosRespuesta.interface';
 import { Incidencia } from 'src/app/models/incidencia.interface';
 import { IncidenciasService } from 'src/app/services/incidencias.service';
@@ -20,35 +21,58 @@ export class NewIncidenciaComponent {
     this.ocultarIncidencia.emit(true);
   }
 
-  async ngOnInit() {
-  }
+  async ngOnInit() {}
 
   async guardarIncidencia() {
+    let incidencia: Incidencia = {
+      idincidencia: null,
+      descripcion: "",
+      tipo_incidencia: '1',
+      idpedido_asociado: 0,
+      titulo: "",
+      vista: false,
+    };
     if (this.pedidoIncidencia?.idPedido) {
-      const incidencia: Incidencia = {
-        idincidencia: null,
-        descripcion: this.textoIncidencia.toString(),
-        tipo_incidencia: '1',
-        idpedido_asociado: this.pedidoIncidencia?.idPedido,
-        titulo: this.titulo,
-        vista: false,
-      };
-      console.log(incidencia)
-      try {
-        await this.servicioIncidencias.create(incidencia);
-      } catch (error) {
+      if (this.titulo != undefined && this.textoIncidencia != undefined) {
+        incidencia = {
+          idincidencia: null,
+          descripcion: this.textoIncidencia.toString(),
+          tipo_incidencia: '1',
+          idpedido_asociado: this.pedidoIncidencia?.idPedido,
+          titulo: this.titulo,
+          vista: false,
+        };
+        try {
+          let respuesta :any = null;
+           respuesta = await this.servicioIncidencias.create(incidencia)
+          if(respuesta.fatal){
+            console.log(respuesta)
+            Swal.fire({
+              icon: 'error',
+              title:
+                'Error al guardar la incidencia. Consulte con el administrador.',
+            });
+          }else{
+            Swal.fire({
+              icon: 'success',
+              title: 'Incidencia guardada correctamente.',
+            });
+            this.ocultarIncidencia.emit(true);
+          }
+        } catch (error) {
+          Swal.fire({
+            icon: 'error',
+            title:
+              'Error al guardar la incidencia. Consulte con el administrador.',
+          });
+        }
+      }else{
         Swal.fire({
           icon: 'error',
           title:
-            'Error al guardar la incidencia. Consulte con el administrador.',
+            'Error, la incidencia debe de tener título y descripción.',
         });
       }
-      Swal.fire({
-        icon: 'success',
-        title:
-          'Incidencia guardada correctamente.',
-      });
-      this.ocultarIncidencia.emit(true);
     }
   }
 }
