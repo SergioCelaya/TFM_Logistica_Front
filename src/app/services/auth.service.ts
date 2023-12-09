@@ -6,7 +6,6 @@ import { Auth } from '../models/Respuestas_API/auth.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Empleado } from '../models/empleado.interface';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -39,13 +38,17 @@ export class AuthService {
             this.loggedIn.next(true);
             if (usuario.puesto == 'Empleado') {
               this.router.navigate(['/pedidos']);
+              return {"Error":""};
             } else if (usuario.puesto == 'Encargado') {
               this.router.navigate(['/incidencias']);
+              return {"Error":""};
             } else {
               this.router.navigate(['/empleados']);
+              return {"Error":""};
             }
+          } else {
+            return { Error: 'Usuario o contraseña incorrectos' };
           }
-          return { Error: 'Usuario o contraseña incorrectos' };
         } else {
           return { Error: 'Usuario o contraseña incorrectos' };
         }
@@ -57,20 +60,20 @@ export class AuthService {
     }
   }
 
-  async getUser():Promise<Empleado> {
+  async getUser(): Promise<Empleado> {
     const token = localStorage.getItem('token');
-    const empleado:Empleado=
-    {activo:false,
-      apellidos:"",
-      nombre:"",
-      email:"",
-      fecha_contratacion:new Date(),
-      idalmacen:0,
-      idempleado:0,
-      imagen_empleado:"",
-      num_empleado:"0",
-      puesto:"",
-      pwd:""
+    const empleado: Empleado = {
+      activo: false,
+      apellidos: '',
+      nombre: '',
+      email: '',
+      fecha_contratacion: new Date(),
+      idalmacen: 0,
+      idempleado: 0,
+      imagen_empleado: '',
+      num_empleado: '0',
+      puesto: '',
+      pwd: '',
     };
     if (token) {
       let headers = new HttpHeaders({
@@ -82,7 +85,7 @@ export class AuthService {
       return await firstValueFrom(
         this.httpClient.post<Empleado>(this.baseUrl + '/getUser', null, options)
       );
-    };
+    }
     return empleado;
   }
 

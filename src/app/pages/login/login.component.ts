@@ -19,19 +19,27 @@ export class LoginComponent {
   loginForm: FormGroup;
   private loggedIn = new BehaviorSubject<boolean>(this.tokenAvailable());
 
-
-  async ngOnInit(){
-    if(localStorage.getItem("token")){
+  async ngOnInit() {
+    if (localStorage.getItem('token')) {
       this.servicioAuth.logout();
     }
   }
 
   constructor(private fb: FormBuilder) {
-
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      pwd: ['', Validators.required],
+      pwd: ['', [Validators.required,Validators.minLength(8)]],
     });
+  }
+
+  checkControl(
+    formcontrolName: string,
+    validator: string
+  ): boolean | undefined {
+    return (
+      this.loginForm.get(formcontrolName)?.hasError(validator) &&
+      this.loginForm.get(formcontrolName)?.touched
+    );
   }
 
   get isLoggedIn() {
@@ -39,10 +47,9 @@ export class LoginComponent {
   }
 
   async login() {
-
     if (this.loginForm.valid) {
       const result = await this.servicioAuth.login(this.loginForm.value);
-      if(result.Error != undefined && result.Error != ""){
+      if (result.Error != undefined && result.Error != '') {
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -54,7 +61,9 @@ export class LoginComponent {
       }
     }
   }
-
+  onClickSubmit(data:any) {
+    alert("Entered Email id : " + data.emailid);
+ }
   private tokenAvailable(): boolean {
     return !!localStorage.getItem('token');
   }

@@ -19,18 +19,12 @@ export class MenuComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log("Entra")
     this.isLoggedIn$ = this.authService.isLoggedIn;
-    console.log(this.isLoggedIn$)
     this.authService.getUser().then((empleado) => {
-      console.log("Entra 3")
       this.userPuesto = empleado.puesto;
-      console.log("Entra 4")
       this.empleado = empleado;
-      console.log(empleado);
     }).catch(
       error=>{
-        console.log(error)
         Swal.fire({
           icon: 'error',
           title:

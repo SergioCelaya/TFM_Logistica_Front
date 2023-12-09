@@ -1,6 +1,6 @@
 <div class="background"></div>
 <div class="centering">
-    <form class="my-form">
+    <form class="my-form" [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="login-welcome-row">
           <i class="bi bi-box-seam loginIcon"></i>
             <h1>¡Esto es TFM!</h1>
@@ -13,21 +13,38 @@
                 id="email"
                 name="email"
                 placeholder="Escribe tu email"
+                formControlName="email"
             >
+            <p class="text-danger fw-bold" *ngIf="checkControl('email', 'required')">
+                Campo es requerido
+              </p>
+              <p class="text-danger fw-bold" *ngIf="checkControl('email', 'email')">
+                El email tiene formato incorrecto
+              </p>
             <i class="bi bi-envelope-at-fill"></i>
         </div>
         <div class="text-field">
             <label for="password">Contraseña:</label>
             <input
-                id="password"
+                id="pwd"
                 type="password"
                 aria-label="Password"
-                name="password"
+                name="pwd"
                 placeholder="Escribe tu contraseña"
+                formControlName="pwd"
             >
+            <p class="text-danger fw-bold" *ngIf="checkControl('pwd', 'required')">
+                Campo es requerido
+              </p>
+              <p
+                class="text-danger fw-bold"
+                *ngIf="checkControl('pwd', 'minlength')"
+              >
+                La longitud minima es de 8 caracteres
+              </p>
             <i class="bi bi-door-open"></i>
         </div>
-        <input type="submit" class="my-form__button" value="Login" >
+        <input type="submit" class="my-form__button"  value="Login" >
         <input type="button" class="btn btn-dark mx-1" (click)="empleado()" id="btnEmpleado" value="Empleado">
         <input type="button" class="btn btn-dark mx-1" (click)="encargado()" id="btnEncargado" value="Encargado">
         <input type="button" class="btn btn-dark mx-1" (click)="admin()" id="btnEmpleado" value="Administrador">
