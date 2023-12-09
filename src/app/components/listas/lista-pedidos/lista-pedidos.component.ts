@@ -27,6 +27,7 @@ export class ListaPedidosComponent {
   esEmpleado: boolean = true;
   estadoFitro: number = 0;
   numPedido: any;
+  aplicarFiltro: boolean = false;
 
   async ngOnInit() {
     this.cargarListadoInicial();
@@ -195,11 +196,13 @@ export class ListaPedidosComponent {
   }
 
   borrarfiltro() {
+    this.aplicarFiltro = false;
     this.estadoFitro = 0;
     this.cargarListadoInicial();
   }
 
   async filtroEstado(estado: number, pagina: number) {
+    this.aplicarFiltro = true; 
     if (this.empleado?.idempleado) {
       this.estadoFitro = estado;
       if (this.esEmpleado) {
