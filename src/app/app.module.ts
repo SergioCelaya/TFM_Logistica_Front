@@ -27,6 +27,7 @@ import { FormIncidenciasComponent } from './components/forms/form-incidencias/fo
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
 import { FormEmpleadoComponent } from './components/forms/form-empleado/form-empleado.component';
 import {  HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxTippyModule } from 'ngx-tippy-wrapper';
 
 // Interceptors
 import { AuthIntereceptorService } from './interceptors/auth.intereceptor.service';
@@ -64,7 +65,8 @@ import { AuthIntereceptorService } from './interceptors/auth.intereceptor.servic
     HttpClientJsonpModule,
     GoogleMapsModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    NgxTippyModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
