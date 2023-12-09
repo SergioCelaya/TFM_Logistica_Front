@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Incidencia } from 'src/app/models/incidencia.interface';
 import { allIncidencia } from 'src/app/models/Respuestas_API/allIncidencias.interface';
 import { IncidenciaRespuesta } from 'src/app/models/Respuestas_API/incidenciaRespuesta.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-incidencias',
@@ -20,6 +21,10 @@ export class ListaIncidenciasComponent {
   totalPaginas: number = 0;
   incidencias: IncidenciaRespuesta[] = [];
   incidencia: any
+  numeroPaginas: number = 0;
+  arrayPaginas = Array(this.numeroPaginas);
+  idPedido: any
+  numIncidencia: any;
 
   constructor(
     private incidenciasService: IncidenciasService,
@@ -76,4 +81,37 @@ export class ListaIncidenciasComponent {
     vistaNoVista(value: number): string {
       return value === 0 ? 'noVista' : 'vista';
     }
+
+
+    //Buscar incidencia
+
+    
+
+async buscarIncidenciaId() {
+  let incidencia: Incidencia[] | null = null;
+  try {
+    incidencia = await this.incidenciasService.getIncidenciaByIdPedido(this.numIncidencia);
+    
+    console.log(incidencia)
+  } catch (error) {
+    console.error('Error al buscar incidencias:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al cargar la lista de incidencias. Consulte con el administrador.',
+    });
+    return;
+  }
+  if (incidencia && incidencia.length > 0) {
+    this.arrIncidencias = incidencia;
+    this.numeroPaginas = 1; // o ajusta según el número de resultados
+    this.paginaActual = 1;
+    this.arrayPaginas = Array(1);
+  } else {
+    Swal.fire({
+      icon: 'info',
+      title: 'No existen incidencias con ese ID de pedido asociado.',
+    });
+  }
+}
+  
 }
