@@ -1,5 +1,7 @@
-
-  <div class="card p-" *ngIf="incidencia">
+<div class="mt-4 pt-4">
+  <h4 class="mt-4 pt-4">Detalle de incidencia seleccionada</h4>
+</div>
+  <div class="card pt-0 mt-0" *ngIf="incidencia">
     <div class="card-header bg-danger-subtle">
       Detalle de la incidencia: 
     </div>
@@ -11,4 +13,5 @@
       <li class="list-group-item bg-body-secondary">Responsable: {{ incidencia.usuario_asignado.nombre}}</li>
       <li class="list-group-item bg-body-secondary">Vista: {{ incidencia.vista }}</li>
     </ul>
+    <input type="button" value="Editar incidencia" class="btn btn-dark" (click)="iraeditarincidencia(incidencia.idIncidencia)"/>
   </div>

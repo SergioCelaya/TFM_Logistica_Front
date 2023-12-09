@@ -25,9 +25,9 @@ export class DetalleIncidenciaComponent implements OnInit {
       console.log("el click pasa por el ts de detalle incidencia" + " " + this.incidencia)
     });
   }
-//aqui para el boton de editar
-//   iraeditarincidencia(idincidencia: any) {
-//     this.router.navigate(['/editarIncidencia/'+ idincidencia]);
-//     console.log(idincidencia)
-//     }
+// aqui para el boton de editar
+  iraeditarincidencia(idincidencia: any) {
+    this.router.navigate(['/editarIncidencia/'+ idincidencia]);
+    console.log(idincidencia)
+    }
 }
