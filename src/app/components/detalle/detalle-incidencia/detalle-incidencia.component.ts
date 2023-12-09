@@ -28,7 +28,7 @@ export class DetalleIncidenciaComponent implements OnInit {
     
   }
 
-  
+
 // aqui para el boton de editar
 iraeditarincidencia(idincidencia: any) {
   if (this.incidencia && this.incidencia.idIncidencia) {

@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 p-4" style="background-color: #f0f0f0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
   <div class="row">
     <div class="">
       <!-- Buscador -->
@@ -6,16 +6,18 @@
         <input
           type="text"
           class="form-control"
-          placeholder="Buscar incidencias"
-          aria-label="Buscar incidencias"
+          placeholder="Buscar incidencias por id de pedido"
+          aria-label="Buscar incidencias por id de pedido"
           aria-describedby="basic-addon2"
+          style="border-radius: 5px"
         />
         <div class="input-group-append">
-          <button class="btn btn-warning" type="button">Buscar</button>
+          <button class="btn btn-warning mx-1" type="button"><i class="bi bi-search"></i></button>
         </div>
       </div>
 
-      <button class="btn btn-warning mb-3" routerLink="/nuevaIncidencia">
+      <button class="btn btn-success mb-3" routerLink="/nuevaIncidencia">
+        <i class="bi bi-plus"></i>
         Nueva Incidencia
       </button>
 
@@ -35,7 +37,7 @@
               <p class="h6">{{ resultado.titulo }}</p>
 
               <button
-                class="btn btn-secondary"
+                class="btn btn-light"
                 (click)="iraeditarincidencia(resultado.idincidencia)"
               >
                 Editar
