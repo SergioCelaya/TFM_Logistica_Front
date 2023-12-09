@@ -23,12 +23,13 @@
       <div class="card col-10  ">
         <div class="card-header">Listado de Incidencias</div>
         <ul class="list-group list-group-flush">
-          <div class=" card efectoHover list-group-item border-1 rounded-1" *ngFor="let resultado of arrIncidencias">
+          <div class=" card efectoHover list-group-item border-1 rounded-1"  *ngFor="let resultado of arrIncidencias">
             <div
               class="d-flex flex-row justify-content-between"
               (click)="seleccionarIncidencia(resultado)"
+              
             >
-              <p class="badge bg-danger rounded-pill">
+              <p class="badge rounded-pill" [ngClass]="vistaNoVista(resultado.vista)">
                 Id: {{ resultado.idincidencia }}
               </p>
               <p class="h6">{{ resultado.titulo }}</p>
