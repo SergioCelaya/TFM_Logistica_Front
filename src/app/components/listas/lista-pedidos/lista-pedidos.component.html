@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="d-flex">
-    <button class="btn btn-warning mb-3 mx-3" (click)="crearPedido()">
+    <button *ngIf="esEmpleado" class="btn btn-warning mb-3 mx-3" (click)="crearPedido()">
       Nuevo pedido
     </button>
 
