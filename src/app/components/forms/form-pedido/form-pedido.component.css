@@ -37,3 +37,9 @@ input.ng-invalid.ng-touched{
     left: 35%;
     top: 15%;
   }
+  .formInput{
+    padding: 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+  }

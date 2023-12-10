@@ -5,7 +5,7 @@
       <div class="mb-3">
         <label for="numero_pedido" class="mb-2 h6">Número del pedido :</label>
         <input
-          class="form-control"
+          class="formInput form-control"
           placeholder="Introduce un número válido de pedido"
           type="text"
           formControlName="numero_pedido"
@@ -41,7 +41,7 @@
         <input
           type="date"
           id="fecha_creacion"
-          class="form-control"
+          class="form-control formInput"
           formControlName="fecha_creacion"
         />
         <div class="d-flex justify-content-between">
@@ -66,7 +66,7 @@
         <input
           type="date"
           id="fecha_entrega"
-          class="form-control"
+          class="form-control formInput"
           formControlName="fecha_entrega"
         />
         <div class="d-flex justify-content-between">
@@ -84,7 +84,7 @@
         <label for="almacen_origen" class="mb-2 h6">Almacén origen:</label>
         <select
           id="almacen_origen"
-          class="form-select"
+          class="form-select formInput"
           formControlName="almacen_origen"
         >
           <option value="" disabled selected hidden>
@@ -109,7 +109,7 @@
         <label for="almacen_destino" class="mb-2 h6">Almacén destino:</label>
         <select
           id="almacen_destino"
-          class="form-select"
+          class="form-select formInput"
           formControlName="almacen_destino"
         >
           <option value="" disabled selected hidden>
@@ -134,7 +134,7 @@
         <label for="usuario_asignado" class="mb-2 h6">Empleado asignado:</label>
         <select
           id="usuario_asignado"
-          class="form-select"
+          class="form-select formInput"
           formControlName="usuario_asignado"
         >
           <option value="" disabled selected hidden>
@@ -168,7 +168,7 @@
       </div>
       <div class="mb-3">
         <label for="estado" class="mb-2 h6">Estado del pedido:</label>
-        <select id="estado" class="form-select" formControlName="estado">
+        <select id="estado" class="form-select formInput" formControlName="estado">
           <option value="" disabled selected hidden>
             Selecciona el estado del pedido del listado
           </option>
@@ -194,7 +194,7 @@
         <input
           type="text"
           id="id_transporte"
-          class="form-control"
+          class="form-control formInput"
           formControlName="id_transporte"
           placeholder="Indica el identificador del transporte"
         />
@@ -214,7 +214,7 @@
         <textarea
           type="text"
           id="detalle_pedido"
-          class="form-control"
+          class="form-control formInput"
           formControlName="detalle_pedido"
           placeholder="Haz una descripción detallada del pedido"
         ></textarea>

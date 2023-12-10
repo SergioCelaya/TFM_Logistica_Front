@@ -2,7 +2,7 @@
   <h4 class="mt-4 pt-4 m-4">Detalle de la incidencia </h4>
 </div>
   <div class="card pt-0 mt-0 m-4" *ngIf="incidencia">
-    <div class="card-header bg-danger-subtle">
+    <div class="card-header"  [ngClass]="claseSegunVista">
       <h3>{{ incidencia.titulo }}</h3>
     </div>
     <ul class="list-group list-group-flush">

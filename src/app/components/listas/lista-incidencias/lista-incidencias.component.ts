@@ -35,7 +35,7 @@ export class ListaIncidenciasComponent {
     this.currentpagina = 1;
     try {
       this.cargarIncidencias(this.currentpagina);
-      
+     // this.incidenciasService.incidenciaSeleccionada$ = this.arrIncidencias[0];
     } catch (error: any) {
       this.router.navigate(['/login']);
     }
@@ -44,19 +44,15 @@ export class ListaIncidenciasComponent {
     try {  
 
       this.Resultado = await this.incidenciasService.getAll(pagina);
-      console.log(this.Resultado)
       this.arrIncidencias = this.Resultado.Resultado;
       this.totalPaginas = Math.ceil(this.Resultado.TotalElementos / this.Resultado.ElementosPagina);
+      this.incidenciasService.seleccionarIncidencia(this.arrIncidencias[0])
       this.paginaActual = pagina;
-      console.log(this.arrIncidencias)
 
     } catch (error: any) {
       this.router.navigate(['/login']);
     }
   }
-
-  
-
 
   cambiarPagina(pagina: number): void {
     if (pagina >= 1 && pagina <= this.totalPaginas) {
@@ -64,8 +60,6 @@ export class ListaIncidenciasComponent {
       this.cargarIncidencias(pagina);
     }
   }
-
-
 
   iraeditarincidencia(idincidencia: any) {
     this.router.navigate(['/editarIncidencia/'+ idincidencia]);
@@ -75,7 +69,6 @@ export class ListaIncidenciasComponent {
 //AQUI VA EL CLICK PARA SELECCIONAR QUÉ INCIDENCIA VER EN DETALLE INCIDENCIA
     seleccionarIncidencia(incidencia: IncidenciaRespuesta): void {
       this.incidenciasService.seleccionarIncidencia(incidencia);
-      console.log("EL CLICK PASA POR EL TS DE LISTA INCIDENCIAS")
     }
 
     vistaNoVista(value: number): string {
