@@ -1,17 +1,17 @@
 <div class="mt-4 pt-4">
-  <h4 class="mt-4 pt-4">Detalle de incidencia seleccionada</h4>
+  <h4 class="mt-4 pt-4 m-4">Detalle de la incidencia </h4>
 </div>
-  <div class="card pt-0 mt-0" *ngIf="incidencia">
-    <div class="card-header bg-danger-subtle">
+  <div class="card pt-0 mt-0 m-4" *ngIf="incidencia">
+    <div class="card-header"  [ngClass]="claseSegunVista">
       <h3>{{ incidencia.titulo }}</h3>
     </div>
-    <ul class="list-group list-group-flush ">
+    <ul class="list-group list-group-flush">
       
-      <li class="list-group-item bg-body-secondary"> <h6>  Descripción: {{ incidencia.descripcion }} </h6></li>
-      <li class="list-group-item bg-body-secondary"> <h6>Id: {{ incidencia.idIncidencia }}</h6></li>
-      <li class="list-group-item bg-body-secondary"> <h6>ID pedido: {{ incidencia.idpedido_asociado }}</h6></li>
-      <li class="list-group-item bg-body-secondary"> <h6>Responsable: {{ incidencia.usuario_asignado.nombre}}</h6></li>
-      <li class="list-group-item bg-body-secondary"> <h6>Vista: {{ incidencia.vista }}</h6></li>
+      <li class="list-group-item"> <p> <strong>Descripción: </strong>{{ incidencia.descripcion }} </p></li>
+      <li class="list-group-item"> <p><strong>Id: </strong> {{ incidencia.idIncidencia }}</p></li>
+      <li class="list-group-item"> <p><strong>Id pedido: </strong> {{ incidencia.idpedido_asociado }}</p></li>
+      <li class="list-group-item"> <p><strong>Responsable: </strong> {{ incidencia.usuario_asignado.nombre}}</p></li>
+      <li class="list-group-item"> <p><strong>Vista: </strong> {{ incidencia.vista }}</p></li>
     </ul>
     <input type="button" value="Editar incidencia" class="btn btn-dark" (click)="iraeditarincidencia(incidencia.idIncidencia )"/>
   </div>

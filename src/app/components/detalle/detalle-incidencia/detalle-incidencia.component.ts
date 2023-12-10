@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 
 
 export class DetalleIncidenciaComponent implements OnInit {
+  claseSegunVista:any = '';
   incidencia: IncidenciaRespuesta | null = null;
   constructor(
     private incidenciasService: IncidenciasService,
@@ -23,12 +24,18 @@ export class DetalleIncidenciaComponent implements OnInit {
     this.incidenciasService.incidenciaSeleccionada$.subscribe(incidencia => {
       this.incidencia = incidencia;
       console.log("el click pasa por el ts de detalle incidencia" + " " + this.incidencia?.idIncidencia)
-    });
 
-    
+      if (this.incidencia?.vista) {
+        this.claseSegunVista = { vista: true };
+      } else {
+        this.claseSegunVista = { noVista: true };
+      }
+    });
+    console.log(this.incidencia?.vista)
+   
   }
 
-  
+
 // aqui para el boton de editar
 iraeditarincidencia(idincidencia: any) {
   if (this.incidencia && this.incidencia.idIncidencia) {

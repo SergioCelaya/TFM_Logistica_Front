@@ -1,9 +1,12 @@
-<form [formGroup]="incidenciasForm" (ngSubmit)="submitForm()" class="m-4 form">
+<form [formGroup]="incidenciasForm" (ngSubmit)="submitForm()" class="justify-content-center row form">
 
+    <div class="col-12 col-md-7 mt-5 d-flex flex-column justify-content-center">
+        <img class="formIcon mb-3" src="/assets/incidencia.png" alt="Icono formulario">
+        <h3 class="mb-5 text-center">{{ modo === 'create' ? 'Crear nueva incidencia' : 'Actualizar incidencia' }}</h3>
     <!-- TITULO -->
     <div class="mb-3">
         <label for="titulo">Título de la incicencia:</label>
-        <input class="form-control" type="text" formControlName="titulo" id="titulo" />
+        <input class="form-control formInput" type="text" formControlName="titulo" id="titulo" />
         <div class="d-flex justify-content-between">
             <div>
                 <p class="error" *ngIf="checkControl('titulo', 'required')">
@@ -32,7 +35,7 @@
     <!-- DESCRIPCION -->
     <div class="mb-3">
         <label for="descripcion">Descripción:</label>
-        <input class="form-control" type="text" formControlName="descripcion" id="descripcion" />
+        <input class="form-control formInput" type="text" formControlName="descripcion" id="descripcion" />
         <div class="d-flex justify-content-between">
             <div>
                 <p class="error" *ngIf="checkControl('descripcion', 'required')">
@@ -58,40 +61,48 @@
 
     <!-- TIPO -->
     <div class="mb-3">
-        <label for="tipo_incidencia">Tipo de la incicencia:</label>
-        <input class="form-control" type="number" formControlName="tipo_incidencia" id="tipo_incidencia" />
+        <label for="tipo_incidencia">Tipo de la incidencia:</label>
+        <input class="form-control formInput" type="number" formControlName="tipo_incidencia" id="tipo_incidencia" />
         <div class="d-flex justify-content-between">
-            <div>
-                <p class="error" *ngIf="checkControl('tipo_incidencia', 'required')">
-                    Campo es requerido
-                </p>
-            </div>
+          <div>
+            <p class="error" *ngIf="checkControl('tipo_incidencia', 'required')">
+              Este campo es requerido y debe ser un número
+            </p>
+          </div>
         </div>
-    </div>
+      </div>
 
 
 
 <!-- ID PEDIDO ASOCIADO -->
 <div class="mb-3">
     <label for="idpedido_asociado">ID del Pedido Asociado:</label>
-    <input class="form-control" type="number" formControlName="idpedido_asociado" id="idpedido_asociado" required />
+    <input class="form-control formInput" type="text" formControlName="idpedido_asociado" id="idpedido_asociado" required />
     <div>
         <p class="error" *ngIf="checkControl('idpedido_asociado', 'required')">
-            Campo es requerido</div>
+            Este campo es requerido.</div>
 </div>
 
 <!-- ID VISTA -->
+
 <div class="mb-3">
     <label for="vista">Vista:</label>
-    <input class="form-control" type="number" formControlName="vista" id="vista" required />
+    <select id="vista" class="form-select formInput" formControlName="vista">
+        <option value="" disabled selected hidden>
+          Selecciona el estado está vista o no.
+        </option>
+        <option [value]="1">Si</option>
+        <option [value]="0">No</option>
+    </select>
     <div>
         <p class="error" *ngIf="checkControl('vista', 'required')">
-            Campo es requerido</div>
+            Este campo es requerido.</div>
 </div>
 
 
 
-    <input type="submit" [class]="incidenciasForm.valid ? 'btn btn-info' : 'btn btn-secondary'" value="Aceptar"
+    <input type="submit"  class="mt-4 align-self-center" [class]="incidenciasForm.valid ? 'btn btn-primary' : 'btn btn-secondary'" value="Aceptar"
         [disabled]="!incidenciasForm.valid" />
+    </div>
 
 </form>

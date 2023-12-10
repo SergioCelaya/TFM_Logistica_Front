@@ -3,7 +3,7 @@
     <section class="col-md-8">
       <!-- Buscador -->
       <div class="d-flex">
-        <input type="text" class="form-control" placeholder="Buscar almacenes por nombre" [(ngModel)]="listaAlmacenes.filtroNombre" (keyup.enter)="listaAlmacenes.buscarAlmacenes()" (keyup.escape)="listaAlmacenes.limpiarFiltro()">
+        <input type="text" class="form-control" placeholder="Buscar almacenes por nombre" [(ngModel)]="listaAlmacenes.filtroNombre" (keyup.enter)="listaAlmacenes.buscarAlmacenes()" (keyup.escape)="listaAlmacenes.limpiarFiltro()" style="border: 1px solid #ced4da; border-radius: 5px;">
         <button class="btn btn-warning ms-1 btn-block" type="button" (click)="listaAlmacenes.buscarAlmacenes()">
           <i class="bi bi-search"></i>
         </button>

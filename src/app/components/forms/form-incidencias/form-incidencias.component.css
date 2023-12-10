@@ -14,3 +14,13 @@ input.ng-valid.ng-touched {
 .red-text {
     color: tomato;
 }
+.formInput{
+    padding: 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+  }
+  .formIcon {
+    width: 100px;
+    align-self: center;
+  }
