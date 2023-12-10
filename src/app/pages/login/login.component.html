@@ -16,8 +16,8 @@
                 name="email"
                 placeholder="Escribe tu email"
                 formControlName="email"
-            >  
-            <i class="bi bi-envelope-at-fill"></i>            
+            >
+            <i class="bi bi-envelope-at-fill"></i>
         </div>
         <p class="text-danger " *ngIf="checkControl('email', 'required')">
           Debes introducir un email válido
@@ -35,7 +35,7 @@
                 placeholder="Escribe tu contraseña"
                 formControlName="pwd"
             >
-            
+
             <i class="bi bi-door-open "></i>
         </div>
         <p class="text-danger " *ngIf="checkControl('pwd', 'required')">
@@ -48,8 +48,8 @@
           La longitud minima es de 8 caracteres
         </p>
       <input type="submit" class="my-form__button"  value="Login" >
-        <!-- <input type="button" class="btn btn-dark mx-1" (click)="empleado()" id="btnEmpleado" value="Empleado">
+        <input type="button" class="btn btn-dark mx-1" (click)="empleado()" id="btnEmpleado" value="Empleado">
         <input type="button" class="btn btn-dark mx-1" (click)="encargado()" id="btnEncargado" value="Encargado">
-        <input type="button" class="btn btn-dark mx-1" (click)="admin()" id="btnEmpleado" value="Administrador">   -->
+        <input type="button" class="btn btn-dark mx-1" (click)="admin()" id="btnAdministrador" value="Administrador">
     </form>
 </div>
