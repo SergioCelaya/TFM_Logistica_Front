@@ -16,10 +16,15 @@ export class IncidenciasService {
   private urlNoVista:string = this.baseUrl + `/noVista`;
   private byIdPedido:string = this.baseUrl + `/byIdPedido`;
   private byId: string = this.baseUrl + `/byId`;
+  private byIdEmpleado:string="/usuario"
 
   // Devuelve todos las incidencias en la BBDD
   getAll(pagina:number): Promise<allIncidencia> {
     return lastValueFrom(this.httpClient.get<allIncidencia>(this.baseUrl+"/"+ pagina));
+  }
+
+  getAllEmpleado(idEmpleado:number,pagina:number): Promise<allIncidencia> {
+    return lastValueFrom(this.httpClient.get<allIncidencia>(`${this.baseUrl}/${this.byIdEmpleado}/${idEmpleado}/${pagina}`));
   }
 
   // METODO PARA CREAR INCIDENCIA 

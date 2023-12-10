@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IncidenciasService } from 'src/app/services/incidencias.service';
 import { Router } from '@angular/router';
 import { Incidencia } from 'src/app/models/incidencia.interface';
 import { allIncidencia } from 'src/app/models/Respuestas_API/allIncidencias.interface';
 import { IncidenciaRespuesta } from 'src/app/models/Respuestas_API/incidenciaRespuesta.interface';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-lista-incidencias',
@@ -26,13 +27,15 @@ export class ListaIncidenciasComponent {
   numIncidencia: any;
   totalIncidencias:number=0;
   incidenciasPagina:number=0;
+  empleado: any;
+  authService = inject(AuthService);
 
   constructor(
     private incidenciasService: IncidenciasService,
     private router: Router,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.currentpagina = 1;
     try {
       this.cargarIncidencias(this.currentpagina);
@@ -43,13 +46,15 @@ export class ListaIncidenciasComponent {
   }
   async cargarIncidencias(pagina:number): Promise<void> {
     try {  
-      this.respuestaCompleta = await this.incidenciasService.getAll(pagina);
+      this.empleado = await this.authService.getUser();
+      this.respuestaCompleta = await this.incidenciasService.getAllEmpleado(this.empleado.idempleado,pagina);
       this.arrIncidencias = this.respuestaCompleta.Resultado;
       this.totalPaginas = Math.ceil(this.respuestaCompleta.TotalElementos / this.respuestaCompleta.ElementosPagina);
       this.incidenciasService.seleccionarIncidencia(this.arrIncidencias[0])
       this.paginaActual = pagina;
       this.paginado();
     } catch (error: any) {
+      console.log(error)
       this.router.navigate(['/login']);
     }
   }
