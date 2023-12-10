@@ -15,15 +15,15 @@
                 name="email"
                 placeholder="Escribe tu email"
                 formControlName="email"
-            >
-            <p class="text-danger fw-bold" *ngIf="checkControl('email', 'required')">
-                Campo es requerido
-              </p>
-              <p class="text-danger fw-bold" *ngIf="checkControl('email', 'email')">
-                El email tiene formato incorrecto
-              </p>
-            <i class="bi bi-envelope-at-fill"></i>
+            >  
+            <i class="bi bi-envelope-at-fill"></i>            
         </div>
+        <p class="text-danger fw-bold" *ngIf="checkControl('email', 'required')">
+          Debes introducir un email válido
+          </p>
+          <p class="text-danger fw-bold" *ngIf="checkControl('email', 'email')">
+            El email tiene formato incorrecto
+          </p>
         <div class="text-field">
             <label for="password">Contraseña:</label>
             <input
@@ -34,20 +34,21 @@
                 placeholder="Escribe tu contraseña"
                 formControlName="pwd"
             >
-            <p class="text-danger fw-bold" *ngIf="checkControl('pwd', 'required')">
-                Campo es requerido
-              </p>
-              <p
-                class="text-danger fw-bold"
-                *ngIf="checkControl('pwd', 'minlength')"
-              >
-                La longitud minima es de 8 caracteres
-              </p>
-            <i class="bi bi-door-open"></i>
+            
+            <i class="bi bi-door-open "></i>
         </div>
+        <p class="text-danger fw-bold" *ngIf="checkControl('pwd', 'required')">
+          Debes introducir una contraseña
+        </p>
+        <p
+          class="text-danger fw-bold"
+          *ngIf="checkControl('pwd', 'minlength')"
+        >
+          La longitud minima es de 8 caracteres
+        </p>
       <input type="submit" class="my-form__button"  value="Login" >
-        <input type="button" class="btn btn-dark mx-1" (click)="empleado()" id="btnEmpleado" value="Empleado">
+        <!-- <input type="button" class="btn btn-dark mx-1" (click)="empleado()" id="btnEmpleado" value="Empleado">
         <input type="button" class="btn btn-dark mx-1" (click)="encargado()" id="btnEncargado" value="Encargado">
-        <input type="button" class="btn btn-dark mx-1" (click)="admin()" id="btnEmpleado" value="Administrador"> 
+        <input type="button" class="btn btn-dark mx-1" (click)="admin()" id="btnEmpleado" value="Administrador">  -->
     </form>
 </div>
