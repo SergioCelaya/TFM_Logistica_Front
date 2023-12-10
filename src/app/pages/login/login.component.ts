@@ -97,7 +97,7 @@ export class LoginComponent {
         icon: 'error',
         title: 'Error al realizar la operación'
       });
-  
+
     }
   }
 
@@ -129,5 +129,5 @@ export class LoginComponent {
       });
     }
   }
-  
+
 }
