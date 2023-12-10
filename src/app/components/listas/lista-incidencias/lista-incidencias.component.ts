@@ -95,6 +95,11 @@ export class ListaIncidenciasComponent {
       return value === 0 ? 'noVista' : 'vista';
     }
 
+    cambiarEstadoVista(resultado: any) {
+      resultado.vista = resultado.vista === 1 ? 0 : 1;
+    }
+    
+
     mostrarTodos() {
       // Llama a la función cargarIncidencias para cargar la lista completa
       this.cargarIncidencias(this.paginaActual);
