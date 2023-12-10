@@ -102,8 +102,10 @@ export class FormAlmacenComponent {
             title: '¿Quiere guardar los cambios?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#FFC007',
-            confirmButtonText: 'Guardar',
+            cancelButtonColor: '#dc3545',
+          cancelButtonText: 'Cancelar',
+          confirmButtonColor: '#157347',
+          confirmButtonText: 'Guardar',
           }).then(async (result) => {
             if (result.isConfirmed) {
               // ACTUALIZACIÓN ALMACEN
@@ -145,7 +147,9 @@ export class FormAlmacenComponent {
             title: '¿Quiere crear el almacén?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#FFC007',
+            cancelButtonColor: '#dc3545',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#157347',
             confirmButtonText: 'Crear',
           }).then(async (result) => {
             if (result.isConfirmed) {
@@ -223,6 +227,7 @@ export class FormAlmacenComponent {
         title: 'Error',
         text: 'No se ha seleccionado una imagen.',
         confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#157347',
       });
     }
   }

@@ -107,8 +107,10 @@ export class FormIncidenciasComponent {
           title: '¿Quiere guardar los cambios?',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#FFC007',
-          confirmButtonText: 'Guardar',
+          cancelButtonColor: '#dc3545',
+          cancelButtonText: 'Cancelar',
+          confirmButtonColor: '#157347',
+          confirmButtonText: 'Guardar'
         }).then((result) => {
           if (result.isConfirmed) {
             // ACTUALIZACIÓN INCIDENCIA
@@ -151,7 +153,9 @@ export class FormIncidenciasComponent {
           title: '¿Quiere crear la incidencia?',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#FFC007',
+          cancelButtonColor: '#dc3545',
+          cancelButtonText: 'Cancelar',
+          confirmButtonColor: '#157347',
           confirmButtonText: 'Crear',
         }).then((result) => {
           if (result.isConfirmed) {

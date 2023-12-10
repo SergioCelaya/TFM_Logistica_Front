@@ -125,7 +125,9 @@ export class FormEmpleadoComponent {
             title: '¿Quiere guardar los cambios?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#FFC007',
+            cancelButtonColor: '#dc3545',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#157347',
             confirmButtonText: 'Guardar',
           }).then(async (result) => {
             if (result.isConfirmed) {
@@ -168,7 +170,9 @@ export class FormEmpleadoComponent {
                 title: '¿Quiere crear un nuevo empleado?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#FFC007',
+                cancelButtonColor: '#dc3545',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#157347',
                 confirmButtonText: 'Crear',
               }).then(async (result) => {
                 if (result.isConfirmed) {
@@ -246,6 +250,7 @@ export class FormEmpleadoComponent {
         title: 'Error',
         text: 'No se ha seleccionado una imagen.',
         confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#157347'
       });
     }
   }

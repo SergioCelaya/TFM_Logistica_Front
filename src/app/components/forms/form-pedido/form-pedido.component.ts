@@ -276,7 +276,7 @@ export class FormPedidoComponent {
           icon: 'warning',
           showCancelButton: true,
           cancelButtonColor: '#dc3545',
-        cancelButtonText: 'Cancelar',
+          cancelButtonText: 'Cancelar',
           confirmButtonColor: '#157347',
           confirmButtonText: 'Crear',
         }).then((result) => {
@@ -323,7 +323,7 @@ export class FormPedidoComponent {
         showCancelButton: true,
         cancelButtonColor: '#dc3545',
         cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#FFC007',
+        confirmButtonColor: '#157347',
         confirmButtonText: 'Guardar',
       }).then((result) => {
         if (result.isConfirmed) {
