@@ -40,10 +40,10 @@ export class AuthService {
               this.router.navigate(['/pedidos']);
               return {"Error":""};
             } else if (usuario.puesto == 'Encargado') {
-              this.router.navigate(['/incidencias']);
+              this.router.navigate(['/pedidos']);
               return {"Error":""};
             } else {
-              this.router.navigate(['/empleados']);
+              this.router.navigate(['/almacenes']);
               return {"Error":""};
             }
           } else {

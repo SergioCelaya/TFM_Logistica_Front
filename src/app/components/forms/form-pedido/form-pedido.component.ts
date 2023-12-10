@@ -386,8 +386,9 @@ export class FormPedidoComponent {
         showConfirmButton: false,
         timer: 1500,
       });
-      this.router.navigate(['/pedidos/']);
+      this.router.navigate(['/pedidos']);
     }
+    this.router.navigate(['/pedidos']);
   }
 
   toPendienteValidar() {

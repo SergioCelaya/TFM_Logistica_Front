@@ -42,10 +42,10 @@
               <p class="h6">{{ resultado.titulo }}</p>
 
               <button 
-                class="btn btn-light"
-                (click)="iraeditarincidencia(resultado.idincidencia)"
+                class="btn btn-light" [ngClass]="vistaNoVista(resultado.vista)"
+                (click)="cambiarEstadoVista(resultado)"
               >
-                Editar
+              {{ resultado.vista === 1 ? 'Vista' : 'Marcar como vista' }}
               </button>
             </div>
           </div>
