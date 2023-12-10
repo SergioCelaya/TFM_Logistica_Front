@@ -16,7 +16,8 @@ export class IncidenciasService {
   private urlNoVista:string = this.baseUrl + `/noVista`;
   private byIdPedido:string = this.baseUrl + `/byIdPedido`;
   private byId: string = this.baseUrl + `/byId`;
-  private byIdEmpleado:string="/usuario"
+  private byIdEmpleado:string="/usuario";
+  private byAlmacen:string="/byAlmacen";
 
   // Devuelve todos las incidencias en la BBDD
   getAll(pagina:number): Promise<allIncidencia> {
@@ -25,6 +26,9 @@ export class IncidenciasService {
 
   getAllEmpleado(idEmpleado:number,pagina:number): Promise<allIncidencia> {
     return lastValueFrom(this.httpClient.get<allIncidencia>(`${this.baseUrl}/${this.byIdEmpleado}/${idEmpleado}/${pagina}`));
+  }
+  getAllAlmacen(idAlmacen:number,pagina:number):Promise<allIncidencia>{
+    return lastValueFrom(this.httpClient.get<allIncidencia>(`${this.baseUrl}/${this.byAlmacen}/${idAlmacen}/${pagina}`));
   }
 
   // METODO PARA CREAR INCIDENCIA 
