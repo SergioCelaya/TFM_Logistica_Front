@@ -80,31 +80,30 @@ export class ListaIncidenciasComponent {
 
     
 
-async buscarIncidenciaId() {
-  let incidencia: Incidencia[] | null = null;
-  try {
-    incidencia = await this.incidenciasService.getIncidenciaByIdPedido(this.numIncidencia);
-    
-    console.log(incidencia)
-  } catch (error) {
-    console.error('Error al buscar incidencias:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Error al cargar la lista de incidencias. Consulte con el administrador.',
-    });
-    return;
-  }
-  if (incidencia && incidencia.length > 0) {
-    this.arrIncidencias = incidencia;
-    this.numeroPaginas = 1; // o ajusta según el número de resultados
-    this.paginaActual = 1;
-    this.arrayPaginas = Array(1);
-  } else {
-    Swal.fire({
-      icon: 'info',
-      title: 'No existen incidencias con ese ID de pedido asociado.',
-    });
-  }
-}
-
+    async buscarIncidenciaId() {
+      let incidencia: Incidencia[] | null = null;
+      try {
+        incidencia = await this.incidenciasService.getIncidenciaByIdPedido(this.numIncidencia);
+        
+        console.log(incidencia)
+      } catch (error) {
+        console.error('Error al buscar incidencias:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al cargar la lista de incidencias. Consulte con el administrador.',
+        });
+        return;
+      }
+      if (incidencia && incidencia.length > 0) {
+        this.arrIncidencias = incidencia;
+        this.numeroPaginas = 1; // o ajusta según el número de resultados
+        this.paginaActual = 1;
+        this.arrayPaginas = Array(1);
+      } else {
+        Swal.fire({
+          icon: 'info',
+          title: 'No existen incidencias con ese ID de pedido asociado.',
+        });
+      }
+    }
 }
