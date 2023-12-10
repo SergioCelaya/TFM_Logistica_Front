@@ -8,16 +8,16 @@ import { allIncidencia } from 'src/app/models/Respuestas_API/allIncidencias.inte
 @Component({
   selector: 'app-form-incidencias',
   templateUrl: './form-incidencias.component.html',
-  styleUrls: ['./form-incidencias.component.css']
+  styleUrls: ['./form-incidencias.component.css'],
 })
 export class FormIncidenciasComponent {
   incidenciasForm: FormGroup;
   IncidenciasService = inject(IncidenciasService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
-  idIncidencia:number | undefined;
-  Resultado: allIncidencia|null=null;
-
+  idIncidencia: number | undefined;
+  Resultado: allIncidencia | null = null;
+  modo:string = "create";
 
   constructor() {
     this.incidenciasForm = new FormGroup({
@@ -34,43 +34,31 @@ export class FormIncidenciasComponent {
         Validators.maxLength(450),
       ]),
 
-      tipo_incidencia: new FormControl('', [
-        Validators.required,
-      ]),
+      tipo_incidencia: new FormControl('', [Validators.required]),
 
-      idIncidencia: new FormControl('', [
-      
-      
-      ]),
+      idIncidencia: new FormControl('', []),
 
-      idpedido_asociado: new FormControl('', [
-        Validators.required,
-      
-      ]),
+      idpedido_asociado: new FormControl('', [Validators.required]),
 
-      vista: new FormControl('', [
-        Validators.required,
-      
-      ]),
-    
-      
+      vista: new FormControl('', [Validators.required]),
     });
   }
 
-//basado en form Almacen. 
+  //basado en form Almacen.
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params: any) => {
       //SE NECESITA PARA GUARDAR LA IMAGEN Y TRAERLA
       let idincidencia: number = Number(params.idincidencia);
-
+      
       if (idincidencia) {
+        this.modo = 'update';
         //GUARDO EL ID DE INCIDENCIA PARA GUARDAR LA IMAGEN POSTERIORENTE
         this.idIncidencia = idincidencia;
-        console.log(idincidencia)
+        console.log(idincidencia);
         //PINTAR INCIDENCIA EXISTENTE
         let response = await this.IncidenciasService.getById(idincidencia);
-        console.log(response)
-        
+        console.log(response);
+
         this.incidenciasForm = new FormGroup({
           idincidencia: new FormControl(response.idincidencia, []),
           titulo: new FormControl(response.titulo, [
@@ -78,37 +66,28 @@ export class FormIncidenciasComponent {
             Validators.minLength(4),
             Validators.maxLength(40),
           ]),
-    
+
           descripcion: new FormControl(response.descripcion, [
             Validators.required,
             Validators.minLength(4),
             Validators.maxLength(450),
           ]),
-    
+
           tipo_incidencia: new FormControl(response.tipo_incidencia, [
             Validators.required,
           ]),
-    
-          idIncidencia: new FormControl(response.idincidencia, [
-          
-          
-          ]),
-    
+
+          idIncidencia: new FormControl(response.idincidencia, []),
+
           idpedido_asociado: new FormControl(response.idpedido_asociado, [
             Validators.required,
-          
           ]),
-    
-          vista: new FormControl(response.vista, [
-            Validators.required,
-          
-          ]),
-        
-          
+
+          vista: new FormControl(response.vista, [Validators.required]),
         });
-  }})}
-
-
+      }
+    });
+  }
 
   checkControl(
     formcontrolName: string,
@@ -121,6 +100,7 @@ export class FormIncidenciasComponent {
   }
 
   async submitForm(): Promise<void> {
+    console.log(this.incidenciasForm.value);
     if (this.incidenciasForm.value.idIncidencia) {
       try {
         await Swal.fire({
@@ -132,11 +112,19 @@ export class FormIncidenciasComponent {
         }).then((result) => {
           if (result.isConfirmed) {
             // ACTUALIZACIÓN INCIDENCIA
-            console.log("update incidencia");
-            let response = this.IncidenciasService.updateIncidencia(
+            let response: any = null;
+            response = this.IncidenciasService.updateIncidencia(
               this.incidenciasForm.value
             );
-    
+            if (response.Error) {
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Error al actualizar la incidencia',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -168,9 +156,11 @@ export class FormIncidenciasComponent {
         }).then((result) => {
           if (result.isConfirmed) {
             // CREACIÓN NUEVO INCIDENCIA
-            
-            let response = this.IncidenciasService.create(this.incidenciasForm.value);
-            
+
+            let response = this.IncidenciasService.create(
+              this.incidenciasForm.value
+            );
+
             Swal.fire({
               position: 'center',
               icon: 'success',
