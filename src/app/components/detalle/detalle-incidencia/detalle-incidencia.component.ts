@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-detalle-incidencia',
   templateUrl: './detalle-incidencia.component.html',
-  styleUrls: ['./detalle-incidencia.component.css']
+  styleUrls: ['./detalle-incidencia.component.css', '../../incidencia/incidencia.component.css']
 })
 
 
@@ -31,17 +31,14 @@ export class DetalleIncidenciaComponent implements OnInit {
         this.claseSegunVista = { noVista: true };
       }
     });
-    console.log(this.incidencia?.vista)
    
   }
 
 
 // aqui para el boton de editar
 iraeditarincidencia(idincidencia: any) {
-  if (this.incidencia && this.incidencia.idIncidencia) {
-    this.router.navigate(['/editarIncidencia', this.incidencia.idIncidencia]);
-    
+  this.router.navigate(['/editarIncidencia/'+ idincidencia]);
+  console.log(idincidencia)
   }
-}
 
 }
