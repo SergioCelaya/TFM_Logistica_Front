@@ -7,14 +7,16 @@
       <a class="btn btn-close" (click)="cerrar()"></a>
     </div>
 
-    <div class="contenedorIncidencias">
+    <div class="card-body contenedorIncidencias">
       <section
         class="form-check d-flex alinear justify-content-between"
         *ngFor="let incidencia of incidenciasPedido"
       >
-        <div>
+        <div class="d-flex flex-column">
           <h5>{{ incidencia.titulo }}</h5>
-          <p class="p-3 globoIncidencia">{{ incidencia.descripcion }}</p>
+          <p class="p-3 globoIncidencia">
+            {{ incidencia.descripcion }}
+          </p>
         </div>
         <div>
           <input
@@ -22,15 +24,18 @@
             type="checkbox"
             id="flexCheckChecked"
             [checked]="incidencia.vista"
-            (change)="cambioValorVista(incidencia.idincidencia, incidencia.vista)"
+            (change)="
+              cambioValorVista(incidencia.idincidencia, incidencia.vista)
+            "
           />
           <label class="form-check-label" for="flexCheckChecked"> Vista </label>
         </div>
       </section>
     </div>
-
-    <a class="btn btn-dark" routerLink="/gestionPedido/{{ pedidoIncidencia?.idPedido }}">
-      Mantenimiento del pedido
-    </a>
+    <a
+      class="btn btn-dark"
+      routerLink="/gestionPedido/{{ pedidoIncidencia?.idPedido }}"
+      >Mantenimiento del pedido</a
+    >
   </div>
 </article>

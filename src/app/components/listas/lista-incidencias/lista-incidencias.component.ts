@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-lista-incidencias',
   templateUrl: './lista-incidencias.component.html',
-  styleUrls: ['./lista-incidencias.component.css']
+  styleUrls: ['./lista-incidencias.component.css', '../../incidencia/incidencia.component.css']
 })
 export class ListaIncidenciasComponent {
 

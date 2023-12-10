@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-detalle-incidencia',
   templateUrl: './detalle-incidencia.component.html',
-  styleUrls: ['./detalle-incidencia.component.css']
+  styleUrls: ['./detalle-incidencia.component.css', '../../incidencia/incidencia.component.css']
 })
 
 

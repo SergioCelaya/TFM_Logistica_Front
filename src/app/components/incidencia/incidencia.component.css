@@ -22,3 +22,14 @@
 .alinear{
     align-items: center;
 }
+
+.noVista {
+    background-color: rgb(248, 125, 125);
+    color: black;
+  }
+  
+.vista {
+    background-color: rgb(174, 255, 174);
+    color: black;
+  }
+  

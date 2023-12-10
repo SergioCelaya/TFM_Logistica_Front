@@ -19,7 +19,6 @@ export class IncidenciasService {
 
   // Devuelve todos las incidencias en la BBDD
   getAll(pagina:number): Promise<allIncidencia> {
-    console.log(pagina)
     return lastValueFrom(this.httpClient.get<allIncidencia>(this.baseUrl+"/"+ pagina));
   }
 
