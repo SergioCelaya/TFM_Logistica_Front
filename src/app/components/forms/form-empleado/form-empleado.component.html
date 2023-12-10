@@ -178,7 +178,7 @@
         </button>
         </div>
       <!-- Previsualización imagen -->
-      <img class="col-12 col-md-8 col-xl-6 mt-3 mt-xxl-0 col-xxl-4 img-fluid imgInput rounded-2" *ngIf="url || idEmpleado" [src]="url || idEmpleado"/>
+      <img class="col-12 col-md-8 col-xl-6 mt-3 mt-xxl-0 col-xxl-4 img-fluid imgInput rounded-2" *ngIf="url || idEmpleado" [src]="url || imagenesService.getImagenEmpleado(this.empleadoForm.value.imagen_empleado)"/>
     </div>
   </div>
 </div>
