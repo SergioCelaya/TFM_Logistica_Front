@@ -4,7 +4,7 @@
       <!-- Buscador -->
       <div class="input-group mb-5">
         <input
-          type="text"
+          type="number"
           class="form-control"
           placeholder="Buscar incidencias por id de pedido"
           aria-label="Buscar incidencias por id de pedido"
@@ -51,10 +51,10 @@
       </div>
     </div>
   </div>
-</div>
+
 
 <!-- Paginación -->
-<nav class="mt-4 col-10" aria-label="Page navigation example">
+<nav class="mt-4 col" aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item" [class.disabled]="paginaActual === 1">
       <a
@@ -86,3 +86,4 @@
     </li>
   </ul>
 </nav>
+</div>
