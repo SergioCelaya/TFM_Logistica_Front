@@ -12,7 +12,7 @@
           style="border-radius: 5px"
           id="inputNumIncidencia"
       [(ngModel)]="numIncidencia"
-
+          (input)="cargarSiVacio()"
         />
         <div class="input-group-append">
           <button class="btn btn-warning mx-1" type="button"><i class="bi bi-search" (click)="buscarIncidenciaId()" ></i></button>
@@ -56,35 +56,22 @@
 
 
 <!-- Paginación -->
-<nav class="mt-4 col" aria-label="Page navigation example">
+<nav aria-label="Paginacion" class="mb-5">
   <ul class="pagination justify-content-center">
-    <li class="page-item" [class.disabled]="paginaActual === 1">
-      <a
-        class="page-link"
-        href="javascript:void(0)"
-        (click)="cambiarPagina(paginaActual - 1)"
-        >Anterior</a
-      >
+    <li class="page-item">
+      <button class="page-link" (click)="irAnterior()">Anterior</button>
     </li>
-    <li
-      class="page-item"
-      *ngFor="let num of [].constructor(totalPaginas); let i = index"
-      [class.active]="paginaActual === i + 1"
-    >
-      <a
+    <li class="page-item" *ngFor="let paginas of arrayPaginas; let i = index">
+      <button
         class="page-link"
-        href="javascript:void(0)"
-        (click)="cambiarPagina(i + 1)"
-        >{{ i + 1 }}</a
+        [ngClass]="{ 'page-link': true, active: i + 1 == paginaActual }"
+        (click)="cargarIncidencias(i + 1)"
       >
+        {{ i + 1 }}
+      </button>
     </li>
-    <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
-      <a
-        class="page-link"
-        href="javascript:void(0)"
-        (click)="cambiarPagina(paginaActual + 1)"
-        >Siguiente</a
-      >
+    <li class="page-item">
+      <button class="page-link" (click)="irSiguiente()">Siguiente</button>
     </li>
   </ul>
 </nav>

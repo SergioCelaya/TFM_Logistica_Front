@@ -153,8 +153,14 @@ export class ListaPedidosComponent {
     }
   }
   mostrarTodos() {
-   
+    this.numPedido ="";
     this.cargarListadoInicial();
+  }
+
+  cargarSiVacio(){
+    if(this.numPedido ==""){
+      this.cargarListadoInicial();
+    }
   }
 
   async buscarPedidoId() {

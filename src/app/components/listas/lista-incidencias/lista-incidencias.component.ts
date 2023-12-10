@@ -16,15 +16,16 @@ export class ListaIncidenciasComponent {
   arrIncidencias: any = {};
   resultados: any = {};
   currentpagina: number = 0;
-  Resultado: allIncidencia|null=null;
+  respuestaCompleta: allIncidencia|null=null;
   paginaActual: number = 1;
   totalPaginas: number = 0;
   incidencias: IncidenciaRespuesta[] = [];
   incidencia: any
-  numeroPaginas: number = 0;
-  arrayPaginas = Array(this.numeroPaginas);
+  arrayPaginas = Array(this.totalPaginas);
   idPedido: any
   numIncidencia: any;
+  totalIncidencias:number=0;
+  incidenciasPagina:number=0;
 
   constructor(
     private incidenciasService: IncidenciasService,
@@ -42,34 +43,49 @@ export class ListaIncidenciasComponent {
   }
   async cargarIncidencias(pagina:number): Promise<void> {
     try {  
-
-      this.Resultado = await this.incidenciasService.getAll(pagina);
-      this.arrIncidencias = this.Resultado.Resultado;
-      this.totalPaginas = Math.ceil(this.Resultado.TotalElementos / this.Resultado.ElementosPagina);
+      this.respuestaCompleta = await this.incidenciasService.getAll(pagina);
+      this.arrIncidencias = this.respuestaCompleta.Resultado;
+      this.totalPaginas = Math.ceil(this.respuestaCompleta.TotalElementos / this.respuestaCompleta.ElementosPagina);
       this.incidenciasService.seleccionarIncidencia(this.arrIncidencias[0])
       this.paginaActual = pagina;
+      this.paginado();
     } catch (error: any) {
       this.router.navigate(['/login']);
     }
   }
-
-  cambiarPagina(pagina: number): void {
-    if (pagina >= 1 && pagina <= this.totalPaginas) {
-      this.paginaActual = pagina;
-      this.cargarIncidencias(pagina);
+  irAnterior() {
+    if (this.paginaActual > 1) {
+      this.paginaActual -= 1;
+      this.cargarIncidencias(this.paginaActual);
+    }
+  }
+  irSiguiente() {
+    if (this.paginaActual < this.totalPaginas) {
+      this.paginaActual += 1;
+      this.cargarIncidencias(this.paginaActual);
     }
   }
 
+  paginado() {
+    this.totalIncidencias = this.respuestaCompleta?.TotalElementos!;
+    this.incidenciasPagina = this.respuestaCompleta?.ElementosPagina!;
+    this.totalPaginas = Math.ceil(this.totalIncidencias / this.incidenciasPagina);
+    this.arrayPaginas = Array(this.totalPaginas);
+    this.arrIncidencias = this.respuestaCompleta?.Resultado!;
+  }
   iraeditarincidencia(idincidencia: any) {
     this.router.navigate(['/editarIncidencia/'+ idincidencia]);
-    console.log(idincidencia)
     }
 
 //AQUI VA EL CLICK PARA SELECCIONAR QUÉ INCIDENCIA VER EN DETALLE INCIDENCIA
     seleccionarIncidencia(incidencia: IncidenciaRespuesta): void {
       this.incidenciasService.seleccionarIncidencia(incidencia);
     }
-
+    cargarSiVacio(){
+      if(this.numIncidencia ==null){
+        this.cargarIncidencias(1);
+      }
+    }
     vistaNoVista(value: number): string {
       return value === 0 ? 'noVista' : 'vista';
     }
@@ -77,6 +93,7 @@ export class ListaIncidenciasComponent {
     mostrarTodos() {
       // Llama a la función cargarIncidencias para cargar la lista completa
       this.cargarIncidencias(this.paginaActual);
+      this.numIncidencia="";
     }
 
     //Buscar incidencia
@@ -91,10 +108,10 @@ export class ListaIncidenciasComponent {
         });
         return;
       }
-    
+    console.log(incidencia && incidencia.length > 0)
       if (incidencia && incidencia.length > 0) {
         this.arrIncidencias = incidencia;
-        this.numeroPaginas = 1; // o ajusta según el número de resultados
+        this.totalPaginas = 1; // o ajusta según el número de resultados
         this.paginaActual = 1;
         this.arrayPaginas = Array(1);
       } 

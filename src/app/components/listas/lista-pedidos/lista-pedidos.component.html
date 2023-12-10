@@ -9,6 +9,7 @@
       aria-describedby="basic-addon2"
       id="inputNumPedido"
       [(ngModel)]="numPedido"
+      (input)="cargarSiVacio()"
       style="border-radius: 5px;"
     />
     <div class="input-group-append">
