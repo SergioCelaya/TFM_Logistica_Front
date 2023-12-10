@@ -31,7 +31,6 @@ export class DetalleIncidenciaComponent implements OnInit {
         this.claseSegunVista = { noVista: true };
       }
     });
-    console.log(this.incidencia?.vista)
    
   }
 
