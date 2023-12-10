@@ -152,6 +152,10 @@ export class ListaPedidosComponent {
       this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
     }
   }
+  mostrarTodos() {
+   
+    this.cargarListadoInicial();
+  }
 
   async buscarPedidoId() {
     let pedido: any = null;
