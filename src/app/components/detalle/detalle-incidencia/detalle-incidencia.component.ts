@@ -37,10 +37,8 @@ export class DetalleIncidenciaComponent implements OnInit {
 
 // aqui para el boton de editar
 iraeditarincidencia(idincidencia: any) {
-  if (this.incidencia && this.incidencia.idIncidencia) {
-    this.router.navigate(['/editarIncidencia', this.incidencia.idIncidencia]);
-    
+  this.router.navigate(['/editarIncidencia/'+ idincidencia]);
+  console.log(idincidencia)
   }
-}
 
 }
