@@ -20,20 +20,47 @@ export class DetallePedidoComponent {
   almacenDestino: Almacen | undefined;
   claseSegunEstado: any;
   private router = inject(Router);
+  nombre: string = '';
+  apellidos: string = '';
+  almacenVacio:Almacen ={
+    activo:false,
+    idalmacen:0,
+    imagen_almacen:"",
+    lat:0,
+    long:0,
+    nombre_almacen:""
+  }
+  fehaCreacion:any=null;
+  fechaEntrega:any=null;
 
   ngOnInit() {
     this.pedidosService
       .getPedidoActivo$()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(async (pedido) => {
-        this.pedidoActivo = pedido;
-        this.cambiarEestiloSegunPedido(pedido.estado);
-        this.almacenOrigen = await this.almacenesService.getById(
-          pedido.almacen_origen
-        );
-        this.almacenDestino = await this.almacenesService.getById(
-          pedido.almacen_destino
-        );
+        if (pedido.idPedido > 0) {
+          this.pedidoActivo = pedido;
+          this.cambiarEestiloSegunPedido(pedido.estado);
+          this.almacenOrigen = await this.almacenesService.getById(
+            pedido.almacen_origen
+          );
+          this.almacenDestino = await this.almacenesService.getById(
+            pedido.almacen_destino
+          );
+          this.nombre = pedido.usuario_responsable.nombre;
+          this.apellidos = pedido.usuario_responsable.apellidos;
+          this.fehaCreacion = pedido.fecha_creacion;
+          this.fechaEntrega = pedido.fecha_entrega;
+        } else {
+          this.pedidoActivo = pedido;
+          this.cambiarEestiloSegunPedido(pedido.estado);
+          this.almacenOrigen = this.almacenVacio;
+          this.almacenDestino = this.almacenVacio;
+          this.nombre="";
+          this.apellidos = "";
+          this.fehaCreacion=null;
+          this.fechaEntrega =null;
+        }
       });
   }
 
@@ -63,6 +90,6 @@ export class DetallePedidoComponent {
     }
   }
   toGestionPedido() {
-    this.router.navigate(['/gestionPedido/'+this.pedidoActivo?.idPedido]);
+    this.router.navigate(['/gestionPedido/' + this.pedidoActivo?.idPedido]);
   }
 }

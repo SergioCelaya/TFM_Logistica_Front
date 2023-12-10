@@ -36,7 +36,6 @@ export class DetalleIncidenciaComponent implements OnInit {
 
   iraeditarincidencia(idincidencia: any) {
     this.router.navigate(['/editarIncidencia/'+ this.incidencia?.idincidencia]);
-    console.log(idincidencia)
   }
 
 }

@@ -3,13 +3,13 @@
       <span class="textoTituloPedidos">Número de pedido:</span> {{pedidoActivo?.numero_pedido}}
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item"><span class="textoCuerpoPedidos">Fecha de creacion:</span> {{pedidoActivo?.fecha_creacion| date:'dd/MM/yyyy'}}</li>
-      <li class="list-group-item"><span class="textoCuerpoPedidos">Fecha de entrega:</span> {{pedidoActivo?.fecha_entrega| date:'dd/MM/yyyy'}}</li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Fecha de creacion:</span> {{fehaCreacion| date:'dd/MM/yyyy'}}</li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Fecha de entrega:</span> {{fechaEntrega| date:'dd/MM/yyyy'}}</li>
       <li class="list-group-item"><span class="textoCuerpoPedidos">Almacen origen:</span> {{almacenOrigen?.nombre_almacen}}</li>
       <li class="list-group-item"><span class="textoCuerpoPedidos">Almacen destino:</span> {{almacenDestino?.nombre_almacen}} </li>
       <li class="list-group-item"><span class="textoCuerpoPedidos">Estado:</span> {{pedidoActivo?.estado}}</li>
       <li class="list-group-item"><span class="textoCuerpoPedidos">Detalle del pedido:</span> {{pedidoActivo?.detalle_pedido}}</li>
       <li class="list-group-item"><span class="textoCuerpoPedidos">Matrícula del transporte:</span> {{pedidoActivo?.id_transporte}}</li>
-      <li class="list-group-item"><span class="textoCuerpoPedidos">Encargado:</span> {{pedidoActivo?.usuario_responsable?.nombre+" "+pedidoActivo?.usuario_responsable?.apellidos}}</li>
+      <li class="list-group-item"><span class="textoCuerpoPedidos">Encargado:</span> {{nombre+" "+apellidos}}</li>
     </ul>
     <input type="button" value="Gestión del pedido" class="btn btn-dark" (click)="toGestionPedido()"/>

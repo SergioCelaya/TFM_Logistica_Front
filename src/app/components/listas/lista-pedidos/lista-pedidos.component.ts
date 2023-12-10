@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { allPedidos } from 'src/app/models/Respuestas_API/allPedidos.interface';
+import { EmpleadoRespuesta } from 'src/app/models/Respuestas_API/empleadoRespuesta.interface';
 import { pedidoRespuesta } from 'src/app/models/Respuestas_API/pedidosRespuesta.interface';
 import { Empleado } from 'src/app/models/empleado.interface';
 import { AuthService } from 'src/app/services/auth.service';
@@ -28,6 +29,20 @@ export class ListaPedidosComponent {
   estadoFitro: number = 0;
   numPedido: any;
   aplicarFiltro: boolean = false;
+  empleadoVacio:EmpleadoRespuesta={
+    activo:0,
+    apellidos:"",
+    email:"",
+    fecha_contratacion:new Date(),
+    idalmacen:0,
+    idempleado:0,
+    imagen_empleado:"",
+    nombre:"",
+    num_empleado:"",
+    puesto:0,
+    pwd:"",
+  }
+
 
   async ngOnInit() {
     this.cargarListadoInicial();
@@ -51,6 +66,7 @@ export class ListaPedidosComponent {
               this.empleado.idalmacen,
               this.empleado.idempleado
             );
+            console.log(this.respuestaCompleta)
         }
         if (this.respuestaCompleta) {
           this.paginado(this.respuestaCompleta);
@@ -148,8 +164,25 @@ export class ListaPedidosComponent {
     this.numeroPaginas = Math.ceil(this.totalPedidos / this.pedidosPagina);
     this.arrayPaginas = Array(this.numeroPaginas);
     this.pedidosEmpleado = this.respuestaCompleta?.Resultado!;
+    console.log("Pedidos empleado")
+    console.log(this.pedidosEmpleado)
     if (this.pedidosEmpleado.length > 0) {
       this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
+    }else{
+      const pedidoVacio:pedidoRespuesta={
+        almacen_destino:0,
+        almacen_origen:0,
+        detalle_pedido:"",
+        estado:"",
+        fecha_creacion: new Date(),
+        fecha_entrega:new Date(),
+        id_transporte:"",
+        idPedido:0,
+        numero_pedido:"",
+        usuario_asignado: this.empleadoVacio,
+        usuario_responsable:this.empleadoVacio
+      };
+      this.pedidosService.setPedidoActivo(pedidoVacio);
     }
   }
   mostrarTodos() {

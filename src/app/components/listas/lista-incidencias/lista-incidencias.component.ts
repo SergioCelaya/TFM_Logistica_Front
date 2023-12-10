@@ -76,6 +76,9 @@ export class ListaIncidenciasComponent {
         this.respuestaCompleta.TotalElementos /
           this.respuestaCompleta.ElementosPagina
       );
+      if(this.arrIncidencias.length==0){
+        this.incidenciasService.seleccionarIncidencia(this.incidencia)
+      }
       this.incidenciasService.seleccionarIncidencia(this.arrIncidencias[0]);
       this.paginaActual = pagina;
       this.paginado();
