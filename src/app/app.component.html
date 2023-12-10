@@ -2,7 +2,7 @@
   <header [ngClass]="{'col p-0 rounded bgSidebar': !isLoginPage()}"  *ngIf="!isLoginPage()">
     <app-menu></app-menu>
   </header>
-  <main [ngClass]="{'col py-3 justify-content-center' : !isLoginPage()}">
+  <main class="m-0 p-0" [ngClass]="{'col py-3 justify-content-center' : !isLoginPage()}">
     <router-outlet></router-outlet>
   </main>
 </div>
