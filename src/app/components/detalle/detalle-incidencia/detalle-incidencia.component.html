@@ -11,7 +11,7 @@
         <li class="list-group-item"> <p> <strong>Descripción: </strong>{{ incidencia.descripcion }} </p></li>
         <li class="list-group-item"> <p><strong>Id pedido: </strong> {{ incidencia.idpedido_asociado }}</p></li>
         <li class="list-group-item"> <p><strong>Responsable: </strong> {{ incidencia.usuario_asignado.nombre}}</p></li>
-        <li class="list-group-item"> <p><strong>Vista: </strong> {{ incidencia.vista }}</p></li>
+        <li class="list-group-item"> <p><strong>Vista: </strong> {{ incidencia.vista ? 'Sí' : 'No' }}</p></li>
       </ul>
       <input type="button" value="Editar incidencia" class="btn btn-dark" (click)="iraeditarincidencia(incidencia.idIncidencia)"/>
     </div>
