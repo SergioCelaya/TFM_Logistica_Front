@@ -52,6 +52,7 @@ export class FormPedidoComponent {
   //Mostrar cuadro para dar de alta incidencia;
   verIncidencia: boolean = false;
   cargarFormIncidencia: boolean = false;
+  botonAceptar:boolean = true;
 
   async ngOnInit() {
     this.activatedRoute.params.subscribe(async (params: any) => {
@@ -67,6 +68,13 @@ export class FormPedidoComponent {
             title: 'Error al obtener el pedido. Consulte con el administrador.',
           });
         }
+        const almacenes = await this.servicioAlmacenes.getAll();
+        this.almacenesDestino = almacenes;
+        this.almacenesOrigen = almacenes;
+        this.empleados =
+          await this.servicioEmpleados.getEmpleadosByPuestoSinPaginar(1);
+        this.encargados =
+          await this.servicioEmpleados.getEmpleadosByPuestoSinPaginar(2);
         pedido = respuesta![0];
         this.pedidoActivo = pedido;
         this.pedidoForm = new FormGroup({
@@ -117,11 +125,13 @@ export class FormPedidoComponent {
         this.empleados.push(
           await this.servicioEmpleados.getEmpleadoById(empleado.idempleado)
         );
-        this.encargados =
-          await this.servicioEmpleados.getEmpleadosByPuestoAlmacenSinPaginar(
-            2,
-            empleado.idalmacen
-          );
+        if (this.pedidoActivo?.estado != 'Pendiente recepcionar') {
+          this.encargados =
+            await this.servicioEmpleados.getEmpleadosByPuestoAlmacenSinPaginar(
+              2,
+              empleado.idalmacen
+            );
+        }
       } catch (Error) {
         Swal.fire({
           icon: 'error',
@@ -179,6 +189,7 @@ export class FormPedidoComponent {
     if (this.pedidoActivo) {
       if (empleado.puesto == 'Encargado') {
         this.pedidoForm.disable();
+        this.botonAceptar = false;
         if (this.pedidoActivo.almacen_origen == empleado.idalmacen) {
           this.accionValidar = true;
           this.accionRectificar = true;
@@ -195,9 +206,11 @@ export class FormPedidoComponent {
             this.verIncidencia = true;
           } else if (this.pedidoActivo.estado == 'Validado') {
             this.pedidoForm.disable();
+            this.botonAceptar = false;
             this.accionEnvio = true;
           } else {
             this.pedidoForm.disable();
+            this.botonAceptar = false;
           }
         }
       }
@@ -376,7 +389,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.mandarCorreoCambioEstado("Validado");
+        this.mandarCorreoCambioEstado('Validado');
       }
     } catch (error) {
       Swal.fire({
@@ -403,7 +416,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.mandarCorreoCambioEstado("Pendiente de validar");
+        this.mandarCorreoCambioEstado('Pendiente de validar');
         this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
@@ -429,7 +442,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.mandarCorreoCambioEstado("Rectificar");
+        this.mandarCorreoCambioEstado('Rectificar');
         this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
@@ -455,7 +468,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.mandarCorreoCambioEstado("Pedido recepcionado");
+        this.mandarCorreoCambioEstado('Pedido recepcionado');
         this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
@@ -481,7 +494,7 @@ export class FormPedidoComponent {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.mandarCorreoCambioEstado("Enviado");
+        this.mandarCorreoCambioEstado('Enviado');
         this.router.navigate(['/pedidos/']);
       }
     } catch (error) {
@@ -529,7 +542,7 @@ export class FormPedidoComponent {
           destinatario: empleado.email,
         };
         try {
-          let response = await this.servicioCorreo.mandarCorreo(correo)
+          let response = await this.servicioCorreo.mandarCorreo(correo);
         } catch (Error) {
           Swal.fire({
             position: 'center',

@@ -234,6 +234,7 @@
         [class]="pedidoForm.valid ? 'btn btn-success' : 'btn btn-secondary'"
         value="Aceptar"
         [disabled]="!pedidoForm.valid"
+        *ngIf="botonAceptar"
       />
       <input 
         type="button"

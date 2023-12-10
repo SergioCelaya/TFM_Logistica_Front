@@ -29,20 +29,19 @@ export class ListaPedidosComponent {
   estadoFitro: number = 0;
   numPedido: any;
   aplicarFiltro: boolean = false;
-  empleadoVacio:EmpleadoRespuesta={
-    activo:0,
-    apellidos:"",
-    email:"",
-    fecha_contratacion:new Date(),
-    idalmacen:0,
-    idempleado:0,
-    imagen_empleado:"",
-    nombre:"",
-    num_empleado:"",
-    puesto:0,
-    pwd:"",
-  }
-
+  empleadoVacio: EmpleadoRespuesta = {
+    activo: 0,
+    apellidos: '',
+    email: '',
+    fecha_contratacion: new Date(),
+    idalmacen: 0,
+    idempleado: 0,
+    imagen_empleado: '',
+    nombre: '',
+    num_empleado: '',
+    puesto: 0,
+    pwd: '',
+  };
 
   async ngOnInit() {
     this.cargarListadoInicial();
@@ -57,7 +56,6 @@ export class ListaPedidosComponent {
             1,
             this.empleado.idempleado
           );
-          
         } else if (this.empleado.puesto == 'Encargado') {
           this.esEmpleado = false;
           this.respuestaCompleta =
@@ -66,7 +64,7 @@ export class ListaPedidosComponent {
               this.empleado.idalmacen,
               this.empleado.idempleado
             );
-            console.log(this.respuestaCompleta)
+          console.log(this.respuestaCompleta);
         }
         if (this.respuestaCompleta) {
           this.paginado(this.respuestaCompleta);
@@ -81,6 +79,8 @@ export class ListaPedidosComponent {
   }
 
   cargarPedido(pedido: pedidoRespuesta) {
+    console.log("PedidoActvo")
+    console.log(pedido)
     this.pedidosService.setPedidoActivo(pedido);
   }
 
@@ -164,34 +164,34 @@ export class ListaPedidosComponent {
     this.numeroPaginas = Math.ceil(this.totalPedidos / this.pedidosPagina);
     this.arrayPaginas = Array(this.numeroPaginas);
     this.pedidosEmpleado = this.respuestaCompleta?.Resultado!;
-    console.log("Pedidos empleado")
-    console.log(this.pedidosEmpleado)
+    console.log('Pedidos empleado');
+    console.log(this.pedidosEmpleado);
     if (this.pedidosEmpleado.length > 0) {
       this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
-    }else{
-      const pedidoVacio:pedidoRespuesta={
-        almacen_destino:0,
-        almacen_origen:0,
-        detalle_pedido:"",
-        estado:"",
+    } else {
+      const pedidoVacio: pedidoRespuesta = {
+        almacen_destino: 0,
+        almacen_origen: 0,
+        detalle_pedido: '',
+        estado: '',
         fecha_creacion: new Date(),
-        fecha_entrega:new Date(),
-        id_transporte:"",
-        idPedido:0,
-        numero_pedido:"",
+        fecha_entrega: new Date(),
+        id_transporte: '',
+        idPedido: 0,
+        numero_pedido: '',
         usuario_asignado: this.empleadoVacio,
-        usuario_responsable:this.empleadoVacio
+        usuario_responsable: this.empleadoVacio,
       };
       this.pedidosService.setPedidoActivo(pedidoVacio);
     }
   }
   mostrarTodos() {
-    this.numPedido ="";
+    this.numPedido = '';
     this.cargarListadoInicial();
   }
 
-  cargarSiVacio(){
-    if(this.numPedido ==""){
+  cargarSiVacio() {
+    if (this.numPedido == '') {
       this.cargarListadoInicial();
     }
   }
@@ -199,7 +199,9 @@ export class ListaPedidosComponent {
   async buscarPedidoId() {
     let pedido: any = null;
     try {
-      pedido = await this.pedidosService.getPedidoByNumPedido(this.numPedido.toString());
+      pedido = await this.pedidosService.getPedidoByNumPedido(
+        this.numPedido.toString()
+      );
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -223,11 +225,10 @@ export class ListaPedidosComponent {
         this.paginaActual = 1;
         this.arrayPaginas = Array(1);
       }
-    }else{
+    } else {
       Swal.fire({
         icon: 'info',
-        title:
-          'No existe pedido con ese identificador.',
+        title: 'No existe pedido con ese identificador.',
       });
     }
   }
@@ -239,7 +240,7 @@ export class ListaPedidosComponent {
   }
 
   async filtroEstado(estado: number, pagina: number) {
-    this.aplicarFiltro = true; 
+    this.aplicarFiltro = true;
     if (this.empleado?.idempleado) {
       this.estadoFitro = estado;
       if (this.esEmpleado) {
