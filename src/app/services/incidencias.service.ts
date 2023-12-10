@@ -58,7 +58,5 @@ export class IncidenciasService {
 
   seleccionarIncidencia(incidencia: IncidenciaRespuesta) {
     this.incidenciaSeleccionadaSource.next(incidencia);
-    console.log("el click pasa por el servicio incidencias")
-    console.log("servicio de incidencias " + incidencia)
   }
 }

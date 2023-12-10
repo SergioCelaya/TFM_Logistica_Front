@@ -48,7 +48,6 @@ export class ListaIncidenciasComponent {
       this.totalPaginas = Math.ceil(this.Resultado.TotalElementos / this.Resultado.ElementosPagina);
       this.incidenciasService.seleccionarIncidencia(this.arrIncidencias[0])
       this.paginaActual = pagina;
-
     } catch (error: any) {
       this.router.navigate(['/login']);
     }
@@ -85,9 +84,7 @@ export class ListaIncidenciasComponent {
       let incidencia: Incidencia[] | null = null;
       try {
         incidencia = await this.incidenciasService.getIncidenciaByIdPedido(this.numIncidencia);
-        
       } catch (error) {
-        console.error('Error al buscar incidencias:', error);
         Swal.fire({
           icon: 'error',
           title: 'Error al cargar la lista de incidencias. Consulte con el administrador.',

@@ -1,7 +1,7 @@
 import { EmpleadoRespuesta } from "./empleadoRespuesta.interface";
 
 export interface IncidenciaRespuesta{
-idIncidencia: number;
+idincidencia: number;
 titulo: string;
 descripcion: string;
 idpedido_asociado: number;

@@ -24,8 +24,6 @@ export class DetalleIncidenciaComponent implements OnInit {
   ngOnInit(): void {
     this.incidenciasService.incidenciaSeleccionada$.subscribe(incidencia => {
       this.incidencia = incidencia;
-      console.log("el click pasa por el ts de detalle incidencia" + " " + this.incidencia?.idIncidencia)
-
       if (this.incidencia?.vista) {
         this.claseSegunVista = { vista: true };
       } else {
@@ -37,7 +35,7 @@ export class DetalleIncidenciaComponent implements OnInit {
 
 
   iraeditarincidencia(idincidencia: any) {
-    this.router.navigate(['/editarIncidencia/'+ this.incidencia?.idIncidencia]);
+    this.router.navigate(['/editarIncidencia/'+ this.incidencia?.idincidencia]);
     console.log(idincidencia)
   }
 
