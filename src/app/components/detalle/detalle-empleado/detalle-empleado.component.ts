@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadoRespuesta } from 'src/app/models/Respuestas_API/empleadoRespuesta.interface';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -14,7 +15,8 @@ export class DetalleEmpleadoComponent implements OnInit {
 
   constructor(
     private empleadosService: EmpleadosService,
-    private router: Router
+    private router: Router,
+    public imagenesService: ImagenesService
   ) {}
   ngOnInit(): void {
     try {
@@ -41,4 +43,24 @@ export class DetalleEmpleadoComponent implements OnInit {
       });
     }
   }
+
+  activarDesactivarEmpleado(empleado: EmpleadoRespuesta): void {
+    let nuevoEstado = empleado.activo === 1 ? 0 : 1;
+
+    this.empleadosService.updateEmpleadoEstado(empleado.idempleado, nuevoEstado)
+      .then(response => {
+        // Mostrar SweetAlert y esperar a que el usuario presione "OK"
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'El estado del empleado ha sido actualizado.',
+          icon: 'success'
+        }).then(() => {
+          location.reload(); // Recarga la página después de que se presione "OK"
+        });
+      })
+      .catch(error => {
+        console.error('Error al cambiar el estado:', error);
+        Swal.fire('Error', 'Ha ocurrido un error al cambiar el estado.', 'error');
+      });
+}
 }
