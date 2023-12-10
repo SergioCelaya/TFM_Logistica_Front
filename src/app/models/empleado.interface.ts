@@ -4,7 +4,7 @@ export interface Empleado{
     nombre: string;
     apellidos: string;
     email: string;
-    puesto: string;
+    puesto: any;
     activo: boolean;
     fecha_contratacion: Date;
     idalmacen: number;

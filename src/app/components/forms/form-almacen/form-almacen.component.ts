@@ -13,11 +13,12 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-almacen.component.css'],
 })
 export class FormAlmacenComponent {
-  almacenForm: FormGroup;
   almacenService = inject(AlmacenService);
   imagenesService = inject(ImagenesService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
+
+  almacenForm: FormGroup;
   uploadedImage: any;
   showFileBox: boolean = true;
   updateAlmacen: string = 'response.imagen_almacen';
@@ -53,6 +54,7 @@ export class FormAlmacenComponent {
     this.activatedRoute.params.subscribe(async (params: any) => {
       //SE NECESITA PARA GUARDAR LA IMAGEN Y TRAERLA
       let idalmacen: number = Number(params.idalmacen);
+      console.log(idalmacen);
 
       if (idalmacen) {
         this.showFileBox = false;

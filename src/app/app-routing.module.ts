@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'almacenes', component: AlmacenesComponent },
   { path: 'empleados', component: EmpleadosComponent },
   { path: 'empleado/nuevo', component: FormEmpleadoComponent },
-  { path: 'empleado/editar/:id', component: FormEmpleadoComponent },
+  { path: 'empleado/editar/:idempleado', component: FormEmpleadoComponent },
   { path: 'nuevoAlmacen', component: FormAlmacenComponent },
   { path: 'gestionPedido', component: FormPedidoComponent },
   { path: 'nuevaIncidencia', component: FormIncidenciasComponent },

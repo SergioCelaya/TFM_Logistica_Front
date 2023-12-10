@@ -1,7 +1,7 @@
 <form [formGroup]="empleadoForm" (ngSubmit)="submitForm()" class="justify-content-center row form">
   <div class="col-12 col-md-7 mt-5 d-flex flex-column justify-content-center">
     <img class="formIcon mb-3" src="/assets/formicon.png" alt="Icono formulario">
-
+    <h3 class="mb-5 text-center">{{ modo === 'create' ? 'Crear nuevo empleado' : 'Actualizar ' + empleadoForm.get('nombre')?.value + ' ' + empleadoForm.get('apellidos')?.value }}</h3>
     <!-- Número de Empleado -->
     <div class="mb-3">
       <input
@@ -76,8 +76,9 @@
 
     <!-- Puesto -->
     <div class="mb-3">
+      <label for="puesto">Puesto:</label>
       <select class="form-control formInput" formControlName="puesto" id="puesto">
-        <option value="" disabled selected hidden>Seleccione un puesto</option>
+        <!-- <option value="" disabled selected hidden>Seleccione puesto</option> -->
         <option value="1">Empleado</option>
         <option value="2">Encargado</option>
         <option value="3">Administrador</option>
@@ -112,13 +113,19 @@
 
     <!-- Contraseña -->
     <div class="mb-3">
-      <input
-        class="formInput form-control"
-        type="password"
-        formControlName="pwd"
-        id="pwd"
-        placeholder="Contraseña"
-      />
+      <div class="password-input d-flex">
+        <input
+          class="formInput form-control"
+          type="{{ showPassword ? 'text' : 'password' }}"
+          formControlName="pwd"
+          id="pwd"
+          placeholder="Contraseña"
+        />
+        <button class="toggle-password-btn bg-transparent border-white" type="button" (click)="togglePasswordVisibility()">
+          <i [ngClass]="{'bi-eye': !showPassword, 'bi-eye-slash': showPassword}"></i>
+        </button>
+      </div>
+
       <div class="d-flex justify-content-between">
         <div>
           <p class="error" *ngIf="checkControl('pwd', 'required')">Campo es requerido</p>
@@ -131,6 +138,7 @@
 
     <!-- Activo -->
     <div class="mb-3">
+      <label for="activo">Activo:</label>
       <select class="form-control formInput" formControlName="activo" id="activo">
         <option value="" disabled selected hidden>Activo</option>
         <option value="1">Sí</option>
@@ -152,8 +160,8 @@
       </div>
     </div>
     <!-- Botón para alternar entre imagen y fileBox -->
-    <button class="btn btn-warning my-3 align-self-start" *ngIf="imagenEmpleadoUrl || !showFileBox" (click)="refrescarImagen()">Cambiar imagen</button>
-    <div class="row" *ngIf="imagenEmpleadoUrl || showFileBox">
+    <button class="btn btn-warning my-3 align-self-start" *ngIf="url || !showFileBox" (click)="refrescarImagen()">Cambiar imagen</button>
+    <div class="row" *ngIf="url || showFileBox || idEmpleado">
       <div class="col-12 col-xxl-6" *ngIf="showFileBox">
         <button class="upload-area">
           <span class="upload-area-icon mb-3"><i class="fs-1 bi bi-file-earmark-image text-primary"></i></span>
@@ -170,7 +178,7 @@
         </button>
         </div>
       <!-- Previsualización imagen -->
-      <img class="col-12 col-md-8 col-xl-6 mt-3 mt-xxl-0 col-xxl-4 img-fluid imgInput rounded-2" *ngIf="imagenEmpleadoUrl" [src]="imagenEmpleadoUrl"/>
+      <img class="col-12 col-md-8 col-xl-6 mt-3 mt-xxl-0 col-xxl-4 img-fluid imgInput rounded-2" *ngIf="url || idEmpleado" [src]="url || idEmpleado"/>
     </div>
   </div>
 </div>
