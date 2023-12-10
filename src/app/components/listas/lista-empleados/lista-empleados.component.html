@@ -1,42 +1,42 @@
-<div class="container mt-4">
+<div class="container mt-4 p-4" style="background-color: #f0f0f0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
   <div class="row">
     <div class="">
       <!-- Buscador -->
-      <div class="input-group mb-3">
+      <div class="input-group mb-5">
         <input
           type="text"
           class="form-control"
-          placeholder="Buscar empleados"
+          placeholder="Buscar empleados por el nombre"
           [(ngModel)]="filtroBusqueda"
-          aria-label="Buscar empleados"
+          aria-label="Buscar empleados por el nombre"
           aria-describedby="basic-addon2"
         />
         <div class="input-group-append">
           <button
-            class="btn btn-warning"
-            type="button"
-            (click)="aplicarFiltro()"
-          >
-            Buscar
+            class="btn btn-warning mx-1"
+            type="button" >
+            <i class="bi bi-search" (click)="aplicarFiltro()" ></i>
           </button>
+          <button class="btn btn-light mx-1" type="button" (click)="mostrarTodos()"> <i class="bi bi-x"></i></button>
         </div>
       </div>
 
-      <button class="btn btn-warning mb-3" (click)="crearEmpleado()">Nuevo Empleado</button>
+      <button class="btn btn-success mb-3" (click)="crearEmpleado()"> <i class="bi bi-plus"></i>Nuevo Empleado</button>
+      
 
       <div class="card">
         <div class="card-header">Listado de empleados</div>
-          <ul class="row m-0 p-2">
-            <li class="list-group-item col-12 col-xxl-6 p-2" *ngFor="let empleado of empleadosFiltrados">
+          <ul class="row m-0 p-2 text-center" >
+            <li class="list-group-item col-12 col-xxl-6 p-2 " *ngFor="let empleado of empleadosFiltrados">
               <div class="card d-flex flex-direction-column justify-content-center align-items-center">
                 <img [src]="imagenesService.getImagenEmpleado(empleado.imagen_empleado)" alt="Imagen empleado" width="150" height="150" class="rounded-circle mt-3 border border-5 border-opacity-10" [ngClass]="{'border-success-subtle': empleado.activo === 1, 'border-danger-subtle': empleado.activo !== 1}">
                 <div class="card-body">
-                  <h5 class="card-title">Empleado: {{ empleado.nombre }} {{ empleado.apellidos }}</h5>
+                  <h3 class="card-title mb-3"> {{ empleado.nombre }} {{ empleado.apellidos }}</h3>
                   <ul>
-                    <li class="card-text">NºEmpleado: {{ empleado.num_empleado }}</li>
-                    <li class="card-text">Puesto: {{ empleado.puesto }}</li>
+                    <li class="card-text mb-1"><strong>Nº Empleado: </strong> {{ empleado.num_empleado }}</li>
+                    <li class="card-text mb-3"><strong>Puesto: </strong> {{ empleado.puesto }}</li>
                   </ul>
-                  <button class="btn btn-warning mt-3 align-self-end" (click)="seleccionarEmpleado(empleado)">Ver detalle</button>
+                  <button class="btn btn-dark mt-3 align-self-end" (click)="seleccionarEmpleado(empleado)">Ver detalle</button>
                 </div>
               </div>
             </li>

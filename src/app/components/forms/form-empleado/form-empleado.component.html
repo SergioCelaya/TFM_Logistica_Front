@@ -1,6 +1,6 @@
 <form [formGroup]="empleadoForm" (ngSubmit)="submitForm()" class="justify-content-center row form">
   <div class="col-12 col-md-7 mt-5 d-flex flex-column justify-content-center">
-    <img class="formIcon mb-3" src="/assets/formicon.png" alt="Icono formulario">
+    <img class="formIcon mb-3" src="/assets/user.png" alt="Icono formulario">
     <h3 class="mb-5 text-center">{{ modo === 'create' ? 'Crear nuevo empleado' : 'Actualizar ' + empleadoForm.get('nombre')?.value + ' ' + empleadoForm.get('apellidos')?.value }}</h3>
     <!-- Número de Empleado -->
     <div class="mb-3">
@@ -13,7 +13,7 @@
       />
       <div class="d-flex justify-content-between">
         <div>
-          <p class="error" *ngIf="checkControl('num_empleado', 'required')">Campo es requerido</p>
+          <p class="error" *ngIf="checkControl('num_empleado', 'required')">Debe introducir un número de empleado</p>
           <p class="error" *ngIf="checkControl('num_empleado', 'maxlength')">El número de empleado no debe superar los 45 caracteres</p>
         </div>
         <p class="m-0">{{ empleadoForm.get('num_empleado')?.value?.length ?? 0 }} / 45 caracteres</p>
@@ -31,7 +31,7 @@
       />
       <div class="d-flex justify-content-between">
         <div>
-          <p class="error" *ngIf="checkControl('nombre', 'required')">Campo es requerido</p>
+          <p class="error" *ngIf="checkControl('nombre', 'required')">Debe introducir un nombre para el empleado</p>
           <p class="error" *ngIf="checkControl('nombre', 'maxlength')">El nombre no debe superar los 20 caracteres</p>
         </div>
         <p class="m-0">{{ empleadoForm.get('nombre')?.value?.length ?? 0 }} / 20 caracteres</p>
@@ -49,7 +49,7 @@
       />
       <div class="d-flex justify-content-between">
         <div>
-          <p class="error" *ngIf="checkControl('apellidos', 'required')">Campo es requerido</p>
+          <p class="error" *ngIf="checkControl('apellidos', 'required')">Debe introducir los apellidos del empleado</p>
           <p class="error" *ngIf="checkControl('apellidos', 'maxlength')">Los apellidos no deben superar los 45 caracteres</p>
         </div>
         <p class="m-0">{{ empleadoForm.get('apellidos')?.value?.length ?? 0 }} / 45 caracteres</p>
@@ -67,7 +67,7 @@
       />
       <div class="d-flex justify-content-between">
         <div>
-          <p class="error" *ngIf="checkControl('email', 'required')">Campo es requerido</p>
+          <p class="error" *ngIf="checkControl('email', 'required')">Debe introducir un correo válido</p>
           <p class="error" *ngIf="checkControl('email', 'maxlength')">El email no debe superar los 45 caracteres</p>
         </div>
         <p class="m-0">{{ empleadoForm.get('email')?.value?.length ?? 0 }} / 45 caracteres</p>
@@ -95,7 +95,7 @@
         id="fecha_contratacion"
         placeholder="Fecha de Contratación"
       />
-      <p class="error" *ngIf="checkControl('fecha_contratacion', 'required')">Campo es requerido</p>
+      <p class="error" *ngIf="checkControl('fecha_contratacion', 'required')">La fecha de contratación es un campo requerido</p>
     </div>
 
     <!-- ID Almacén -->
@@ -107,7 +107,7 @@
         id="idalmacen"
         placeholder="ID del Almacén"
       />
-      <p class="error" *ngIf="checkControl('idalmacen', 'required')">Campo es requerido</p>
+      <p class="error" *ngIf="checkControl('idalmacen', 'required')">El Id del almacén al que pertenece el empleado es un campo requerido</p>
       <p class="error" *ngIf="checkControl('idalmacen', 'min')">El ID de almacén debe ser mayor que 0</p>
     </div>
 
@@ -186,7 +186,7 @@
     <!-- Botón de envío -->
     <input
       type="submit"
-      [class]="empleadoForm.valid ? 'btn btn-warning' : 'btn btn-secondary'"
+      [class]="empleadoForm.valid ? 'btn btn-success' : 'btn btn-secondary'"
       class="mt-3 align-self-start"
       value="Aceptar"
       [disabled]="!empleadoForm.valid"

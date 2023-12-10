@@ -64,6 +64,11 @@ export class ListaEmpleadosComponent implements OnInit {
     );
   }
 
+  mostrarTodos() {
+   
+    this.cargarEmpleados(this.paginaActual);
+  }
+
   seleccionarEmpleado(empleado: EmpleadoRespuesta): void {
     try {
       this.empleadosService.seleccionarEmpleado(empleado);
