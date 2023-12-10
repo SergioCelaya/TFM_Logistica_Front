@@ -1,10 +1,8 @@
 <nav class="sticky-top d-flex flex-column vh-100">
   <div class="d-flex flex-column align-items-center pt-2 vh-100" *ngIf="isLoggedIn$ | async">
-    <a routerLink="/" class="mt-5 icon-link icon-link-hover">
-        <!-- <img src="assets/logoTFM.png" class="img-fluid w-100 p-3" alt="Logo TFM"> -->
         <i class="bi bi-box-seam-fill text-warning" style="font-size: 4rem;"></i>
         
-    </a>
+    
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 mt-5 me-auto py-sm-4 justify-content-center align-items-sm-start w-100" id="menu">
         <li class="w-100 ps-5 py-2 navItem" ngxTippy="Página principal" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
           <a routerLink="/" class="nav-link d-flex align-items-center px-0 icon-link icon-link-hover">
