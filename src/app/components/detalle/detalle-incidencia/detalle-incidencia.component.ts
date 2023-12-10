@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IncidenciaRespuesta } from 'src/app/models/Respuestas_API/incidenciaRespuesta.interface';
 import { IncidenciasService } from 'src/app/services/incidencias.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle-incidencia',
@@ -31,14 +32,20 @@ export class DetalleIncidenciaComponent implements OnInit {
         this.claseSegunVista = { noVista: true };
       }
     });
-   
+
   }
 
 
-// aqui para el boton de editar
-iraeditarincidencia(idincidencia: any) {
-  this.router.navigate(['/editarIncidencia/'+ idincidencia]);
-  console.log(idincidencia)
+  editarIncidencia(): void {
+    if (this.incidencia && this.incidencia.idIncidencia) {
+      this.router.navigate(['editarIncidencia/' + this.incidencia?.idIncidencia]);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se ha seleccionado ninguna incidencia para editar.'
+      });
+    }
   }
 
 }
