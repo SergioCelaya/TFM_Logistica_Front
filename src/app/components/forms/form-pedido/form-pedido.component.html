@@ -254,10 +254,10 @@
       <p class="my-4" *ngIf="accionRecepcion" >El pedido se encuentra pendiente de recepcionar en tu almacén. Recepciona el envío y crea una incidencia si es el caso.</p>
       <div class="btn-group-lg" role="group" >
         <button  type="button" (click)="toPendienteValidar()" *ngIf="accionPteValidar" class="btn btn-secondary" >Pasar envío a ser validado.</button>
-        <button type="button" (click)="toValido()" *ngIf="accionValidar" class="btn btn-secondary  mx-2">Validar</button>
+        <button type="button" (click)="toValido()" *ngIf="accionValidar" class="btn btn-success  mx-2">Validar</button>
         <button type="button" (click)="toRectificar()" *ngIf="accionRectificar" class="btn btn-secondary mx-2">Rectificar</button>
         <button type="button" (click)="toEnviar()" *ngIf="accionEnvio" class="btn btn-secondary mx-2">Hacer envío</button>
-        <button type="button" (click)="toRecepcionar()" *ngIf="accionRecepcion" class="btn btn-secondary mx-2">Recepcionar</button>
+        <button type="button" (click)="toRecepcionar()" *ngIf="accionRecepcion" class="btn btn-success mx-2">Recepcionar</button>
         <button type="button" (click)="verCrearIncidencia()" *ngIf="verIncidencia" class="btn btn-danger mx-2">Añadir incidencia</button>
       </div>
     </section>

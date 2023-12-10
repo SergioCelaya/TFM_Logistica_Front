@@ -40,6 +40,7 @@ export class ListaEmpleadosComponent implements OnInit {
           response.TotalElementos / response.ElementosPagina
         );
         this.paginaActual = response.Pagina;
+        this.seleccionarEmpleado(this.empleadosFiltrados[0]);
       })
       .catch((error) => {
         console.error('Error al cargar empleados:', error);
