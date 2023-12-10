@@ -123,24 +123,15 @@ export class ListaIncidenciasComponent {
     return value === 0 ? 'noVista' : 'vista';
   }
 
-<<<<<<< HEAD
   mostrarTodos() {
     // Llama a la función cargarIncidencias para cargar la lista completa
     this.cargarIncidencias(this.paginaActual);
     this.numIncidencia = '';
   }
-=======
     cambiarEstadoVista(resultado: any) {
       resultado.vista = resultado.vista === 1 ? 0 : 1;
     }
     
-
-    mostrarTodos() {
-      // Llama a la función cargarIncidencias para cargar la lista completa
-      this.cargarIncidencias(this.paginaActual);
-      this.numIncidencia="";
-    }
->>>>>>> 5fe06fd7fa2db5f4c8814e9d8d1ddd0d60898450
 
   //Buscar incidencia
   async buscarIncidenciaId() {
