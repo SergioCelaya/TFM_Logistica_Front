@@ -8,7 +8,7 @@
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 mt-5 me-auto py-sm-4 justify-content-center align-items-sm-start w-100" id="menu">
         <li class="w-100 ps-5 py-2 navItem" ngxTippy="Página principal" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
           <a routerLink="/" class="nav-link d-flex align-items-center px-0 icon-link icon-link-hover">
-            <i class="fs-3 bi bi-house-door"></i><span class="fs-5 ms-3 pt-3 d-none d-xl-inline">Home</span>
+            <i class="fs-3 bi bi-house-door"></i><span class="fs-5 ms-3 pt-3 d-none d-xl-inline">Inicio</span>
           </a>
         </li>
         <li class="w-100 navItem" [ngClass]="{'ps-5 pt-2': isEmpleado() || isEncargado()}">
@@ -71,7 +71,7 @@
         <img [src]="imagenesService.getImagenEmpleado(empleado.imagen_empleado)" alt="Imagen empleado" width="50" height="50" class="rounded-circle">
         <span class="d-none d-xl-inline ms-3 fs-4">{{ empleado?.nombre + ' ' + empleado.apellidos || 'User Name' }}</span>
     </div>
-    <a class="d-flex align-items-center justify-content-center nav-link icon-link icon-link-hover" routerLink="/login" (click)="onLogout()"><span class="d-none d-xl-inline">Sign out</span> <i class="fs-4 bi bi-box-arrow-right ms-1 mb-2 mt-2 mt-xl-0"></i></a>
+    <a class="d-flex align-items-center justify-content-center nav-link icon-link icon-link-hover" routerLink="/login" (click)="onLogout()"><span class="d-none d-xl-inline">Cerrar sesión</span> <i class="fs-4 bi bi-box-arrow-right ms-1 mb-2 mt-2 mt-xl-0"></i></a>
   </div>
 </nav>
 
