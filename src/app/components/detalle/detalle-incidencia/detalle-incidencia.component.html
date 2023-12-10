@@ -13,6 +13,6 @@
         <li class="list-group-item"> <p><strong>Responsable: </strong> {{ incidencia.usuario_asignado.nombre}}</p></li>
         <li class="list-group-item"> <p><strong>Vista: </strong> {{ incidencia.vista }}</p></li>
       </ul>
-      <button (click)="editarIncidencia()">Editar Incidencia</button>
+      <input type="button" value="Editar incidencia" class="btn btn-dark" (click)="iraeditarincidencia(incidencia.idIncidencia)"/>
     </div>
 

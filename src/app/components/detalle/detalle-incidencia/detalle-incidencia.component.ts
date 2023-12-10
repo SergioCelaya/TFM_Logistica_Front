@@ -36,16 +36,9 @@ export class DetalleIncidenciaComponent implements OnInit {
   }
 
 
-  editarIncidencia(): void {
-    if (this.incidencia && this.incidencia.idIncidencia) {
-      this.router.navigate(['editarIncidencia/' + this.incidencia?.idIncidencia]);
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'No se ha seleccionado ninguna incidencia para editar.'
-      });
-    }
+  iraeditarincidencia(idincidencia: any) {
+    this.router.navigate(['/editarIncidencia/'+ this.incidencia?.idIncidencia]);
+    console.log(idincidencia)
   }
 
 }
