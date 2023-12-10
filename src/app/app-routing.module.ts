@@ -11,17 +11,18 @@ import { FormIncidenciasComponent } from './components/forms/form-incidencias/fo
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
 import { FormEmpleadoComponent } from './components/forms/form-empleado/form-empleado.component';
 import { NewIncidenciaComponent } from './components/new-incidencia/new-incidencia.component';
-import { AdminGuardService } from './guards/admin-guard.service';
-import { EmpleadoGuardService } from './guards/empleado-guard.service';
-import { EncargadoGuardService } from './guards/encargado-guard.service';
+import { AdminGuardService } from './guards/administrador.guard';
+import { EncargadoGuardService } from './guards/encargado.guard';
+import { EmpleadoGuardService } from './guards/empleado.guard';
+import { CombinadoGuardService } from './guards/combinado.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirecciona a /login por defecto
   { path: 'login', component: LoginComponent },
-  { path: 'pedidos', component: PedidosComponent, canActivate: [EmpleadoGuardService, EncargadoGuardService]},
+  { path: 'pedidos', component: PedidosComponent, canActivate: [CombinadoGuardService]},
   { path: 'gestionPedido', component: FormPedidoComponent, canActivate: [EmpleadoGuardService] },
   { path: 'gestionPedido/:idpedido', component: FormPedidoComponent, canActivate: [EmpleadoGuardService] },
-  { path: 'incidencias', component: IncidenciasComponent, canActivate: [EmpleadoGuardService, EncargadoGuardService] },
+  { path: 'incidencias', component: IncidenciasComponent, canActivate: [CombinadoGuardService] },
   { path: 'nuevaIncidencia', component: FormIncidenciasComponent, canActivate: [EmpleadoGuardService] },
   { path: 'editarIncidencia/:idincidencia', component: FormIncidenciasComponent, canActivate: [EmpleadoGuardService] },
   { path: 'newIncidencia', component: NewIncidenciaComponent, canActivate: [EmpleadoGuardService] },
@@ -37,6 +38,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

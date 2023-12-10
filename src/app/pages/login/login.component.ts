@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
@@ -88,7 +89,7 @@ export class LoginComponent {
   async empleado() {
     try {
       const user: User = {
-        email: 'juan.perez@example.com',
+        email: 'luciano.garcia@example.com',
         pwd: '12345678',
       };
       await this.servicioAuth.login(user);
