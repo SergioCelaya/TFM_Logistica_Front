@@ -275,7 +275,9 @@ export class FormPedidoComponent {
           title: '¿Quiere crear el pedido?',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#FFC007',
+          cancelButtonColor: '#dc3545',
+          cancelButtonText: 'Cancelar',
+          confirmButtonColor: '#157347',
           confirmButtonText: 'Crear',
         }).then((result) => {
           if (result.isConfirmed) {
@@ -319,7 +321,9 @@ export class FormPedidoComponent {
         title: '¿Quiere guardar los cambios?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#FFC007',
+        cancelButtonColor: '#dc3545',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#157347',
         confirmButtonText: 'Guardar',
       }).then((result) => {
         if (result.isConfirmed) {

@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-new-incidencia',
   templateUrl: './new-incidencia.component.html',
-  styleUrls: ['./new-incidencia.component.css'],
+  styleUrls: ['./new-incidencia.component.css', '../incidencia/incidencia.component.css'],
 })
 export class NewIncidenciaComponent {
   @Input() pedidoIncidencia: pedidoRespuesta | null = null;

@@ -33,6 +33,7 @@ export class ListaEmpleadosComponent implements OnInit {
       .getEmpleadosPaginados(pagina)
       .then((response) => {
         this.empleados = response.Resultado;
+        console.log(this.empleados)
         this.empleadosFiltrados = response.Resultado; // Inicializa la lista filtrada
         console.log(this.empleadosFiltrados);
         this.totalPaginas = Math.ceil(
