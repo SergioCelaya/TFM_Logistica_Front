@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="">
       <!-- Buscador -->
       <div class="input-group mb-3">
         <input
@@ -26,28 +26,22 @@
 
       <div class="card">
         <div class="card-header">Listado de empleados</div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item empleado-item" *ngFor="let empleado of empleadosFiltrados">
-            <div class="card mb-3" [ngClass]="{'bg-success-subtle': empleado.activo === 1, 'bg-danger-subtle': empleado.activo !== 1}" (click)="seleccionarEmpleado(empleado)">
-              <div class="card-body">
-                <h3 class="card-title">
-                  {{ empleado.nombre }} {{ empleado.apellidos }}
-                </h3>
-                <h4 class="card-text">
-                  {{ empleado.num_empleado }}
-                </h4>
-                <h5 class="card-text">
-                  Puesto: {{ empleado.puesto }}
-                  {{empleado.imagen_empleado}}
-                </h5>
-
-                <br>
-                <button class="btn btn-warning" (click)="activarDesactivarEmpleado(empleado)">{{ empleado.activo === 1 ? 'Dar de baja' : 'Dar de alta' }}</button>
+          <ul class="row m-0 p-2">
+            <li class="list-group-item col-12 col-xxl-6 p-2" *ngFor="let empleado of empleadosFiltrados">
+              <div class="card d-flex flex-direction-column justify-content-center align-items-center">
+                <img [src]="imagenesService.getImagenEmpleado(empleado.imagen_empleado)" alt="Imagen empleado" width="150" height="150" class="rounded-circle mt-3 border border-5 border-opacity-10" [ngClass]="{'border-success-subtle': empleado.activo === 1, 'border-danger-subtle': empleado.activo !== 1}">
+                <div class="card-body">
+                  <h5 class="card-title">Empleado: {{ empleado.nombre }} {{ empleado.apellidos }}</h5>
+                  <ul>
+                    <li class="card-text">NºEmpleado: {{ empleado.num_empleado }}</li>
+                    <li class="card-text">Puesto: {{ empleado.puesto }}</li>
+                  </ul>
+                  <button class="btn btn-warning mt-3 align-self-end" (click)="seleccionarEmpleado(empleado)">Ver detalle</button>
+                </div>
               </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+            </li>
+          </ul>
+        </div>
       <br>
 
       <!-- Paginación -->

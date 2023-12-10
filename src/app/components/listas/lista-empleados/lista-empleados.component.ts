@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { EmpleadoRespuesta } from 'src/app/models/Respuestas_API/empleadoRespuesta.interface';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { response } from 'express';
 
 @Component({
   selector: 'app-lista-empleados',
@@ -18,7 +20,8 @@ export class ListaEmpleadosComponent implements OnInit {
 
   constructor(
     private empleadosService: EmpleadosService,
-    private router: Router
+    private router: Router,
+    public imagenesService: ImagenesService
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +34,7 @@ export class ListaEmpleadosComponent implements OnInit {
       .then((response) => {
         this.empleados = response.Resultado;
         this.empleadosFiltrados = response.Resultado; // Inicializa la lista filtrada
+        console.log(this.empleadosFiltrados);
         this.totalPaginas = Math.ceil(
           response.TotalElementos / response.ElementosPagina
         );
@@ -71,7 +75,7 @@ export class ListaEmpleadosComponent implements OnInit {
       });
     }
   }
-  
+
   crearEmpleado(): void {
     try {
       this.router.navigate(['/empleado/nuevo']);
@@ -83,7 +87,7 @@ export class ListaEmpleadosComponent implements OnInit {
       });
     }
   }
-  
+
 
   activarDesactivarEmpleado(empleado: EmpleadoRespuesta): void {
     let nuevoEstado = empleado.activo === 1 ? 0 : 1;
@@ -105,5 +109,5 @@ export class ListaEmpleadosComponent implements OnInit {
       });
 }
 
-  
+
 }
