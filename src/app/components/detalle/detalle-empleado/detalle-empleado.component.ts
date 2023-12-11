@@ -27,7 +27,6 @@ export class DetalleEmpleadoComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Error al suscribirse'
-        //TODO: revisar titulo
       });
     }
   }
@@ -49,13 +48,12 @@ export class DetalleEmpleadoComponent implements OnInit {
 
     this.empleadosService.updateEmpleadoEstado(empleado.idempleado, nuevoEstado)
       .then(response => {
-        // Mostrar SweetAlert y esperar a que el usuario presione "OK"
         Swal.fire({
           title: '¡Éxito!',
           text: 'El estado del empleado ha sido actualizado.',
           icon: 'success'
         }).then(() => {
-          location.reload(); // Recarga la página después de que se presione "OK"
+          location.reload();
         });
       })
       .catch(error => {

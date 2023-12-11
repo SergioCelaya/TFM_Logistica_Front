@@ -19,6 +19,7 @@ export class LoginComponent {
   };
   loginForm: FormGroup;
   private loggedIn = new BehaviorSubject<boolean>(this.tokenAvailable());
+  demoMode = true;
 
   async ngOnInit() {
     try {
@@ -28,9 +29,8 @@ export class LoginComponent {
     } catch (error) {
      Swal.fire({
       icon: 'error',
-      title: ''
+      title: 'Error al cerrar sesión'
      });
-      //TODO Rellenar motivo de error
     }
   }
 
@@ -74,9 +74,7 @@ export class LoginComponent {
       Swal.fire({
         icon: 'error',
         title: 'Error en el inicio de sesión'
-        //TODO Revisar titulo
       });
-      // Puedes agregar más lógica de manejo de errores si es necesario
     }
   }
   onClickSubmit(data:any) {
@@ -101,8 +99,21 @@ export class LoginComponent {
 
     }
   }
-
-  async encargado() {
+  async encargadoSalida() {
+    try {
+      const user: User = {
+        email: 'Fermin.Lopez@example.com',
+        pwd: '12345679',
+      };
+      await this.servicioAuth.login(user);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al realizar la operación'
+      });
+    }
+  }
+  async encargadoEntrada() {
     try {
       const user: User = {
         email: 'Fermin.Lopez@example.com',
@@ -131,4 +142,7 @@ export class LoginComponent {
     }
   }
 
+  toggleDemoMode() {
+    this.demoMode = !this.demoMode;
+  }
 }
