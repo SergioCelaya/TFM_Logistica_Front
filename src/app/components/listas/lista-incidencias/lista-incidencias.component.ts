@@ -29,6 +29,7 @@ export class ListaIncidenciasComponent {
   arrayPaginas = Array(this.totalPaginas);
   idPedido: any;
   numIncidencia: any;
+  numPedido: any;
   totalIncidencias: number = 0;
   incidenciasPagina: number = 0;
   empleado: Empleado = {
@@ -129,7 +130,7 @@ export class ListaIncidenciasComponent {
   mostrarTodos() {
     // Llama a la función cargarIncidencias para cargar la lista completa
     this.cargarIncidencias(this.paginaActual);
-    this.numIncidencia = '';
+    this.numPedido = '';
   }
     cambiarEstadoVista(resultado: any) {
       resultado.vista = resultado.vista === 1 ? 0 : 1;
@@ -140,8 +141,8 @@ export class ListaIncidenciasComponent {
   async buscarIncidenciaId() {
     let incidencia: Incidencia[] | null = null;
     try {
-      incidencia = await this.incidenciasService.getIncidenciaByIdPedido(
-        this.numIncidencia
+      incidencia = await this.incidenciasService.getIncidenciaByNumPedido(
+        this.numPedido.toString()
       );
     } catch (error) {
       Swal.fire({
@@ -160,7 +161,7 @@ export class ListaIncidenciasComponent {
     } else {
       Swal.fire({
         icon: 'info',
-        title: 'No existen incidencias con ese ID de pedido asociado.',
+        title: 'No existen incidencias con ese Número de pedido asociado.',
       });
     }
   }

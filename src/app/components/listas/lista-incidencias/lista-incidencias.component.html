@@ -6,12 +6,12 @@
         <input
           type="number"
           class="form-control"
-          placeholder="Buscar incidencias por id de pedido"
-          aria-label="Buscar incidencias por id de pedido"
+          placeholder="Buscar incidencias por número de pedido"
+          aria-label="Buscar incidencias por número de pedido"
           aria-describedby="basic-addon2"
           style="border-radius: 5px"
-          id="inputNumIncidencia"
-      [(ngModel)]="numIncidencia"
+          id="inputNumPedido"
+      [(ngModel)]="numPedido"
           (input)="cargarSiVacio()"
         />
         <div class="input-group-append">
@@ -36,7 +36,7 @@
               (click)="seleccionarIncidencia(resultado)"
               
             >
-              <p class="badge rounded-pill " [ngClass]="vistaNoVista(resultado.vista)">
+              <p class="badge " [ngClass]="vistaNoVista(resultado.vista)">
                 Id: {{ resultado.idincidencia }}
               </p>
               <p class="h6">{{ resultado.titulo }}</p>

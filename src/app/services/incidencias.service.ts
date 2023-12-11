@@ -15,6 +15,7 @@ export class IncidenciasService {
   private urlVista:string = this.baseUrl + `/vista`;
   private urlNoVista:string = this.baseUrl + `/noVista`;
   private byIdPedido:string = this.baseUrl + `/byIdPedido`;
+  private byNumPedido:string = this.baseUrl + `/byNumPedido`;
   private byId: string = this.baseUrl + `/byId`;
   private byIdEmpleado:string="/usuario";
   private byAlmacen:string="/byAlmacen";
@@ -53,6 +54,9 @@ export class IncidenciasService {
   //METODO PARA OBTENER INCIDENCIAS DE UN PEDIDO
   getIncidenciaByIdPedido(idPedido:number):Promise<Incidencia[]>{
     return firstValueFrom(this.httpClient.get<Incidencia[]>(`${this.byIdPedido}/${idPedido}`))
+  }
+  getIncidenciaByNumPedido(numPedido:string):Promise<Incidencia[]>{
+    return firstValueFrom(this.httpClient.get<Incidencia[]>(`${this.byNumPedido}/${numPedido}`))
   }
 
   // Obtener una incidencia por su ID
