@@ -10,7 +10,7 @@
         <div class="d-flex justify-content-between">
             <div>
                 <p class="error" *ngIf="checkControl('titulo', 'required')">
-                    Campo es requerido
+                    Es necesario introducir un titulo de incidencia
                 </p>
                 <p class="error" *ngIf="checkControl('titulo', 'minlength')">
                     El título debe de contener más de 4 caracteres
@@ -39,7 +39,7 @@
         <div class="d-flex justify-content-between">
             <div>
                 <p class="error" *ngIf="checkControl('descripcion', 'required')">
-                    Campo es requerido
+                    la incidencia debe tener una descripción
                 </p>
                 <p class="error" *ngIf="checkControl('descripcion_incidencia', 'minlength')">
                     La descripción debe de contener más de 4 caracteres
