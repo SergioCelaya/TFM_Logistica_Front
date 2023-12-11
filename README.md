@@ -3,7 +3,9 @@
 
 Este manual de software de gestión logística presenta una solución integral para optimizar y perfeccionar los procesos logísticos dentro de nuestra empresa. Diseñado con la premisa de mejorar la eficiencia operativa, aborda las complejidades de la cadena de suministro, proporcionando herramientas avanzadas y soluciones tecnológicas.
 
-## Requisitos mínimos
+Manual aplicación: [Manual-TFM](Manual-TFM.pdf)
+
+## 🎯 Requisitos mínimos
 
 - Formulario para poder acceder a la aplicación dependiendo del perfil que se tenga dentro de la empresa.
 - Página principal con los siguientes datos, dependiendo del perfil del usuario:
@@ -15,18 +17,18 @@ Este manual de software de gestión logística presenta una solución integral p
 - Cuando el encargado recibe el aviso de un nuevo pedido para revisión podrá comprobar sus detalles y marcarlos como Listo o por contra enviarlo de nuevo al operario con un comentario para su revisión.
 - El mismo flujo de trabajo se debe llevar a cabo cuando un operario hace entrega de un pedido.
 
-## Deseables
+## 💫 Deseables
 
 - Sistema de envío de email para determinar los diferentes cambios de estado de los pedidos.
 - Inclusión de mapa interactivo dentro del detalle del pedido para especificar al operario la mejor ruta para la entrega del pedido.
 
-## Requisitos técnicos
+## 🛠️ Requisitos técnicos
 
-- Framework de FrontEnd: Angular.
+- Framework de FrontEnd: ![angular](https://img.shields.io/badge/Angular-0F0F11?style=for-the-badge&logo=angular)
  
-- Base de datos, dependiendo las necesidades del proyecto, podrá ser elegida entre MongoDb y MySQL.
+- Base de datos, dependiendo las necesidades del proyecto, podrá ser elegida entre ![mongodb](https://img.shields.io/badge/Mongodb-0F0F11?style=for-the-badge&logo=mongoDB) ![mysql](https://img.shields.io/badge/Mysql-0F0F11?style=for-the-badge&logo=mysql).
  
-- Backend la aplicación la realizaremos en NodeJS con Express.
+- Backend la aplicación la realizaremos en ![nodejs](https://img.shields.io/badge/nodejs-0F0F11?style=for-the-badge&logo=node.js) ![express](https://img.shields.io/badge/express-0F0F11?style=for-the-badge&logo=express).
 
 ## 🗄️ Estructura del Front:
 
@@ -196,11 +198,72 @@ Este manual de software de gestión logística presenta una solución integral p
     └── tsconfig.spec.json
 ```
 
+## 🗄️ Estructura del Back:
+
+```
+└── 📁TFM_Logistica_Back
+    └── .DS_Store
+    └── .env
+    └── README.md
+    └── 📁diseño_BBDD
+    └── 📁imagenes
+        └── 📁almacenes
+        └── 📁empleados
+    └── index.js
+    └── package-lock.json
+    └── package.json
+    └── 📁pruebas
+        └── almacenes.rest
+        └── auth.rest
+        └── correo.rest
+        └── empleados.rest
+        └── estados.rest
+        └── incidencias.rest
+        └── pedidos.rest
+    └── rutas.md
+    └── 📁src
+        └── app.js
+        └── 📁config
+            └── db.js
+        └── 📁controllers
+            └── almacenes.controller.js
+            └── auth.controller.js
+            └── correo.controller.js
+            └── empleados.controller.js
+            └── estados.controller.js
+            └── imagenes.controller.js
+            └── incidencias.controller.js
+            └── pedidos.controller.js
+            └── prueba-auth.controller.js
+        └── 📁helpers
+            └── utils.js
+        └── 📁middlewares
+            └── almacenes.middleware.js
+            └── authAndRol.middleware.js
+            └── empleados.middleware.js
+            └── incidencias.middleware.js
+            └── pedidos.middleware.js
+            └── validadores.middleware.js
+        └── 📁models
+            └── almacen.model.js
+            └── empleado.model.js
+            └── estados.model.js
+            └── incidencia.model.js
+            └── pedido.model.js
+```
+
+
+
 
 ## 🔗 Tecnologías
 ### 🖼️ Front End
 [![angular](https://img.shields.io/badge/Angular-0F0F11?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
 [![bootstrap](https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+
+### 💽 Back End
+[![nodejs](https://img.shields.io/badge/Node-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://angular.io/)
+[![express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)](https://getbootstrap.com/)
+[![mysql](https://img.shields.io/badge/Mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://getbootstrap.com/)
 
 ## 💻  Ejecuta el respositorio localmente
 
@@ -224,10 +287,16 @@ Instala las dependencias
   npm install
 ```
 
-Inicia el servidor
+Inicia el servidor en el Front:
 
 ```bash
   ng s
+```
+
+Inicia el servidor en el Back:
+
+```bash
+  npm run dev
 ```
 
 
@@ -237,6 +306,3 @@ Inicia el servidor
 - [@SoniaFlores](https://github.com/Sonia-Flores)
 - [@ErnestoGuisado](https://github.com/ernestoguisado)
 - [@AlbertoGlez](https://github.com/albegosu)
-
-
-[Manual-TFM](Manual-TFM.pdf)
