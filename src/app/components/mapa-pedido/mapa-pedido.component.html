@@ -2,7 +2,7 @@
   <google-map height="41.6rem" width="100%" [options]="options" [center]="myposition">
     <map-directions-renderer
       *ngIf="(directionsResults$ | async) as directionsResults"
-      [directions]="directionsResults"
+      [directions]="directionsResults" [options]="{markerOptions}"
     ></map-directions-renderer>
   </google-map>
 </div>

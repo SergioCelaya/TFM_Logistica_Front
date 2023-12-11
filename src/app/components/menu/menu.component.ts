@@ -49,5 +49,15 @@ export class MenuComponent implements OnInit {
   isAdmin(): boolean {
     return this.userPuesto === 'Administrador';
   }
+
+  getInicioRoute(): string {
+    if (this.isEmpleado() || this.isEncargado()) {
+      return '/pedidos';
+    } else if (this.isAdmin()) {
+      return '/almacenes';
+    } else {
+      return '/login';
+    }
+  }
 }
 

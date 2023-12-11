@@ -111,7 +111,7 @@ export class FormEmpleadoComponent {
   }
 
   async submitForm(): Promise<void> {
-    if(this.url && !this.showFileBox) {
+    if(!this.showFileBox) {
       if (this.empleadoForm.value.idempleado) {
         try {
           await Swal.fire({
@@ -125,13 +125,7 @@ export class FormEmpleadoComponent {
           }).then(async (result) => {
             if (result.isConfirmed) {
               let response = await this.empleadosService.updateEmpleado(this.empleadoForm.value.idempleado, this.empleadoForm.value);
-              if (this.imagenFile) {
-                await this.guardarImagenEmpleado(this.imagenFile, this.empleadoForm.value.idempleado);
-              } else if (
-                this.empleadoForm.get('imagen_empleado')?.value === 'imagen_empleado'
-              ) {
-                this.empleadoForm.removeControl('imagen_empleado');
-              }
+              await this.guardarImagenEmpleado(this.imagenFile, this.empleadoForm.value.idempleado);
               this.showFileBox = true;
               Swal.fire({
                 position: 'center',

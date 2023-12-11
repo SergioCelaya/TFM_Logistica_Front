@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { Observable, Subject, map, takeUntil } from 'rxjs';
 import { Pedido } from 'src/app/models/pedido.interface';
-import { MapDirectionsService } from '@angular/google-maps';
+import { GoogleMap, MapDirectionsService } from '@angular/google-maps';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { AlmacenService } from 'src/app/services/almacen.service';
 
@@ -19,14 +19,20 @@ export class MapaPedidoComponent {
   myposition: google.maps.LatLng = new google.maps.LatLng(40, -3);
   options: google.maps.MapOptions = {
     mapTypeId: 'satellite',
-    zoom: 8,
+    zoom: 8
   };
+  markerOptions = {
+    icon: {
+      url: '../../../assets/warehouse.png',
+      scaledSize: new google.maps.Size(30,30)
+    }
+  }
 
   @Input() pedido: Pedido | null = null;
 
   ngOnInit() {}
 
-  directionsResults$!: Observable<google.maps.DirectionsResult | undefined>; 
+  directionsResults$!: Observable<google.maps.DirectionsResult | undefined>;
 
   constructor(
     mapDirectionsService: MapDirectionsService
