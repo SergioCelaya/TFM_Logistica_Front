@@ -57,7 +57,7 @@ export class FormEmpleadoComponent {
         Validators.maxLength(100),
       ]),
       activo: new FormControl('', [Validators.required]),
-      imagen_empleado: new FormControl('090057.jpg', []),
+      imagen_empleado: new FormControl('Empleado.png', []),
     });
   }
 
@@ -103,7 +103,7 @@ export class FormEmpleadoComponent {
             Validators.maxLength(100),
           ]),
           activo: new FormControl(response.activo, [Validators.required]),
-          imagen_empleado: new FormControl(response.imagen_empleado || 'imagen_empleado', []),
+          imagen_empleado: new FormControl(response.imagen_empleado || 'Empleado.png', []),
         });
 
       }
@@ -111,8 +111,7 @@ export class FormEmpleadoComponent {
   }
 
   async submitForm(): Promise<void> {
-    if(!this.showFileBox) {
-      if (this.empleadoForm.value.idempleado) {
+      if (this.empleadoForm.value.idempleado && this.imagenFile) {
         try {
           await Swal.fire({
             title: '¿Quiere guardar los cambios?',
@@ -125,7 +124,11 @@ export class FormEmpleadoComponent {
           }).then(async (result) => {
             if (result.isConfirmed) {
               let response = await this.empleadosService.updateEmpleado(this.empleadoForm.value.idempleado, this.empleadoForm.value);
-              await this.guardarImagenEmpleado(this.imagenFile, this.empleadoForm.value.idempleado);
+              if(!this.showFileBox) {
+                await this.guardarImagenEmpleado(this.imagenFile, this.empleadoForm.value.idempleado);
+              } else {
+                this.showFileBox = true;
+              }
               this.showFileBox = true;
               Swal.fire({
                 position: 'center',
@@ -160,7 +163,7 @@ export class FormEmpleadoComponent {
                 if (result.isConfirmed) {
                   let response = await this.empleadosService.createEmpleado(this.empleadoForm.value);
                   const nuevoEmpleadoID = response.idempleado;
-                  await this.guardarImagenEmpleado(this.imagenFile, nuevoEmpleadoID);
+                  await this.guardarImagenEmpleado(this.imagenFile, nuevoEmpleadoID || 0);
                   this.showFileBox = true;
                   Swal.fire({
                     position: 'center',
@@ -182,9 +185,6 @@ export class FormEmpleadoComponent {
               });
             }
           }
-        } else {
-          this.showFileBox = true;
-        }
   }
 
 

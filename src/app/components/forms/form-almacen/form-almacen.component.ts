@@ -77,15 +77,14 @@ export class FormAlmacenComponent {
             Validators.max(90),
           ]),
           activo: new FormControl(response.activo, [Validators.required]),
-          imagen_almacen: new FormControl(response.imagen_almacen || 'imagen_almacen', []),
+          imagen_almacen: new FormControl(response.imagen_almacen || 'Almacen0,jpg', []),
         });
       }
     });
   }
 
   async submitForm(): Promise<void> {
-    if(!this.showFileBox){
-      if (this.almacenForm.value.idalmacen) {
+      if (this.almacenForm.value.idalmacen && this.imagenFile) {
         try {
           await Swal.fire({
             title: '¿Quiere guardar los cambios?',
@@ -98,7 +97,11 @@ export class FormAlmacenComponent {
           }).then(async (result) => {
             if (result.isConfirmed) {
               let response = await this.almacenService.updateAlmacen(this.almacenForm.value);
-              await this.guardarImagenAlmacen(this.imagenFile, this.almacenForm.value.idalmacen);
+              if(!this.showFileBox){
+                await this.guardarImagenAlmacen(this.imagenFile, this.almacenForm.value.idalmacen);
+              } else {
+                this.showFileBox = true;
+              }
               this.showFileBox = true;
               Swal.fire({
                 position: 'center',
@@ -133,8 +136,7 @@ export class FormAlmacenComponent {
             if (result.isConfirmed) {
               let response = await this.almacenService.create(this.almacenForm.value);
               const nuevoAlmacenID = response.idalmacen;
-              await this.guardarImagenAlmacen(this.imagenFile, nuevoAlmacenID);
-
+              await this.guardarImagenAlmacen(this.imagenFile, nuevoAlmacenID || 0);
               this.showFileBox = true;
               Swal.fire({
                 position: 'center',
@@ -156,9 +158,6 @@ export class FormAlmacenComponent {
           });
         }
       }
-    } else {
-      this.showFileBox = true;
-    }
   }
 
   checkControl(
@@ -172,7 +171,7 @@ export class FormAlmacenComponent {
   }
 
   url: any;
-  imagenFile: File | undefined;
+  public imagenFile: File | undefined;
   idAlmacen:number | undefined;
 
   onChange(event: any) {
