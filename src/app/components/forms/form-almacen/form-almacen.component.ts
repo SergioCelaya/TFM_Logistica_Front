@@ -19,7 +19,7 @@ export class FormAlmacenComponent {
   almacenForm: FormGroup;
   uploadedImage: any;
   showFileBox: boolean = true;
-  updateAlmacen: string = 'response.imagen_almacen';
+  updateImgAlmacen: string = 'response.imagen_almacen';
   modo: 'create' | 'update' = 'create';
 
   constructor() {
@@ -55,7 +55,7 @@ export class FormAlmacenComponent {
         this.modo = 'update';
         this.idAlmacen = idalmacen;
         let response = await this.almacenService.getById(idalmacen);
-        this.updateAlmacen = this.imagenesService.getImagenAlmacen(response.imagen_almacen);
+        this.updateImgAlmacen = this.imagenesService.getImagenAlmacen(response.imagen_almacen);
 
         this.almacenForm = new FormGroup({
           idalmacen: new FormControl(response.idalmacen, []),
@@ -84,7 +84,7 @@ export class FormAlmacenComponent {
   }
 
   async submitForm(): Promise<void> {
-    if(this.url && !this.showFileBox){
+    if(!this.showFileBox){
       if (this.almacenForm.value.idalmacen) {
         try {
           await Swal.fire({
@@ -98,13 +98,7 @@ export class FormAlmacenComponent {
           }).then(async (result) => {
             if (result.isConfirmed) {
               let response = await this.almacenService.updateAlmacen(this.almacenForm.value);
-              if (this.imagenFile) {
-                await this.guardarImagenAlmacen(this.imagenFile, this.almacenForm.value.idalmacen);
-              } else if (
-                this.almacenForm.get('imagen_almacen')?.value === 'imagen_almacen'
-              ) {
-                this.almacenForm.removeControl('imagen_almacen');
-              }
+              await this.guardarImagenAlmacen(this.imagenFile, this.almacenForm.value.idalmacen);
               this.showFileBox = true;
               Swal.fire({
                 position: 'center',
@@ -220,6 +214,5 @@ export class FormAlmacenComponent {
   refrescarImagen() {
     this.showFileBox = true;
     this.url = null;
-    this.almacenForm.get('imagen_almacen')?.setValue(null);
   }
 }

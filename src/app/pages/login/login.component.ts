@@ -87,7 +87,7 @@ export class LoginComponent {
   async empleado() {
     try {
       const user: User = {
-        email: 'luciano.garcia@example.com',
+        email: 'agonzalez@example.com',
         pwd: '12345678',
       };
       await this.servicioAuth.login(user);
