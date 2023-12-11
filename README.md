@@ -202,36 +202,36 @@ Este manual de software de gestión logística presenta una solución integral p
 [![angular](https://img.shields.io/badge/Angular-0F0F11?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
 [![bootstrap](https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
-## 💻  Run Repository Locally
+## 💻  Ejecutra el respositoria localmente
 
 [![git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/) [![NPM](https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/)
 
-Clone the project
+Clona el proyecto
 
 ```bash
   git clone https://github.com/SergioCelaya/TFM_Logistica_Front
 ```
 
-Go to the project directory
+Accede al directorio del proyecto
 
 ```bash
   cd TFM_Logistica_Front
 ```
 
-Install dependencies
+Instala las dependencias
 
 ```bash
   npm install
 ```
 
-Start the server
+Inicia el servidor
 
 ```bash
   ng s
 ```
 
 
-## ✍🏼 Authors ©️
+## ✍🏼 Autores ©️
 
 - [@SergioCelaya](https://github.com/SergioCelaya)
 - [@SoniaFlores](https://github.com/Sonia-Flores)
