@@ -21,11 +21,10 @@ export class FormEmpleadoComponent {
   empleadoForm: FormGroup;
   imagenEmpleado: File | undefined;
   updateEmpleado: string = 'response.imagen_empleado';
-  showFileBox: boolean = true; // Controla la visualización del área de carga de imagen
+  showFileBox: boolean = true;
   modo: 'create' | 'update' = 'create';
   showPassword: boolean = false;
-
-  imagenEmpleadoUrl: string | ArrayBuffer | null = null; // URL para previsualizar la imagen
+  imagenEmpleadoUrl: string | ArrayBuffer | null = null;
 
   constructor() {
     this.empleadoForm = new FormGroup({
@@ -65,19 +64,13 @@ export class FormEmpleadoComponent {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params: any) => {
       let idempleado: number = Number(params.idempleado);
-      console.log(idempleado);
 
       if(idempleado){
         this.showFileBox = false;
         this.modo = 'update';
-
         this.idEmpleado = idempleado;
-
         let response = await this.empleadosService.getEmpleadoById(idempleado);
-        console.log(response);
-
         this.updateEmpleado = this.imagenesService.getImagenEmpleado(response.imagen_empleado);
-        console.log(this.updateEmpleado);
 
         this.empleadoForm = new FormGroup({
           idempleado: new FormControl(response.idempleado, []),
@@ -131,17 +124,12 @@ export class FormEmpleadoComponent {
             confirmButtonText: 'Guardar',
           }).then(async (result) => {
             if (result.isConfirmed) {
-
               let response = await this.empleadosService.updateEmpleado(this.empleadoForm.value.idempleado, this.empleadoForm.value);
-              console.log("Datos enviados a la API:", this.empleadoForm.value);
-
-              // Verificar si se ha cargado una nueva imagen antes de intentar guardarla
               if (this.imagenFile) {
                 await this.guardarImagenEmpleado(this.imagenFile, this.empleadoForm.value.idempleado);
               } else if (
                 this.empleadoForm.get('imagen_empleado')?.value === 'imagen_empleado'
               ) {
-                // Si la imagen no ha sido modificada, establecerla como undefined o eliminarla según la necesidad del backend
                 this.empleadoForm.removeControl('imagen_empleado');
               }
               this.showFileBox = true;
@@ -176,15 +164,9 @@ export class FormEmpleadoComponent {
                 confirmButtonText: 'Crear',
               }).then(async (result) => {
                 if (result.isConfirmed) {
-                  console.log(this.empleadoForm.value);
-                  // CREACIÓN NUEVO ALMACEN
                   let response = await this.empleadosService.createEmpleado(this.empleadoForm.value);
-                  // Esperamos a guardarImagen para que no cargue la default
                   const nuevoEmpleadoID = response.idempleado;
-                  console.log(nuevoEmpleadoID);
                   await this.guardarImagenEmpleado(this.imagenFile, nuevoEmpleadoID);
-                  console.log(response);
-
                   this.showFileBox = true;
                   Swal.fire({
                     position: 'center',
@@ -222,7 +204,6 @@ export class FormEmpleadoComponent {
     );
   }
 
-  // AL PRESIONAR EN EL BOTÓN ACEPTAR SE ENVIA AL BACK
   url: any;
   imagenFile: File | undefined;
   idEmpleado:number | undefined;
@@ -269,9 +250,8 @@ export class FormEmpleadoComponent {
   }
 
   refrescarImagen(): void {
-    this.showFileBox = true; // Muestra de nuevo el área de carga
-    this.url = null; // Resetea la previsualización
-    // También puedes resetear el valor del control de formulario relacionado con la imagen si es necesario
+    this.showFileBox = true;
+    this.url = null;
     this.empleadoForm.get('imagen_empleado')?.setValue(null);
   }
 

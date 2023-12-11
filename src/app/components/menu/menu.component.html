@@ -1,8 +1,8 @@
 <nav class="sticky-top d-flex flex-column vh-100">
   <div class="d-flex flex-column align-items-center pt-2 vh-100" *ngIf="isLoggedIn$ | async">
         <i class="bi bi-box-seam-fill text-warning" style="font-size: 4rem;"></i>
-        
-    
+
+
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 mt-5 me-auto py-sm-4 justify-content-center align-items-sm-start w-100" id="menu">
         <li class="w-100 ps-5 py-2 navItem" ngxTippy="Página principal" tippyClassName="custom-class" [tippyProps]="{ placement: 'right' }">
           <a routerLink="/" class="nav-link d-flex align-items-center px-0 icon-link icon-link-hover">
@@ -63,7 +63,6 @@
           </ul>
     </ul>
   </div>
-  <!-- <hr> -->
   <div class="p-4 userSidebar sticky-bottom d-flex flex-column justify-content-center bg-warning justify-content-end">
     <div class="d-flex align-items-center justify-content-center">
         <img [src]="imagenesService.getImagenEmpleado(empleado.imagen_empleado)" alt="Imagen empleado" width="50" height="50" class="rounded-circle">

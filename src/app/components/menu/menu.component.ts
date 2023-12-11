@@ -38,7 +38,6 @@ export class MenuComponent implements OnInit {
     this.authService.logout();
   }
 
-  // Helper methods to check user's position
   isEmpleado(): boolean {
     return this.userPuesto === 'Empleado';
   }
@@ -50,6 +49,5 @@ export class MenuComponent implements OnInit {
   isAdmin(): boolean {
     return this.userPuesto === 'Administrador';
   }
-
 }
 

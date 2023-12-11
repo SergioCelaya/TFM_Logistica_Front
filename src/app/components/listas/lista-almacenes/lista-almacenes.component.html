@@ -1,5 +1,4 @@
 <section class="row justify-content-center mt-4">
-  <!-- lista-almacenes.component.html -->
   <h3 class="text-center fs-1 mx-5">Almacenes</h3>
   <ul class="row gap-2 gap-xxl-1 justify-content-center">
     <li class="col-12 col-lg-5 col-xxl-5 card p-4 cardAlmacen" *ngFor="let almacen of arrAlmacenes">
@@ -18,12 +17,10 @@
       </ul>
       <img class="img-fluid rounded mt-2" [src]="imagenesService.getImagenAlmacen(almacen.imagen_almacen)" alt="Imagen almacen">
       <div class="row column-gap-4 mt-4 justify-content-end" role="group">
-        <!-- Botón para activar/desactivar el almacén -->
         <button class="col-5 col-xxl-3 btn btn-block" type="button" [class.btn-outline-success]="almacen.activo" [class.btn-outline-danger]="!almacen.activo"
           (click)="toggleEstadoAlmacen(almacen)">
           {{ almacen.activo ? 'Activo' : 'Inactivo' }}
         </button>
-        <!-- Botón de "Editar" que redirige a la ruta /updateAlmacen/:idalmacen -->
         <button class="col-5 col-xxl-3 btn btn-light btn-block" type="button" [routerLink]="['/updateAlmacen', almacen.idalmacen]">
           Editar
         </button>

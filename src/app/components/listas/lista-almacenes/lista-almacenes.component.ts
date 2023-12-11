@@ -46,12 +46,10 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
       const response = await this.almacenService.getAll();
       this.arrAlmacenes = response;
 
-      // Filtrar por la propiedad activo si el flag está activado
       if (this.mostrarSoloActivos) {
         this.arrAlmacenes = this.arrAlmacenes.filter(almacen => almacen.activo);
       }
 
-      // Filtrar por el nombre si hay un valor en el filtroNombre
       if (this.filtroNombre.trim() !== '') {
         this.arrAlmacenes = this.arrAlmacenes.filter(almacen =>
           almacen.nombre_almacen.toLowerCase().includes(this.filtroNombre.toLowerCase())
@@ -83,7 +81,6 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
     };
   }
 
-  // Filtro activos/inactivos
   toggleFiltroActivo(): void {
     this.mostrarSoloActivos = !this.mostrarSoloActivos;
     this.actualizarTextoBoton();
@@ -94,15 +91,12 @@ export class ListaAlmacenesComponent implements OnInit, OnDestroy {
     this.mostrarSoloActivosTexto = this.mostrarSoloActivos ? 'Mostrar todos' : 'Mostrar solo activos';
   }
 
-  // Filtrado/Búsqueda
   buscarAlmacenes(): void {
     this.cargarAlmacenes();
   }
 
-   // Limpiar el filtro de búsqueda
    limpiarFiltro(): void {
     this.filtroNombre = '';
     this.cargarAlmacenes();
   }
-
 }
