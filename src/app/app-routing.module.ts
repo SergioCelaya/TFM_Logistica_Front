@@ -11,29 +11,33 @@ import { FormIncidenciasComponent } from './components/forms/form-incidencias/fo
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
 import { FormEmpleadoComponent } from './components/forms/form-empleado/form-empleado.component';
 import { NewIncidenciaComponent } from './components/new-incidencia/new-incidencia.component';
+import { AdminGuardService } from './guards/administrador.guard';
+import { EncargadoGuardService } from './guards/encargado.guard';
+import { EmpleadoGuardService } from './guards/empleado.guard';
+import { CombinadoGuardService } from './guards/combinado.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirecciona a /login por defecto
   { path: 'login', component: LoginComponent },
-  { path: 'pedidos', component: PedidosComponent },
-  { path: 'incidencias', component: IncidenciasComponent },
-  { path: 'almacenes', component: AlmacenesComponent },
-  { path: 'empleados', component: EmpleadosComponent },
-  { path: 'empleado/nuevo', component: FormEmpleadoComponent },
-  { path: 'empleado/editar/:idempleado', component: FormEmpleadoComponent },
-  { path: 'nuevoAlmacen', component: FormAlmacenComponent },
-  { path: 'gestionPedido', component: FormPedidoComponent },
-  { path: 'nuevaIncidencia', component: FormIncidenciasComponent },
-  { path: 'editarIncidencia/:idincidencia', component: FormIncidenciasComponent },
-  { path: 'gestionPedido/:idpedido', component: FormPedidoComponent },
-  { path: 'updateAlmacen/:idalmacen', component: FormAlmacenComponent },
-  { path: 'newIncidencia', component: NewIncidenciaComponent },
+  { path: 'pedidos', component: PedidosComponent, canActivate: [CombinadoGuardService]},
+  { path: 'gestionPedido', component: FormPedidoComponent, canActivate: [EmpleadoGuardService] },
+  { path: 'gestionPedido/:idpedido', component: FormPedidoComponent, canActivate: [EmpleadoGuardService] },
+  { path: 'incidencias', component: IncidenciasComponent, canActivate: [CombinadoGuardService] },
+  { path: 'nuevaIncidencia', component: FormIncidenciasComponent, canActivate: [EmpleadoGuardService] },
+  { path: 'editarIncidencia/:idincidencia', component: FormIncidenciasComponent, canActivate: [EmpleadoGuardService] },
+  { path: 'newIncidencia', component: NewIncidenciaComponent, canActivate: [EmpleadoGuardService] },
+  { path: 'almacenes', component: AlmacenesComponent, canActivate: [AdminGuardService] },
+  { path: 'nuevoAlmacen', component: FormAlmacenComponent, canActivate: [AdminGuardService] },
+  { path: 'updateAlmacen/:idalmacen', component: FormAlmacenComponent, canActivate: [AdminGuardService] },
+  { path: 'empleados', component: EmpleadosComponent, canActivate: [AdminGuardService] },
+  { path: 'empleado/nuevo', component: FormEmpleadoComponent, canActivate: [AdminGuardService] },
+  { path: 'empleado/editar/:idempleado', component: FormEmpleadoComponent, canActivate: [AdminGuardService] },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirecciona a /login por defecto
   { path: '**', redirectTo: '/login' }, // Manejo de rutas no encontradas, redirecciona a /login
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

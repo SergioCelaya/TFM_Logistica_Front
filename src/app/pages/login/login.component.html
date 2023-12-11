@@ -16,8 +16,8 @@
                 name="email"
                 placeholder="Escribe tu email"
                 formControlName="email"
-            >  
-            <i class="bi bi-envelope-at-fill"></i>            
+            >
+            <i class="bi bi-envelope-at-fill"></i>
         </div>
         <p class="text-danger " *ngIf="checkControl('email', 'required')">
           Debes introducir un email válido
@@ -35,7 +35,7 @@
                 placeholder="Escribe tu contraseña"
                 formControlName="pwd"
             >
-            
+
             <i class="bi bi-door-open "></i>
         </div>
         <p class="text-danger " *ngIf="checkControl('pwd', 'required')">
@@ -47,9 +47,14 @@
         >
           La longitud minima es de 8 caracteres
         </p>
-      <input type="submit" class="my-form__button"  value="Login" >
-        <input type="button" class="btn btn-dark mx-1" (click)="empleado()" id="btnEmpleado" value="Empleado">
-        <input type="button" class="btn btn-dark mx-1" (click)="encargado()" id="btnEncargado" value="Encargado">
-        <input type="button" class="btn btn-dark mx-1" (click)="admin()" id="btnEmpleado" value="Administrador">  
+        <input type="submit" class="my-form__button"  value="Login">
+
+        <button class="btn btn-ligth mt-4" (click)="toggleDemoMode()">{{ demoMode ? 'Modo Demo' : 'Desactivar'}}</button>
+        <div class="row d-flex justify-content-center gap-2">
+        <input type="button" class="btn btn-outline-secondary col-5" (click)="empleado()" id="btnEmpleado" value="Empleado" *ngIf="!demoMode">
+        <input type="button" class="btn btn-outline-secondary col-5" (click)="admin()" id="btnAdministrador" value="Administrador" *ngIf="!demoMode">
+        <input type="button" class="btn btn-outline-secondary col-5" (click)="encargadoSalida()" id="btnEncargadoSalida" value="Encargado Salida" *ngIf="!demoMode">
+        <input type="button" class="btn btn-outline-secondary col-5" (click)="encargadoEntrada()" id="btnEncargadoEntrada" value="Encargado Entrada" *ngIf="!demoMode">
+        </div>
     </form>
 </div>

@@ -121,7 +121,6 @@
       </p>
     </div>
     <div class="row">
-      <!-- Area input imagen -->
       <div class="modale ms-xxl-5 mb-xxl-5">
         <div class="modale-body">
           <div class="d-flex align-items-center">
@@ -133,7 +132,6 @@
               <p class="modal-description">Agrega una imagen al almacén</p>
             </div>
           </div>
-          <!-- Botón para alternar entre imagen y fileBox -->
           <button class="btn btn-warning my-3 align-self-start" *ngIf="url || !showFileBox" (click)="refrescarImagen()">Cambiar imagen</button>
           <div class="row" *ngIf="url || showFileBox || idAlmacen">
             <div class="col-12 col-xxl-6" *ngIf="showFileBox">
@@ -153,7 +151,6 @@
                     />
               </button>
               </div>
-            <!-- Previsualización imagen -->
             <img class="col-12 col-md-8 col-xl-6 mt-3 mt-xxl-0 col-xxl-4 img-fluid imgInput rounded-2" *ngIf="url || idAlmacen" [src]="url || updateAlmacen"/>
           </div>
         </div>

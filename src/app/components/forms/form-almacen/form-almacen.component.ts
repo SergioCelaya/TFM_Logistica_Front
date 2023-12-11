@@ -1,8 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { response } from 'express';
-import { Almacen } from 'src/app/models/almacen.interface';
 import { AlmacenService } from 'src/app/services/almacen.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import Swal from 'sweetalert2';
@@ -26,7 +24,6 @@ export class FormAlmacenComponent {
 
   constructor() {
     this.almacenForm = new FormGroup({
-      // idalmacen: new FormControl('', []),
       nombre_almacen: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
@@ -34,13 +31,13 @@ export class FormAlmacenComponent {
       ]),
       long: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^(-?\d+(\.\d+)?)$/), // Longitud entre -180 y 180
+        Validators.pattern(/^(-?\d+(\.\d+)?)$/),
         Validators.min(-180),
         Validators.max(180),
       ]),
       lat: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^(-?\d+(\.\d+)?)$/), // Latitud entre -90 y 90
+        Validators.pattern(/^(-?\d+(\.\d+)?)$/),
         Validators.min(-90),
         Validators.max(90),
       ]),
@@ -49,24 +46,16 @@ export class FormAlmacenComponent {
     });
   }
 
-  // LÓGICA DEL FORMULARIO EXISTENTE O NUEVO
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params: any) => {
-      //SE NECESITA PARA GUARDAR LA IMAGEN Y TRAERLA
       let idalmacen: number = Number(params.idalmacen);
-      console.log(idalmacen);
 
       if (idalmacen) {
         this.showFileBox = false;
         this.modo = 'update';
-        //GUARDO EL ID DE ALMACEN PARA GUARDAR LA IMAGEN POSTERIORENTE
         this.idAlmacen = idalmacen;
-        //PINTAR ALMACEN EXISTENTE
         let response = await this.almacenService.getById(idalmacen);
-        console.log(response);
-
         this.updateAlmacen = this.imagenesService.getImagenAlmacen(response.imagen_almacen);
-        console.log(this.updateAlmacen);
 
         this.almacenForm = new FormGroup({
           idalmacen: new FormControl(response.idalmacen, []),
@@ -108,17 +97,12 @@ export class FormAlmacenComponent {
           confirmButtonText: 'Guardar',
           }).then(async (result) => {
             if (result.isConfirmed) {
-              // ACTUALIZACIÓN ALMACEN
               let response = await this.almacenService.updateAlmacen(this.almacenForm.value);
-              console.log("Datos enviados a la API:", this.almacenForm.value);
-
-              // Verificar si se ha cargado una nueva imagen antes de intentar guardarla
               if (this.imagenFile) {
                 await this.guardarImagenAlmacen(this.imagenFile, this.almacenForm.value.idalmacen);
               } else if (
                 this.almacenForm.get('imagen_almacen')?.value === 'imagen_almacen'
               ) {
-                // Si la imagen no ha sido modificada, establecerla como undefined o eliminarla según la necesidad del backend
                 this.almacenForm.removeControl('imagen_almacen');
               }
               this.showFileBox = true;
@@ -153,13 +137,9 @@ export class FormAlmacenComponent {
             confirmButtonText: 'Crear',
           }).then(async (result) => {
             if (result.isConfirmed) {
-              console.log(this.almacenForm.value);
-              // CREACIÓN NUEVO ALMACEN
               let response = await this.almacenService.create(this.almacenForm.value);
-              // Esperamos a guardarImagen para que no cargue la default
               const nuevoAlmacenID = response.idalmacen;
               await this.guardarImagenAlmacen(this.imagenFile, nuevoAlmacenID);
-              console.log(response);
 
               this.showFileBox = true;
               Swal.fire({
@@ -197,8 +177,6 @@ export class FormAlmacenComponent {
     );
   }
 
-  // TODO LO RELACIONADO CON LA IMAGEN, PRIMERO SE MUESTRA TRAS ELEGIRLA
-  // AL PRESIONAR EN EL BOTÓN ACEPTAR SE ENVIA AL BACK
   url: any;
   imagenFile: File | undefined;
   idAlmacen:number | undefined;
@@ -210,12 +188,12 @@ export class FormAlmacenComponent {
     };
 
     reader.onerror = (event: any) => {
-      //TODO
       console.log('No se puede leer el fichero: ' + event.target.error.code);
     };
+
     reader.readAsDataURL(event.target.files[0]);
     this.imagenFile = event.target.files[0];
-    this.showFileBox = false; //Ocultar bloque al cargar imagen
+    this.showFileBox = false;
   }
 
   async guardarImagenAlmacen(imagenFile: File | undefined, idAlmacen: number | undefined) {
@@ -232,7 +210,6 @@ export class FormAlmacenComponent {
     }
   }
 
-   // Método para convertir el valor del botón desplazable a 0 o 1
    toggleActivo() {
     const activoControl = this.almacenForm.get('activo');
     if (activoControl) {
@@ -240,11 +217,9 @@ export class FormAlmacenComponent {
     }
   }
 
-  // Método para volver a cargar el bloque fileBox
   refrescarImagen() {
     this.showFileBox = true;
-    this.url = null; // Restablece la URL para ocultar la imagen
-    // También puedes restablecer el valor del control de formulario relacionado con la imagen si es necesario
+    this.url = null;
     this.almacenForm.get('imagen_almacen')?.setValue(null);
   }
 }
