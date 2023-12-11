@@ -311,7 +311,7 @@ export class FormPedidoComponent {
               icon: 'success',
               title: 'Pedido creado correctamente',
               showConfirmButton: false,
-              timer: 1500,
+              timer: 2500,
             });
           }
         });
@@ -387,7 +387,7 @@ export class FormPedidoComponent {
           icon: 'success',
           title: 'Pedido validado.',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2500,
         });
         this.mandarCorreoCambioEstado('Validado');
       }
@@ -414,7 +414,7 @@ export class FormPedidoComponent {
           icon: 'success',
           title: 'Pedido pendiente de confirmar',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2500,
         });
         this.mandarCorreoCambioEstado('Pendiente de validar');
         this.router.navigate(['/pedidos/']);
@@ -440,7 +440,7 @@ export class FormPedidoComponent {
           icon: 'success',
           title: 'Pedido pasado a rectificar',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2500,
         });
         this.mandarCorreoCambioEstado('Rectificar');
         this.router.navigate(['/pedidos/']);
@@ -466,7 +466,7 @@ export class FormPedidoComponent {
           icon: 'success',
           title: 'Pedido recepcionado.',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2500,
         });
         this.mandarCorreoCambioEstado('Pedido recepcionado');
         this.router.navigate(['/pedidos/']);
@@ -492,7 +492,7 @@ export class FormPedidoComponent {
           icon: 'success',
           title: 'Pedido en tránsito, pasara a ser recepcioanado.',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2500,
         });
         this.mandarCorreoCambioEstado('Enviado');
         this.router.navigate(['/pedidos/']);
