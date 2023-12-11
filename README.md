@@ -198,7 +198,7 @@ Este manual de software de gestión logística presenta una solución integral p
 
 
 ## 🔗 Tecnologías
-### Front End
+### 🖼️ Front End
 [![angular](https://img.shields.io/badge/Angular-0F0F11?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
 [![bootstrap](https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
