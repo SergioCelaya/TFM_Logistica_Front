@@ -64,7 +64,6 @@ export class ListaPedidosComponent {
               this.empleado.idalmacen,
               this.empleado.idempleado
             );
-          console.log(this.respuestaCompleta);
         }
         if (this.respuestaCompleta) {
           this.paginado(this.respuestaCompleta);
@@ -79,8 +78,6 @@ export class ListaPedidosComponent {
   }
 
   cargarPedido(pedido: pedidoRespuesta) {
-    console.log("PedidoActvo")
-    console.log(pedido)
     this.pedidosService.setPedidoActivo(pedido);
   }
 
@@ -164,8 +161,6 @@ export class ListaPedidosComponent {
     this.numeroPaginas = Math.ceil(this.totalPedidos / this.pedidosPagina);
     this.arrayPaginas = Array(this.numeroPaginas);
     this.pedidosEmpleado = this.respuestaCompleta?.Resultado!;
-    console.log('Pedidos empleado');
-    console.log(this.pedidosEmpleado);
     if (this.pedidosEmpleado.length > 0) {
       this.pedidosService.setPedidoActivo(this.pedidosEmpleado[0]);
     } else {

@@ -26,15 +26,12 @@ export class ImagenesService {
       if (imagen) {
         const data = new FormData();
         data.append('imagen', imagen, imagen.name);
-        console.log(imagen.name);
         let req = await firstValueFrom(this.httpClient.post(this.baseUrl + this.uploadEmpleado + idEmpleado, data));
-        console.log('Req' + req);
         return req;
       } else {
         return null;
       }
     } catch (Error) {
-      console.log("Error al mandar la imagen")
       return Error;
     }
   }
@@ -51,7 +48,6 @@ export class ImagenesService {
       }
     } catch (Error) {
       //TODO
-      console.log("Error al mandar la imagen")
       return Error;
     }
   }
