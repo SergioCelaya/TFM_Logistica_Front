@@ -7,7 +7,6 @@ import { IncidenciaRespuesta } from 'src/app/models/Respuestas_API/incidenciaRes
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/services/auth.service';
 import { Empleado } from 'src/app/models/empleado.interface';
-import { ɵinitDomAdapter } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lista-incidencias',
@@ -84,7 +83,6 @@ export class ListaIncidenciasComponent {
       this.paginaActual = pagina;
       this.paginado();
     } catch (error: any) {
-      console.log(error);
       this.router.navigate(['/login']);
     }
   }
@@ -152,7 +150,6 @@ export class ListaIncidenciasComponent {
       });
       return;
     }
-    console.log(incidencia && incidencia.length > 0);
     if (incidencia && incidencia.length > 0) {
       this.arrIncidencias = incidencia;
       this.totalPaginas = 1; // o ajusta según el número de resultados

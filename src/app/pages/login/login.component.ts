@@ -87,7 +87,7 @@ export class LoginComponent {
   async empleado() {
     try {
       const user: User = {
-        email: 'agonzalez@example.com',
+        email: 'juan.perez@example.com',
         pwd: '12345678',
       };
       await this.servicioAuth.login(user);
@@ -103,7 +103,7 @@ export class LoginComponent {
     try {
       const user: User = {
         email: 'Fermin.Lopez@example.com',
-        pwd: '12345679',
+        pwd: '12345678',
       };
       await this.servicioAuth.login(user);
     } catch (error) {
@@ -131,7 +131,7 @@ export class LoginComponent {
     try {
       const user: User = {
         email: 'Leire.rins@example.com',
-        pwd: '12345779',
+        pwd: '12345678',
       };
       await this.servicioAuth.login(user);
     } catch (error) {
