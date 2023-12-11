@@ -27,10 +27,181 @@ Este manual de software de gestión logística presenta una solución integral p
 - Base de datos, dependiendo las necesidades del proyecto, podrá ser elegida entre MongoDb y MySQL.
  
 - Backend la aplicación la realizaremos en NodeJS con Express.
+
+## 🗄️ Estructura del Front:
+
+```
+└── 📁TFM_Logistica_Front
+    └── .DS_Store
+    └── 📁.angular
+    └── .editorconfig
+    └── 📁.vscode
+    └── Manual-TFM.pdf
+    └── README.md
+    └── angular.json
+    └── package-lock.json
+    └── package.json
+    └── 📁src
+        └── .DS_Store
+        └── 📁app
+            └── app.component.css
+            └── app.component.html
+            └── app.component.ts
+            └── app.module.ts
+            └── 📁components
+                └── 📁detalle
+                    └── 📁detalle-empleado
+                        └── detalle-empleado.component.css
+                        └── detalle-empleado.component.html
+                        └── detalle-empleado.component.ts
+                    └── 📁detalle-incidencia
+                        └── detalle-incidencia.component.css
+                        └── detalle-incidencia.component.html
+                        └── detalle-incidencia.component.ts
+                    └── 📁detalle-pedido
+                        └── detalle-pedido.component.css
+                        └── detalle-pedido.component.html
+                        └── detalle-pedido.component.ts
+                └── 📁forms
+                    └── 📁form-almacen
+                        └── form-almacen.component.css
+                        └── form-almacen.component.html
+                        └── form-almacen.component.ts
+                    └── 📁form-empleado
+                        └── form-empleado.component.css
+                        └── form-empleado.component.html
+                        └── form-empleado.component.ts
+                    └── 📁form-incidencias
+                        └── form-incidencias.component.css
+                        └── form-incidencias.component.html
+                        └── form-incidencias.component.ts
+                    └── 📁form-pedido
+                        └── form-pedido.component.css
+                        └── form-pedido.component.html
+                        └── form-pedido.component.ts
+                └── 📁incidencia
+                    └── incidencia.component.css
+                    └── incidencia.component.html
+                    └── incidencia.component.ts
+                └── 📁listas
+                    └── 📁lista-almacenes
+                        └── lista-almacenes.component.css
+                        └── lista-almacenes.component.html
+                        └── lista-almacenes.component.ts
+                    └── 📁lista-empleados
+                        └── lista-empleados.component.css
+                        └── lista-empleados.component.html
+                        └── lista-empleados.component.ts
+                    └── 📁lista-incidencias
+                        └── lista-incidencias.component.css
+                        └── lista-incidencias.component.html
+                        └── lista-incidencias.component.ts
+                    └── 📁lista-pedidos
+                        └── lista-pedidos.component.css
+                        └── lista-pedidos.component.html
+                        └── lista-pedidos.component.ts
+                └── 📁mapa-pedido
+                    └── mapa-pedido.component.css
+                    └── mapa-pedido.component.html
+                    └── mapa-pedido.component.ts
+                └── 📁menu
+                    └── menu.component.css
+                    └── menu.component.html
+                    └── menu.component.ts
+                └── 📁new-incidencia
+                    └── new-incidencia.component.css
+                    └── new-incidencia.component.html
+                    └── new-incidencia.component.ts
+                └── 📁pedido
+                    └── pedido.component.css
+                    └── pedido.component.html
+                    └── pedido.component.ts
+            └── 📁guards
+                └── administrador.guard.ts
+                └── combinado.guard.ts
+                └── empleado.guard.ts
+                └── encargado.guard.ts
+            └── 📁interceptors
+                └── auth.intereceptor.service.ts
+            └── 📁media
+                └── logo.png
+            └── 📁models
+                └── 📁Respuestas_API
+                    └── allEmpleados.interface.ts
+                    └── allIncidencias.interface.ts
+                    └── allPedidos.interface.ts
+                    └── auth.interface.ts
+                    └── empleadoRespuesta.interface.ts
+                    └── incidenciaRespuesta.interface.ts
+                    └── paginacionRespuesta.interface.ts
+                    └── pedidosRespuesta.interface.ts
+                └── almacen.interface.ts
+                └── correo.interface.ts
+                └── empleado.interface.ts
+                └── estado.interface.ts
+                └── incidencia.interface.ts
+                └── pedido.interface.ts
+                └── user.interface.ts
+            └── 📁pages
+                └── 📁almacenes
+                    └── almacenes.component.css
+                    └── almacenes.component.html
+                    └── almacenes.component.ts
+                └── 📁empleados
+                    └── empleados.component.css
+                    └── empleados.component.html
+                    └── empleados.component.ts
+                └── 📁incidencias
+                    └── incidencias.component.css
+                    └── incidencias.component.html
+                    └── incidencias.component.ts
+                └── 📁login
+                    └── login.component.css
+                    └── login.component.html
+                    └── login.component.ts
+                └── 📁pedidos
+                    └── pedidos.component.css
+                    └── pedidos.component.html
+                    └── pedidos.component.ts
+            └── 📁services
+                └── almacen.service.ts
+                └── auth.service.ts
+                └── correo.service.ts
+                └── empleados.service.ts
+                └── imagenes.service.ts
+                └── incidencias.service.ts
+                └── pedidos.service.ts
+        └── 📁assets
+            └── 📁estados
+                └── crear.jpg
+                └── enTransito.jpg
+                └── finalizado.jpg
+                └── pendienteRecepcionar.jpg
+                └── pendienteRevisar.jpg
+                └── rectificar.jpg
+                └── validado.jpg
+            └── fondo.jpg
+            └── formicon.png
+            └── incidencia.png
+            └── logoTFM.png
+            └── user.png
+            └── warehouse.png
+            └── warehouse_destino.png
+        └── favicon.ico
+        └── index.html
+        └── main.ts
+        └── styles.css
+    └── tsconfig.app.json
+    └── tsconfig.json
+    └── tsconfig.spec.json
+```
+
+
 ## 🔗 Tecnologías
 ### Front End
 [![angular](https://img.shields.io/badge/Angular-0F0F11?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
 [![bootstrap](https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+
 ## 💻  Run Repository Locally
 
 [![git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/) [![NPM](https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/)
@@ -60,7 +231,7 @@ Start the server
 ```
 
 
-## Authors ©️
+## ✍🏼 Authors ©️
 
 - [@SergioCelaya](https://github.com/SergioCelaya)
 - [@SoniaFlores](https://github.com/Sonia-Flores)
