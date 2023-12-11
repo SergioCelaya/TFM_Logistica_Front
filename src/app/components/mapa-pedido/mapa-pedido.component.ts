@@ -18,7 +18,7 @@ export class MapaPedidoComponent {
   center: google.maps.LatLng = new google.maps.LatLng(40, -2);
   myposition: google.maps.LatLng = new google.maps.LatLng(40, -3);
   options: google.maps.MapOptions = {
-    mapTypeId: 'satellite',
+    mapTypeId: 'roadmap',
     zoom: 8
   };
   markerOptions = {
