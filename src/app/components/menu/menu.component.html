@@ -61,12 +61,22 @@
           </ul>
     </ul>
   </div>
-  <div class="p-4 userSidebar sticky-bottom d-flex flex-column justify-content-center bg-warning justify-content-end">
-    <div class="d-flex align-items-center justify-content-center">
-        <img [src]="imagenesService.getImagenEmpleado(empleado.imagen_empleado)" alt="Imagen empleado" width="50" height="50" class="rounded-circle">
-        <span class="d-none d-xl-inline ms-3 fs-4">{{ empleado?.nombre + ' ' + empleado.apellidos || 'User Name' }}</span>
+  <div class="p-3 userSidebar sticky-bottom d-flex flex-column justify-content-center bg-warning justify-content-end">
+    <div class="d-flex align-items-center justify-content-center position-relative">
+      
+      <div class="bg-gray position-absolute top-0 bottom-0 left-0 right-0 rounded-circle" style="width: 80px; height: 80px;"></div>
+     
+      <img [src]="imagenesService.getImagenEmpleado(empleado.imagen_empleado)" alt="Imagen Empleado" width="90" height="90" class="rounded-circle position-relative">
+     
+      <i class="fs-3 bi bi-person-circle position-absolute top-50 start-50 translate-middle text-white" *ngIf="!empleado?.imagen_empleado"></i>
     </div>
-    <a class="d-flex align-items-center justify-content-center nav-link icon-link icon-link-hover" routerLink="/login" (click)="onLogout()"><span class="d-none d-xl-inline">Cerrar sesión</span> <i class="fs-4 bi bi-box-arrow-right ms-1 mb-2 mt-2 mt-xl-0"></i></a>
+    
+    <span class="d-none d-xl-inline mt-2 fs-4 text-black text-center">{{ empleado?.nombre + ' ' + empleado.apellidos || 'User Name' }}</span>
+    
+    <a class="d-flex align-items-center justify-content-center nav-link icon-link icon-link-hover" routerLink="/login" (click)="onLogout()">
+      <span class="d-none d-xl-inline text-black">Cerrar sesión</span>
+      <i class="fs-4 bi bi-box-arrow-right ms-1 text-black"></i>
+    </a>
   </div>
 </nav>
 
