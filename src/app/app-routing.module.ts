@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'pedidos', component: PedidosComponent, canActivate: [CombinadoGuardService]},
   { path: 'gestionPedido', component: FormPedidoComponent, canActivate: [EmpleadoGuardService] },
-  { path: 'gestionPedido/:idpedido', component: FormPedidoComponent, canActivate: [EmpleadoGuardService] },
+  { path: 'gestionPedido/:idpedido', component: FormPedidoComponent, canActivate: [CombinadoGuardService] },
   { path: 'incidencias', component: IncidenciasComponent, canActivate: [CombinadoGuardService] },
   { path: 'nuevaIncidencia', component: FormIncidenciasComponent, canActivate: [CombinadoGuardService] },
   { path: 'editarIncidencia/:idincidencia', component: FormIncidenciasComponent, canActivate: [CombinadoGuardService] },
