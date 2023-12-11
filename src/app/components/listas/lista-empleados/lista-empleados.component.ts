@@ -4,7 +4,6 @@ import { EmpleadoRespuesta } from 'src/app/models/Respuestas_API/empleadoRespues
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { response } from 'express';
 
 @Component({
   selector: 'app-lista-empleados',
@@ -33,9 +32,7 @@ export class ListaEmpleadosComponent implements OnInit {
       .getEmpleadosPaginados(pagina)
       .then((response) => {
         this.empleados = response.Resultado;
-        console.log(this.empleados)
-        this.empleadosFiltrados = response.Resultado; // Inicializa la lista filtrada
-        console.log(this.empleadosFiltrados);
+        this.empleadosFiltrados = response.Resultado;
         this.totalPaginas = Math.ceil(
           response.TotalElementos / response.ElementosPagina
         );
@@ -67,7 +64,6 @@ export class ListaEmpleadosComponent implements OnInit {
   }
 
   mostrarTodos() {
-   
     this.cargarEmpleados(this.paginaActual);
   }
 
@@ -101,20 +97,17 @@ export class ListaEmpleadosComponent implements OnInit {
 
     this.empleadosService.updateEmpleadoEstado(empleado.idempleado, nuevoEstado)
       .then(response => {
-        // Mostrar SweetAlert y esperar a que el usuario presione "OK"
         Swal.fire({
           title: '¡Éxito!',
           text: 'El estado del empleado ha sido actualizado.',
           icon: 'success'
         }).then(() => {
-          location.reload(); // Recarga la página después de que se presione "OK"
+          location.reload();
         });
       })
       .catch(error => {
         console.error('Error al cambiar el estado:', error);
         Swal.fire('Error', 'Ha ocurrido un error al cambiar el estado.', 'error');
       });
-}
-
-
+  }
 }

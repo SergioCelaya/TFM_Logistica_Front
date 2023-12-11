@@ -2,7 +2,6 @@
   <div class="col-12 col-md-7 mt-5 d-flex flex-column justify-content-center">
     <img class="formIcon mb-3" src="/assets/user.png" alt="Icono formulario">
     <h3 class="mb-5 text-center">{{ modo === 'create' ? 'Crear nuevo empleado' : 'Actualizar ' + empleadoForm.get('nombre')?.value + ' ' + empleadoForm.get('apellidos')?.value }}</h3>
-    <!-- Número de Empleado -->
     <div class="mb-3">
       <input
         class="formInput form-control"
@@ -19,8 +18,6 @@
         <p class="m-0">{{ empleadoForm.get('num_empleado')?.value?.length ?? 0 }} / 45 caracteres</p>
       </div>
     </div>
-
-    <!-- Nombre -->
     <div class="mb-3">
       <input
         class="formInput form-control"
@@ -37,8 +34,6 @@
         <p class="m-0">{{ empleadoForm.get('nombre')?.value?.length ?? 0 }} / 20 caracteres</p>
       </div>
     </div>
-
-    <!-- Apellidos -->
     <div class="mb-3">
       <input
         class="formInput form-control"
@@ -55,8 +50,6 @@
         <p class="m-0">{{ empleadoForm.get('apellidos')?.value?.length ?? 0 }} / 45 caracteres</p>
       </div>
     </div>
-
-    <!-- Email -->
     <div class="mb-3">
       <input
         class="formInput form-control"
@@ -73,20 +66,15 @@
         <p class="m-0">{{ empleadoForm.get('email')?.value?.length ?? 0 }} / 45 caracteres</p>
       </div>
     </div>
-
-    <!-- Puesto -->
     <div class="mb-3">
-      <label for="puesto">Puesto:</label>
       <select class="form-control formInput" formControlName="puesto" id="puesto">
-        <!-- <option value="" disabled selected hidden>Seleccione puesto</option> -->
+        <option value="" disabled selected hidden>Puesto</option>
         <option value="1">Empleado</option>
         <option value="2">Encargado</option>
         <option value="3">Administrador</option>
       </select>
       <p class="error" *ngIf="checkControl('puesto', 'required')">Debe seleccionar un puesto</p>
     </div>
-
-    <!-- Fecha de Contratación -->
     <div class="mb-3">
       <input
         class="formInput form-control"
@@ -97,8 +85,6 @@
       />
       <p class="error" *ngIf="checkControl('fecha_contratacion', 'required')">La fecha de contratación es un campo requerido</p>
     </div>
-
-    <!-- ID Almacén -->
     <div class="mb-3">
       <input
         class="formInput form-control"
@@ -110,8 +96,6 @@
       <p class="error" *ngIf="checkControl('idalmacen', 'required')">El Id del almacén al que pertenece el empleado es un campo requerido</p>
       <p class="error" *ngIf="checkControl('idalmacen', 'min')">El ID de almacén debe ser mayor que 0</p>
     </div>
-
-    <!-- Contraseña -->
     <div class="mb-3">
       <div class="password-input d-flex">
         <input
@@ -125,7 +109,6 @@
           <i [ngClass]="{'bi-eye': !showPassword, 'bi-eye-slash': showPassword}"></i>
         </button>
       </div>
-
       <div class="d-flex justify-content-between">
         <div>
           <p class="error" *ngIf="checkControl('pwd', 'required')">Campo es requerido</p>
@@ -135,10 +118,7 @@
         <p class="m-0">{{ empleadoForm.get('pwd')?.value?.length ?? 0 }} / 100 caracteres</p>
       </div>
     </div>
-
-    <!-- Activo -->
     <div class="mb-3">
-      <label for="activo">Activo:</label>
       <select class="form-control formInput" formControlName="activo" id="activo">
         <option value="" disabled selected hidden>Activo</option>
         <option value="1">Sí</option>
@@ -146,44 +126,38 @@
       </select>
       <p class="error" *ngIf="checkControl('activo', 'required')">Campo es requerido</p>
     </div>
-
- <!-- Área de carga de imagen para el empleado -->
- <div class="mb-3 modale ms-xxl-5 mb-xxl-5">
-  <div class="modale-body">
-    <div class="d-flex align-items-center">
-      <span class="logo-circle">
-        <i class="fs-2 bi bi-filetype-jpg"></i>
-      </span>
-      <div class="ms-3">
-        <h2 class="modal-title">Carga una imagen</h2>
-        <p class="modal-description">Agrega una imagen al empleado</p>
+    <div class="mb-3 modale ms-xxl-5 mb-xxl-5">
+      <div class="modale-body">
+        <div class="d-flex align-items-center">
+          <span class="logo-circle">
+            <i class="fs-2 bi bi-filetype-jpg"></i>
+          </span>
+          <div class="ms-3">
+            <h2 class="modal-title">Carga una imagen</h2>
+            <p class="modal-description">Agrega una imagen al empleado</p>
+          </div>
+        </div>
+        <button class="btn btn-warning my-3 align-self-start" *ngIf="url || !showFileBox" (click)="refrescarImagen()">Cambiar imagen</button>
+        <div class="row" *ngIf="url || showFileBox || idEmpleado">
+          <div class="col-12 col-xxl-6" *ngIf="showFileBox">
+            <button class="upload-area">
+              <span class="upload-area-icon mb-3"><i class="fs-1 bi bi-file-earmark-image text-primary"></i></span>
+              <span class="upload-area-title text-primary">Arrastra aquí para cargar</span>
+              <span class="upload-area-description text-primary">Como alternativa, puedes escoger un archivo <br/>
+                <strong class="text-primary">Haciendo click aquí</strong>
+              </span>
+              <input
+                    type="file"
+                    name="image"
+                    class="file-input form-control container"
+                    (change)="onChange($event)"
+                  />
+            </button>
+            </div>
+          <img class="col-12 col-md-8 col-xl-6 mt-3 mt-xxl-0 col-xxl-4 img-fluid imgInput rounded-2" *ngIf="url || idEmpleado" [src]="url || imagenesService.getImagenEmpleado(this.empleadoForm.value.imagen_empleado)"/>
+        </div>
       </div>
     </div>
-    <!-- Botón para alternar entre imagen y fileBox -->
-    <button class="btn btn-warning my-3 align-self-start" *ngIf="url || !showFileBox" (click)="refrescarImagen()">Cambiar imagen</button>
-    <div class="row" *ngIf="url || showFileBox || idEmpleado">
-      <div class="col-12 col-xxl-6" *ngIf="showFileBox">
-        <button class="upload-area">
-          <span class="upload-area-icon mb-3"><i class="fs-1 bi bi-file-earmark-image text-primary"></i></span>
-          <span class="upload-area-title text-primary">Arrastra aquí para cargar</span>
-          <span class="upload-area-description text-primary">Como alternativa, puedes escoger un archivo <br/>
-            <strong class="text-primary">Haciendo click aquí</strong>
-          </span>
-          <input
-                type="file"
-                name="image"
-                class="file-input form-control container"
-                (change)="onChange($event)"
-              />
-        </button>
-        </div>
-      <!-- Previsualización imagen -->
-      <img class="col-12 col-md-8 col-xl-6 mt-3 mt-xxl-0 col-xxl-4 img-fluid imgInput rounded-2" *ngIf="url || idEmpleado" [src]="url || imagenesService.getImagenEmpleado(this.empleadoForm.value.imagen_empleado)"/>
-    </div>
-  </div>
-</div>
-
-    <!-- Botón de envío -->
     <input
       type="submit"
       [class]="empleadoForm.valid ? 'btn btn-success' : 'btn btn-secondary'"
