@@ -54,11 +54,8 @@ export class FormIncidenciasComponent {
         this.modo = 'update';
         //GUARDO EL ID DE INCIDENCIA PARA GUARDAR LA IMAGEN POSTERIORENTE
         this.idIncidencia = idincidencia;
-        console.log(idincidencia);
         //PINTAR INCIDENCIA EXISTENTE
-        let response = await this.IncidenciasService.getById(idincidencia);
-        console.log(response);
-
+        let response = await this.IncidenciasService.getByIdConNumPedido(idincidencia);
         this.incidenciasForm = new FormGroup({
           idincidencia: new FormControl(response.idincidencia, []),
           titulo: new FormControl(response.titulo, [
@@ -79,7 +76,7 @@ export class FormIncidenciasComponent {
 
           idIncidencia: new FormControl(response.idincidencia, []),
 
-          idpedido_asociado: new FormControl(response.idpedido_asociado, [
+          idpedido_asociado: new FormControl(response.numero_pedido, [
             Validators.required,
           ]),
 
@@ -100,7 +97,6 @@ export class FormIncidenciasComponent {
   }
 
   async submitForm(): Promise<void> {
-    console.log(this.incidenciasForm.value);
     if (this.incidenciasForm.value.idIncidencia) {
       try {
         await Swal.fire({
@@ -137,7 +133,6 @@ export class FormIncidenciasComponent {
           }
         });
         this.router.navigate(['/incidencias']);
-        console.log(this.incidenciasForm.value);
       } catch (error) {
         Swal.fire({
           position: 'center',

@@ -64,6 +64,10 @@ export class IncidenciasService {
     return lastValueFrom(this.httpClient.get<Incidencia>(`${this.byId}/${idIncidencia}`));
   }
 
+  getByIdConNumPedido(idIncidencia:number):Promise<any>{
+    return firstValueFrom(this.httpClient.get<Incidencia>(`${this.byId}/${idIncidencia}`));
+  }
+
 
   //mostrar detalle de incidencia
   private incidenciaSeleccionadaSource = new BehaviorSubject<IncidenciaRespuesta | null>(null);
